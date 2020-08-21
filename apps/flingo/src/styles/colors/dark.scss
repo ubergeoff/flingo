@@ -1,0 +1,71 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+
+
+$dark-primary: mat-palette($mat-blue);
+$dark-accent:  mat-palette($mat-indigo, A200, A100, A400);
+$dark-warn: mat-palette($mat-pink);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+$themecolor:#F44336;
+$themecolor-alt: #E53935;
+$white:#fff;
+$sidebar-text: #8999a0;
+$sidebar-icons: #909394;
+$light: #505050;
+$inverse:#424242;
+$border:rgba(0, 0, 0, 0.12);
+
+    /* This is for the navigation*/
+     #snav {
+        .mat-nav-list .mat-list-item {
+            a{
+                color:$sidebar-text;
+                mat-icon{
+                    color:$sidebar-icons;
+                }
+            }
+            &.selected .sub-item .mat-list-item-content a.selected{
+                 color:$white;
+            }
+
+        }
+    }
+    /*This is for the chartis js*/
+    .ct-label{
+        fill:rgba(255, 255, 255, 0.4);
+        color:rgba(255, 255, 255, 0.4);
+    }
+    .bg-light, .email-sidebar .selected .d-flex, .email-right-panel, .cal-month-view .cal-cell-row .cal-cell:hover, .cal-month-view .cal-cell.cal-has-events.cal-open, .cal-month-view .cal-cell-row:hover, .chat-middle-box, .chat-footer, .mat-card[_ngcontent-c10], .ngx-datatable.material{
+        background-color: $light;
+    }
+    .chat-middle-box{
+        color:black;
+    }
+    .ql-snow .ql-stroke{
+        stroke:$white;
+        
+    }
+    .ql-snow .ql-fill{
+        fill:$white;
+    }
+    .ql-snow .ql-picker{
+        color:$white;
+    }
+    .my-drop-zone{
+        background: $inverse;
+    }
+    .cal-month-view .cal-day-cell:not(:last-child), .cal-month-view .cal-days .cal-cell-row, .cal-header, .cal-month-view .cal-days{
+        border-color:$border;
+    }
+
+    .page-breadcrumb {
+  background: $inverse;
+}
+
+
+

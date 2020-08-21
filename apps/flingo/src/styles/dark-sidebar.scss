@@ -1,0 +1,60 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+
+$mini-sidebar-width: 80px;
+$sidebar: #424242;
+$sidebar-text: #8999a0;
+$sidebar-icons: #909394;
+
+/*******************
+Main sidebar
+******************/
+
+#snav.dark-sidebar {
+    background: $sidebar;
+    .mat-list-item {
+        .mat-list-item-content {
+            &:hover {
+                background: none;
+                > a {
+                    color: $white;
+                }
+            }
+        }
+        a {
+            color: $sidebar-text;
+            mat-icon {
+                color: $sidebar-icons;
+            }
+        }
+        &.selected > .mat-list-item-content > a {
+            background: $themecolor-alt;
+            border-radius: $radius;
+            color: $white;
+            mat-icon {
+                color: $white;
+            }
+        }
+        &.selected .sub-item .mat-list-item-content a.selected {
+            background: transparent;
+            color: $white;
+        }
+    }
+}
+
+
+/*******************
+use profile section
+******************/
+
+.user-profile {
+    .profile-text {
+        > a {
+            color: $white!important;
+        }
+    }
+}

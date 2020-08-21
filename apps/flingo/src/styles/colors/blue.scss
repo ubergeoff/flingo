@@ -1,0 +1,31 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+
+
+$blue-app-primary: mat-palette($mat-blue, 600);
+$blue-app-accent: mat-palette($mat-blue, A200, A100, A400);
+$blue-app-warn: mat-palette($mat-pink);
+// Create the theme object (a Sass map containing all of the palettes).
+$blue-app-theme: mat-light-theme($blue-app-primary, $blue-app-accent, $blue-app-warn);
+$themecolor:#1E88E5;
+$themecolor-alt: #1E88E5;
+$white:#fff;
+#snav {
+    .mat-nav-list .mat-list-item { 
+        .mat-list-item-content {
+            &:hover {
+                > a {
+                    color: $themecolor;
+                }
+            }
+        }
+        &.selected > .mat-list-item-content > a {
+            background: $themecolor-alt;
+            color: $white;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+<div class="grid-container">
+    <div class="grid-head">
+        <h1 class="mat-h1">Dashboard</h1>
+    </div>
+    <div class="grid" aweTileGrid [dragHandle]="'mat-card-header'" [dragEnabled]="true">
+        <mat-card aweTileGridItem class="dashboard-card" *ngFor="let card of cards | async">
+            <mat-card-header>
+                <mat-card-title>
+                    {{ card.title }}
+                    <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" xPosition="before">
+                        <button mat-menu-item>Expand</button>
+                        <button mat-menu-item (click)="remove(card)">Remove</button>
+                    </mat-menu>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content">
+                <div>Card Content Here</div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="footer">
+        <button mat-raised-button (click)="addCard()" color="primary">Add a Card</button>
+    </div>
+</div>

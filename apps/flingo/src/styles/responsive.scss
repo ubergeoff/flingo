@@ -1,0 +1,141 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+/*============================================================== 
+ For Laptop & above all (1650px) 
+ ============================================================== */
+
+@media(min-width:1650px) {
+    .main-container.boxed{
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+}
+/*============================================================== 
+ For Laptop & above all (1370px) 
+ ============================================================== */
+
+@media(max-width:1600px) {
+     .main-container.boxed{
+        max-width: 1300px;
+        margin: 0 auto;
+    } 
+}
+
+
+/*-- ============================================================== 
+ Small Desktop & above all (1024px) 
+ ============================================================== */
+
+@media(min-width:1024px) {
+  .card-group{
+    padding: 0 15px;
+    display: flex;
+    flex-flow:row wrap;
+    .mat-card{
+       margin: 15px 0px !important;
+       flex: 1 0 0%;
+        border-left:1px solid $border;
+            &:first-child{
+                border:0px;
+            }
+        }
+    } 
+
+    
+}   
+
+@media(max-width:1023px) {
+    .card-group{
+        margin: 15px 0;
+        .mat-card{
+            margin: 0 15px;
+            border-top:1px solid $border;
+            &:first-child{
+                border:0px;
+            }
+        }
+    }
+}
+
+
+/*-- ============================================================== 
+ Ipad & above all(768px) 
+ ============================================================== */
+
+@media(min-width:768px) {
+    .navbar-header {
+        width: 225px;
+        flex-shrink:0;
+        .navbar-brand {
+            padding-top: 0px;
+        }
+    }
+    html {
+        .popular-plan{
+            margin: 60px 0 !important;
+        }
+    }
+}
+
+@media(max-width: 600px) {
+  .responsive-table{
+    .header-label {
+      width: 80px;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .mat-header-row {
+      display: none;
+    }
+
+    .mat-row { 
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 8px 15px;
+      &:after{
+        min-height: unset;
+      }
+    }
+  }
+}
+
+
+/*-- ============================================================== 
+ Phone and below ipad(767px) 
+ ============================================================== */
+
+@media(max-width:767px) {
+    .mat-toolbar-single-row{
+        height: 64px!important;
+    }
+    .no-block{
+        display: flex;
+    }
+    .email-right-panel{
+        .col-md-2{
+            width: 100%;
+        }
+        }
+    .icon-box{
+        width: 50%;
+    }
+    html {
+        .popular-plan{
+            margin: 40px 0 !important;
+        }
+    }
+	.float-sm-left {
+		float: left;
+	}
+}
+
+@media print {
+  html .page-wrapper{
+    height: 100%;
+  }
+}

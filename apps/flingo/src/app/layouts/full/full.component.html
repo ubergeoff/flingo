@@ -1,0 +1,93 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div
+    class="main-container"
+    [dir]="dir"
+    [ngClass]="{ minisidebar: minisidebar, boxed: boxed, danger: danger, blue: blue, green: green, dark: dark }"
+>
+    <!-- ============================================================== -->
+    <!-- Topbar - style you can find in header.scss -->
+    <!-- ============================================================== -->
+    <mat-toolbar color="primary" class="topbar telative">
+        <!-- ============================================================== -->
+        <!-- Logo - style you can find in header.scss -->
+        <!-- ============================================================== -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+
+
+                <!-- Logo text -->
+                <span fxShow="false" fxShow.gt-xs>
+
+                    <!-- Light Logo text -->
+                    <img src="assets/images/awesome.png" class="light-logo" alt="homepage" />
+                </span>
+            </a>
+        </div>
+        <!-- ============================================================== -->
+        <!-- sidebar toggle -->
+        <!-- ============================================================== -->
+
+        <button mat-icon-button (click)="snav.toggle() && clickEvent()" value="sidebarclosed">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <!-- ============================================================== -->
+        <!-- Search - style you can find in header.scss -->
+        <!-- ============================================================== -->
+        <button mat-icon-button class="srh-btn" (click)="showSearch = !showSearch">
+            <mat-icon>search</mat-icon>
+        </button>
+        <form class="app-search" [ngClass]="{ 'show-search': showSearch }">
+            <input type="text" class="form-control" placeholder="Search &amp; enter" />
+            <a class="cl-srh-btn" (click)="showSearch = !showSearch">
+                <i class="ti-close"></i>
+            </a>
+        </form>
+        <span fxFlex></span>
+    </mat-toolbar>
+    <!-- ============================================================== -->
+    <!-- End Topbar - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <mat-sidenav-container
+        class="example-sidenav-container"
+        [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
+        [ngClass]="{ minisidebar: minisidebar }"
+    >
+        <!-- ============================================================== -->
+        <!-- Sidebar - style you can find in sidebar.scss -->
+        <!-- ============================================================== -->
+        <mat-sidenav
+            #snav
+            id="snav"
+            class="pl-xs"
+            [mode]="mobileQuery.matches ? 'side' : 'over'"
+            fixedTopGap="0"
+            [opened]="mobileQuery.matches"
+            [disableClose]="mobileQuery.matches"
+            (open)="sidebarOpened = true"
+            (close)="sidebarOpened = false"
+            [perfectScrollbar]="config"
+        >
+            <app-sidebar class="app-sidebar"></app-sidebar>
+        </mat-sidenav>
+        <!-- ============================================================== -->
+        <!-- Sidebar - style you can find in sidebar.scss -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- Page container - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <mat-sidenav-content class="page-wrapper" [ngClass]="status ? 'minitoggle' : ''">
+            <app-breadcrumb></app-breadcrumb>
+            <div class="page-content">
+                <router-outlet>
+                    <app-spinner></app-spinner>
+                </router-outlet>
+            </div>
+        </mat-sidenav-content>
+        <!-- ============================================================== -->
+        <!-- Page container - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+    </mat-sidenav-container>
+</div>

@@ -1,0 +1,210 @@
+{
+    "version": 1,
+    "projects": {
+        "flingo": {
+            "projectType": "application",
+            "schematics": {
+                "@nrwl/angular:component": {
+                    "style": "scss"
+                }
+            },
+            "root": "apps/flingo",
+            "sourceRoot": "apps/flingo/src",
+            "prefix": "flingo",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/apps/flingo",
+                        "index": "apps/flingo/src/index.html",
+                        "main": "apps/flingo/src/main.ts",
+                        "polyfills": "apps/flingo/src/polyfills.ts",
+                        "tsConfig": "apps/flingo/tsconfig.app.json",
+                        "aot": true,
+                        "assets": ["apps/flingo/src/favicon.ico", "apps/flingo/src/assets"],
+                        "styles": ["apps/flingo/src/styles.scss"],
+                        "scripts": ["node_modules/muuri/dist/muuri.min.js"]
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "apps/flingo/src/environments/environment.ts",
+                                    "with": "apps/flingo/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "flingo:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "flingo:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "flingo:build"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": ["apps/flingo/tsconfig.app.json", "apps/flingo/tsconfig.spec.json"],
+                        "exclude": ["**/node_modules/**", "!apps/flingo/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "apps/flingo/jest.config.js",
+                        "tsConfig": "apps/flingo/tsconfig.spec.json",
+                        "passWithNoTests": true,
+                        "setupFile": "apps/flingo/src/test-setup.ts"
+                    }
+                }
+            }
+        },
+        "flingo-e2e": {
+            "root": "apps/flingo-e2e",
+            "sourceRoot": "apps/flingo-e2e/src",
+            "projectType": "application",
+            "architect": {
+                "e2e": {
+                    "builder": "@nrwl/cypress:cypress",
+                    "options": {
+                        "cypressConfig": "apps/flingo-e2e/cypress.json",
+                        "tsConfig": "apps/flingo-e2e/tsconfig.e2e.json",
+                        "devServerTarget": "flingo:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "flingo:serve:production"
+                        }
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": ["apps/flingo-e2e/tsconfig.e2e.json"],
+                        "exclude": ["**/node_modules/**", "!apps/flingo-e2e/**/*"]
+                    }
+                }
+            }
+        },
+        "murri": {
+            "projectType": "library",
+            "root": "libs/murri",
+            "sourceRoot": "libs/murri/src",
+            "prefix": "awe",
+            "architect": {
+                "build": {
+                    "builder": "@nrwl/angular:package",
+                    "options": {
+                        "tsConfig": "libs/murri/tsconfig.lib.json",
+                        "project": "libs/murri/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "libs/murri/tsconfig.lib.prod.json"
+                        }
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": ["libs/murri/tsconfig.lib.json", "libs/murri/tsconfig.spec.json"],
+                        "exclude": ["**/node_modules/**", "!libs/murri/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/murri/jest.config.js",
+                        "tsConfig": "libs/murri/tsconfig.spec.json",
+                        "passWithNoTests": true,
+                        "setupFile": "libs/murri/src/test-setup.ts"
+                    }
+                }
+            },
+            "schematics": {
+                "@nrwl/angular:component": {
+                    "style": "scss"
+                }
+            }
+        }
+    },
+    "cli": {
+        "defaultCollection": "@nrwl/angular"
+    },
+    "schematics": {
+        "@nrwl/workspace": {
+            "library": {
+                "linter": "tslint"
+            }
+        },
+        "@nrwl/cypress": {
+            "cypress-project": {
+                "linter": "tslint"
+            }
+        },
+        "@nrwl/node": {
+            "application": {
+                "linter": "tslint"
+            },
+            "library": {
+                "linter": "tslint"
+            }
+        },
+        "@nrwl/nest": {
+            "application": {
+                "linter": "tslint"
+            },
+            "library": {
+                "linter": "tslint"
+            }
+        },
+        "@nrwl/express": {
+            "application": {
+                "linter": "tslint"
+            },
+            "library": {
+                "linter": "tslint"
+            }
+        },
+        "@nrwl/angular:application": {
+            "unitTestRunner": "jest",
+            "e2eTestRunner": "cypress"
+        },
+        "@nrwl/angular:library": {
+            "unitTestRunner": "jest"
+        }
+    },
+    "defaultProject": "murri"
+}

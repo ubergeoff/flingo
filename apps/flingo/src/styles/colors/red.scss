@@ -1,0 +1,34 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+
+@import '~@angular/material/theming';
+
+/*Material Theme Colors*/
+
+$red-app-primary: mat-palette($mat-red);
+$red-app-accent: mat-palette($mat-indigo, A200, A100, A400);
+$red-app-warn: mat-palette($mat-pink);
+// Create the theme object (a Sass map containing all of the palettes).
+$red-app-theme: mat-light-theme($red-app-primary, $red-app-accent, $red-app-warn);
+$themecolor:#F44336;
+$themecolor-alt: #E53935;
+$white:#fff;
+#snav {
+    .mat-nav-list .mat-list-item {
+        .mat-list-item-content {
+            &:hover {
+                > a {
+                    color: $themecolor;
+                }
+            }
+        }
+        &.selected > .mat-list-item-content > a {
+            background: $themecolor-alt;
+            color: $white;
+        }
+    }
+}
