@@ -8,4 +8,4 @@ import { AweTileGridItemDirective } from './directives/tile-grid-item.directive'
     declarations: [AweTileGridDirective, AweTileGridItemDirective],
     exports: [AweTileGridDirective, AweTileGridItemDirective]
 })
-export class MurriModule {}
+export class MuuriModule {}

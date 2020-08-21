@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AweTileGridDirective } from '@flingo/murri';
+import { AweTileGridDirective } from '@flingo/muuri';
 import { v4 as uuid } from 'uuid';
 
 @Component({

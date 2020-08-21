@@ -118,38 +118,38 @@
                 }
             }
         },
-        "murri": {
+        "muuri": {
             "projectType": "library",
-            "root": "libs/murri",
-            "sourceRoot": "libs/murri/src",
+            "root": "libs/muuri",
+            "sourceRoot": "libs/muuri/src",
             "prefix": "awe",
             "architect": {
                 "build": {
                     "builder": "@nrwl/angular:package",
                     "options": {
-                        "tsConfig": "libs/murri/tsconfig.lib.json",
-                        "project": "libs/murri/ng-package.json"
+                        "tsConfig": "libs/muuri/tsconfig.lib.json",
+                        "project": "libs/muuri/ng-package.json"
                     },
                     "configurations": {
                         "production": {
-                            "tsConfig": "libs/murri/tsconfig.lib.prod.json"
+                            "tsConfig": "libs/muuri/tsconfig.lib.prod.json"
                         }
                     }
                 },
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": ["libs/murri/tsconfig.lib.json", "libs/murri/tsconfig.spec.json"],
-                        "exclude": ["**/node_modules/**", "!libs/murri/**/*"]
+                        "tsConfig": ["libs/muuri/tsconfig.lib.json", "libs/muuri/tsconfig.spec.json"],
+                        "exclude": ["**/node_modules/**", "!libs/muuri/**/*"]
                     }
                 },
                 "test": {
                     "builder": "@nrwl/jest:jest",
                     "options": {
-                        "jestConfig": "libs/murri/jest.config.js",
-                        "tsConfig": "libs/murri/tsconfig.spec.json",
+                        "jestConfig": "libs/muuri/jest.config.js",
+                        "tsConfig": "libs/muuri/tsconfig.spec.json",
                         "passWithNoTests": true,
-                        "setupFile": "libs/murri/src/test-setup.ts"
+                        "setupFile": "libs/muuri/src/test-setup.ts"
                     }
                 }
             },
@@ -206,5 +206,5 @@
             "unitTestRunner": "jest"
         }
     },
-    "defaultProject": "murri"
+    "defaultProject": "muuri"
 }

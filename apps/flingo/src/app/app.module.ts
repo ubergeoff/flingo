@@ -25,7 +25,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppBreadcrumbComponent } from './layouts/full/breadcrumb/breadcrumb.component';
 import { SpinnerComponent } from './shared/spinner.component';
 import { MatListModule } from '@angular/material/list';
-import { MurriModule } from '@flingo/murri';
+import { MuuriModule } from '@flingo/muuri';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -58,7 +58,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         FlexLayoutModule,
         MatToolbarModule,
         MatListModule,
-        MurriModule
+        MuuriModule
     ],
     providers: [
         {
