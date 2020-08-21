@@ -1,9 +1,9 @@
 {
   "name": "@flingo/murri",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ubergeoff/awesome-murri.git"
+    "url": "git+https://github.com/ubergeoff/flingo.git"
   },
   "peerDependencies": {
     "@angular/common": "^10.0.11",
