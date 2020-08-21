@@ -3,7 +3,7 @@
         <h1 class="mat-h1">Dashboard</h1>
     </div>
     <div class="grid" aweTileGrid [dragHandle]="'mat-card-header'" [dragEnabled]="true">
-        <mat-card aweTileGridItem class="dashboard-card" *ngFor="let card of cards | async">
+        <mat-card aweTileGridItem class="dashboard-card" *ngFor="let card of allCards$ | async">
             <mat-card-header>
                 <mat-card-title>
                     {{ card.title }}

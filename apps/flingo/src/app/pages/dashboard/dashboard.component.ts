@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AweTileGridDirective } from '@flingo/murri';
 import { v4 as uuid } from 'uuid';
 
@@ -11,11 +11,16 @@ import { v4 as uuid } from 'uuid';
 })
 export class DashboardComponent implements OnInit {
     @ViewChild(AweTileGridDirective) grid: AweTileGridDirective;
-    counter = 1;
-    array = [];
-    cards = new BehaviorSubject<any>([]);
 
-    constructor() {}
+    allCards$: Observable<any>;
+
+    private counter = 1;
+    private array = [];
+    private cards = new BehaviorSubject<any>([]);
+
+    constructor() {
+        this.allCards$ = this.cards.asObservable();
+    }
 
     createCard(title) {
         this.array.push({
