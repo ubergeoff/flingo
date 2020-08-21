@@ -42,51 +42,14 @@ export class AweTileGridDirective implements OnInit, OnDestroy {
     @Input() dragHandle = '.tile-handle';
 
     private events: string[];
-    private items: ElementRef[];
-    private addItemChange = new Subject<ElementRef>();
-    private removeItemChange = new Subject<ElementRef>();
     private subscription = new Subscription();
 
     constructor(private elRef: ElementRef) {
         this.events = [];
-        this.items = [];
     }
 
     ngOnInit(): void {
         this.init(this.elRef.nativeElement);
-
-        this.subscription.add(
-            this.addItemChange
-                .pipe(
-                    filter((item) => !!item),
-                    tap((item) => this.items.push(item)),
-                    debounceTime(15),
-                    filter((t) => this.items.length > 0)
-                )
-                .subscribe(() => {
-                    this.finalizeLayoutItems(this.items);
-                    this.refresh();
-                })
-        );
-
-        this.subscription.add(
-            this.removeItemChange
-                .pipe(
-                    filter((item) => !!item),
-                    tap((item) => {
-                        const index = this.items.indexOf(item);
-                        if (index > -1) {
-                            this.items.splice(index, 1);
-                        }
-                    }),
-                    debounceTime(15),
-                    filter((t) => this.items.length > 0)
-                )
-                .subscribe(() => {
-                    this.finalizeLayoutItems(this.items);
-                    this.refresh();
-                })
-        );
     }
 
     init(element: ElementRef) {
@@ -112,11 +75,11 @@ export class AweTileGridDirective implements OnInit, OnDestroy {
     }
 
     addItem(item: ElementRef) {
-        this.addItemChange.next(item);
+        this.grid.add(item);
     }
 
-    removeItem(nativeElement: ElementRef) {
-        this.removeItemChange.next(nativeElement);
+    removeItem(item: ElementRef) {
+        this.grid.remove(item);
     }
 
     on(eventName: string, action: any) {
