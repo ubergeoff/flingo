@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { debounceTime, filter, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 declare var Muuri: any;
 
@@ -63,23 +62,12 @@ export class AweTileGridDirective implements OnInit, OnDestroy {
         this.grid = new Muuri(element, this.layoutConfig);
     }
 
-    private finalizeLayoutItems(items: ElementRef[]) {
-        const existingItems = this.grid.getItems();
-
-        if (existingItems && existingItems.length > 0) {
-            this.grid.remove(existingItems, { layout: false });
-        }
-
-        this.grid.add(items, { layout: false });
-        return true;
-    }
-
     addItem(item: ElementRef) {
-        this.grid.add(item);
+        this.grid.add(item, { layout: true });
     }
 
     removeItem(item: ElementRef) {
-        this.grid.remove(item);
+        this.grid.remove(item, { layout: true });
     }
 
     on(eventName: string, action: any) {
