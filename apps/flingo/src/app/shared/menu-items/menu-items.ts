@@ -43,8 +43,8 @@ const MENUITEMS = [
         type: 'sub',
         icon: 'av_timer',
         children: [
-            { state: 'dashboard1', name: 'Dashboard 1', type: 'link' },
-            { state: 'dashboard2', name: 'Dashboard 2', type: 'link' }
+            { state: 'dashboard1', name: 'Muuri', type: 'link' },
+            { state: 'dashboard2', name: 'Carousel', type: 'link' }
         ]
     }
 ];

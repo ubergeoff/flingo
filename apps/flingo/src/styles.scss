@@ -19,7 +19,6 @@ File: scss
 
 @import 'styles/variable';
 
-
 @import 'styles/icons/themify-icons/themify-icons.css';
 @import 'styles/icons/font-awesome/css/font-awesome.css';
 @import 'styles/spinner';
@@ -31,37 +30,35 @@ File: scss
 @import 'styles/responsive';
 @import 'styles/rtl';
 
-
 // Red Theme
 
 .danger {
-  @import 'styles/colors/red';
-  @include angular-material-theme($red-app-theme);
+    @import 'styles/colors/red';
+    @include angular-material-theme($red-app-theme);
 }
 
 // Blue Theme
 
 .blue {
-  @import 'styles/colors/blue';
-  @include angular-material-theme($blue-app-theme);
+    @import 'styles/colors/blue';
+    @include angular-material-theme($blue-app-theme);
 }
 
 // Green Theme
 
 .green {
-  @import 'styles/colors/green';
-  @include angular-material-theme($green-app-theme);
+    @import 'styles/colors/green';
+    @include angular-material-theme($green-app-theme);
 }
 
 // Dark Theme
 
 .dark {
-  @import 'styles/colors/dark';
-  @include angular-material-theme($dark-theme);
+    @import 'styles/colors/dark';
+    @include angular-material-theme($dark-theme);
 }
 
-
 $custom-typography: mat-typography-config(
-  $font-family: 'Poppins'
+    $font-family: 'Poppins'
 );
 @include mat-core($custom-typography);

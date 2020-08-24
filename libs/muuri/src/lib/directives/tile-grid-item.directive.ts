@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Host, OnDestroy, OnInit } from '@angular/core';
-import { AweTileGridDirective } from './tile-grid.directive';
+import { NgoTileGridDirective } from './tile-grid.directive';
 
 @Directive({
-    selector: '[aweTileGridItem]'
+    selector: '[ngoTileGridItem]'
 })
-export class AweTileGridItemDirective implements OnInit, OnDestroy {
-    constructor(@Host() private tileGrid: AweTileGridDirective, private elRef: ElementRef) {}
+export class NgoTileGridItemDirective implements OnInit, OnDestroy {
+    constructor(@Host() private tileGrid: NgoTileGridDirective, private elRef: ElementRef) {}
 
     ngOnInit(): void {
         this.tileGrid.addItem(this.elRef.nativeElement);

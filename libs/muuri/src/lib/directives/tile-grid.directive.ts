@@ -4,9 +4,9 @@ import { Subscription } from 'rxjs';
 declare var Muuri: any;
 
 @Directive({
-    selector: '[aweTileGrid]'
+    selector: '[ngoTileGrid]'
 })
-export class AweTileGridDirective implements OnInit, OnDestroy {
+export class NgoTileGridDirective implements OnInit, OnDestroy {
     layoutConfig = {
         items: [],
         layoutOnInit: false,

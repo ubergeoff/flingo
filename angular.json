@@ -21,9 +21,20 @@
                         "polyfills": "apps/flingo/src/polyfills.ts",
                         "tsConfig": "apps/flingo/tsconfig.app.json",
                         "aot": true,
-                        "assets": ["apps/flingo/src/favicon.ico", "apps/flingo/src/assets"],
-                        "styles": ["apps/flingo/src/styles.scss"],
-                        "scripts": ["node_modules/muuri/dist/muuri.min.js"]
+                        "assets": [
+                            "apps/flingo/src/favicon.ico",
+                            "apps/flingo/src/assets"
+                        ],
+                        "styles": [
+                            "apps/flingo/src/styles.scss",
+                            "node_modules/slick-carousel/slick/slick.scss",
+                            "node_modules/slick-carousel/slick/slick-theme.scss"
+                        ],
+                        "scripts": [
+                            "node_modules/jquery/dist/jquery.slim.min.js",
+                            "node_modules/slick-carousel/slick/slick.min.js",
+                            "node_modules/muuri/dist/muuri.min.js"
+                        ]
                     },
                     "configurations": {
                         "production": {
@@ -76,8 +87,14 @@
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": ["apps/flingo/tsconfig.app.json", "apps/flingo/tsconfig.spec.json"],
-                        "exclude": ["**/node_modules/**", "!apps/flingo/**/*"]
+                        "tsConfig": [
+                            "apps/flingo/tsconfig.app.json",
+                            "apps/flingo/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**",
+                            "!apps/flingo/**/*"
+                        ]
                     }
                 },
                 "test": {
@@ -112,8 +129,13 @@
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": ["apps/flingo-e2e/tsconfig.e2e.json"],
-                        "exclude": ["**/node_modules/**", "!apps/flingo-e2e/**/*"]
+                        "tsConfig": [
+                            "apps/flingo-e2e/tsconfig.e2e.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**",
+                            "!apps/flingo-e2e/**/*"
+                        ]
                     }
                 }
             }
@@ -139,8 +161,14 @@
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": ["libs/muuri/tsconfig.lib.json", "libs/muuri/tsconfig.spec.json"],
-                        "exclude": ["**/node_modules/**", "!libs/muuri/**/*"]
+                        "tsConfig": [
+                            "libs/muuri/tsconfig.lib.json",
+                            "libs/muuri/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**",
+                            "!libs/muuri/**/*"
+                        ]
                     }
                 },
                 "test": {

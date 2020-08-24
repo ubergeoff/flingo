@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FullComponent } from './layouts/full/full.component';
+import { SliderComponent } from './pages/slider/slider.component';
 
 export const AppRoutes: Routes = [
     {
@@ -9,16 +10,29 @@ export const AppRoutes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: '/dashboard',
+                redirectTo: 'dashboards/dashboard1',
                 pathMatch: 'full'
             },
             {
-                path: 'dashboard',
-                component: DashboardComponent,
-                data: {
-                    title: 'Dashboard 1',
-                    urls: [{ title: 'Dashboard', url: '/dashboard' }, { title: 'Dashboard 1' }]
-                }
+                path: 'dashboards',
+                children: [
+                    {
+                        path: 'dashboard1',
+                        component: DashboardComponent,
+                        data: {
+                            title: 'Muuri example',
+                            urls: [{ title: 'Dashboards', url: '/dashboard' }, { title: 'Muuri' }]
+                        }
+                    },
+                    {
+                        path: 'dashboard2',
+                        component: SliderComponent,
+                        data: {
+                            title: 'Carousel example',
+                            urls: [{ title: 'Dashboards', url: '/slider' }, { title: 'Carousel' }]
+                        }
+                    }
+                ]
             }
         ]
     },

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AweTileGridDirective } from '@flingo/muuri';
+import { NgoTileGridDirective } from '@flingo/muuri';
 import { v4 as uuid } from 'uuid';
 
 @Component({
@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
-    @ViewChild(AweTileGridDirective) grid: AweTileGridDirective;
+    @ViewChild(NgoTileGridDirective) grid: NgoTileGridDirective;
 
     allCards$: Observable<any>;
 
@@ -22,22 +22,24 @@ export class DashboardComponent implements OnInit {
         this.allCards$ = this.cards.asObservable();
     }
 
-    createCard(title) {
-        this.array.push({
-            id: uuid(),
-            title: title
-        });
-    }
-
     ngOnInit(): void {
         this.createCard('Card 1');
         this.createCard('Card 2');
         this.createCard('Card 3');
         this.createCard('Card 4');
+        this.createCard('Card 5');
+        this.createCard('Card 6');
 
         this.counter = this.array.length + 1;
 
         this.cards.next(this.array);
+    }
+
+    createCard(title) {
+        this.array.push({
+            id: uuid(),
+            title: title
+        });
     }
 
     remove(card: any) {
