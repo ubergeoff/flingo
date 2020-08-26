@@ -2,7 +2,7 @@ import { Directive, ElementRef, Host, OnDestroy, OnInit } from '@angular/core';
 import { NgoTileGridDirective } from './tile-grid.directive';
 
 @Directive({
-    selector: '[ngoTileGridItem]'
+    selector: '[roiTileGridItem]'
 })
 export class NgoTileGridItemDirective implements OnInit, OnDestroy {
     constructor(@Host() private tileGrid: NgoTileGridDirective, private elRef: ElementRef) {}

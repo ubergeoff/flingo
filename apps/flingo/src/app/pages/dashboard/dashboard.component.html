@@ -2,8 +2,8 @@
     <div class="grid-head">
         <h1 class="mat-h1">Dashboard</h1>
     </div>
-    <div class="grid" ngoTileGrid [dragHandle]="'mat-card-header'" [dragEnabled]="true" [threshold]="25">
-        <mat-card ngoTileGridItem class="item" *ngFor="let card of allCards$ | async">
+    <div class="grid" roiTileGrid [dragHandle]="'mat-card-header'" [dragEnabled]="true" [threshold]="25">
+        <mat-card roiTileGridItem class="item" *ngFor="let card of allCards$ | async">
             <mat-card-header>
                 <mat-card-title>
                     {{ card.title }}

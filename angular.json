@@ -21,10 +21,7 @@
                         "polyfills": "apps/flingo/src/polyfills.ts",
                         "tsConfig": "apps/flingo/tsconfig.app.json",
                         "aot": true,
-                        "assets": [
-                            "apps/flingo/src/favicon.ico",
-                            "apps/flingo/src/assets"
-                        ],
+                        "assets": ["apps/flingo/src/favicon.ico", "apps/flingo/src/assets"],
                         "styles": [
                             "apps/flingo/src/styles.scss",
                             "node_modules/slick-carousel/slick/slick.scss",
@@ -87,14 +84,8 @@
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": [
-                            "apps/flingo/tsconfig.app.json",
-                            "apps/flingo/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!apps/flingo/**/*"
-                        ]
+                        "tsConfig": ["apps/flingo/tsconfig.app.json", "apps/flingo/tsconfig.spec.json"],
+                        "exclude": ["**/node_modules/**", "!apps/flingo/**/*"]
                     }
                 },
                 "test": {
@@ -129,13 +120,8 @@
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": [
-                            "apps/flingo-e2e/tsconfig.e2e.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!apps/flingo-e2e/**/*"
-                        ]
+                        "tsConfig": ["apps/flingo-e2e/tsconfig.e2e.json"],
+                        "exclude": ["**/node_modules/**", "!apps/flingo-e2e/**/*"]
                     }
                 }
             }
@@ -161,14 +147,8 @@
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": [
-                            "libs/muuri/tsconfig.lib.json",
-                            "libs/muuri/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/muuri/**/*"
-                        ]
+                        "tsConfig": ["libs/muuri/tsconfig.lib.json", "libs/muuri/tsconfig.spec.json"],
+                        "exclude": ["**/node_modules/**", "!libs/muuri/**/*"]
                     }
                 },
                 "test": {
@@ -178,6 +158,47 @@
                         "tsConfig": "libs/muuri/tsconfig.spec.json",
                         "passWithNoTests": true,
                         "setupFile": "libs/muuri/src/test-setup.ts"
+                    }
+                }
+            },
+            "schematics": {
+                "@nrwl/angular:component": {
+                    "style": "scss"
+                }
+            }
+        },
+        "slick": {
+            "projectType": "library",
+            "root": "libs/slick",
+            "sourceRoot": "libs/slick/src",
+            "prefix": "flingo",
+            "architect": {
+                "build": {
+                    "builder": "@nrwl/angular:package",
+                    "options": {
+                        "tsConfig": "libs/slick/tsconfig.lib.json",
+                        "project": "libs/slick/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "libs/slick/tsconfig.lib.prod.json"
+                        }
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": ["libs/slick/tsconfig.lib.json", "libs/slick/tsconfig.spec.json"],
+                        "exclude": ["**/node_modules/**", "!libs/slick/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/slick/jest.config.js",
+                        "tsConfig": "libs/slick/tsconfig.spec.json",
+                        "passWithNoTests": true,
+                        "setupFile": "libs/slick/src/test-setup.ts"
                     }
                 }
             },

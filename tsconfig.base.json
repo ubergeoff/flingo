@@ -16,7 +16,8 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
-            "@flingo/muuri": ["libs/muuri/src/index.ts"]
+            "@flingo/muuri": ["libs/muuri/src/index.ts"],
+            "@flingo/slick": ["libs/slick/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

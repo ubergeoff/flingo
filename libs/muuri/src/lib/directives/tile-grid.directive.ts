@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 declare var Muuri: any;
 
 @Directive({
-    selector: '[ngoTileGrid]'
+    selector: '[roiTileGrid]'
 })
 export class NgoTileGridDirective implements OnInit, OnDestroy {
     layoutConfig = {
