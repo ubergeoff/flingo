@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgoTileGridDirective } from './directives/tile-grid.directive';
-import { NgoTileGridItemDirective } from './directives/tile-grid-item.directive';
+import { TileGridDirective } from './directives/tile-grid.directive';
+import { TileGridItemDirective } from './directives/tile-grid-item.directive';
 
 @NgModule({
     imports: [CommonModule],
-    declarations: [NgoTileGridDirective, NgoTileGridItemDirective],
-    exports: [NgoTileGridDirective, NgoTileGridItemDirective]
+    declarations: [TileGridDirective, TileGridItemDirective],
+    exports: [TileGridDirective, TileGridItemDirective]
 })
 export class MuuriModule {}

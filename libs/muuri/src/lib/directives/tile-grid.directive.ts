@@ -6,7 +6,7 @@ declare var Muuri: any;
 @Directive({
     selector: '[roiTileGrid]'
 })
-export class NgoTileGridDirective implements OnInit, OnDestroy {
+export class TileGridDirective implements OnInit, OnDestroy {
     layoutConfig = {
         items: [],
         layoutOnInit: false,

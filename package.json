@@ -28,7 +28,11 @@
     "bump:muuri:major": "cd libs/muuri && npm version major --force",
     "bump:muuri:minor": "cd libs/muuri && npm version minor --force",
     "bump:muuri:patch": "cd libs/muuri && npm version patch --force",
+    "bump:slick:major": "cd libs/slick && npm version major --force",
+    "bump:slick:minor": "cd libs/slick && npm version minor --force",
+    "bump:slick:patch": "cd libs/slick && npm version patch --force",
     "build:muuri": "ng build muuri --configuration=production && cd dist/libs/muuri && npm pack",
+    "build:slick": "ng build slick --configuration=production && cd dist/libs/slick && npm pack",
     "build:flingo": "ng build flingo --configuration=production"
   },
   "private": true,

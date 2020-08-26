@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { NgoTileGridDirective } from '@flingo/muuri';
+import { TileGridDirective } from '@flingo/muuri';
 import { v4 as uuid } from 'uuid';
 
 @Component({
@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
-    @ViewChild(NgoTileGridDirective) grid: NgoTileGridDirective;
+    @ViewChild(TileGridDirective) grid: TileGridDirective;
 
     allCards$: Observable<any>;
 
