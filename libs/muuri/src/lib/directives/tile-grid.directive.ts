@@ -37,6 +37,7 @@ export class NgoTileGridDirective implements OnInit, OnDestroy {
 
     @Input() dragEnabled = true;
     @Input() fillGaps = true;
+    @Input() threshold = 40;
     @Input() sortAction = 'swap';
     @Input() dragHandle = '.tile-handle';
 
@@ -55,8 +56,16 @@ export class NgoTileGridDirective implements OnInit, OnDestroy {
         this.layoutConfig.layout.fillGaps = this.fillGaps;
         this.layoutConfig.dragEnabled = this.dragEnabled;
         if (this.dragEnabled) {
-            this.layoutConfig.dragSortPredicate.action = this.sortAction;
-            this.layoutConfig.dragStartPredicate.handle = this.dragHandle;
+            this.layoutConfig.dragSortPredicate = {
+                ...this.layoutConfig.dragSortPredicate,
+                threshold: this.threshold,
+                action: this.sortAction
+            };
+
+            this.layoutConfig.dragStartPredicate = {
+                ...this.layoutConfig.dragStartPredicate,
+                handle: this.dragHandle
+            };
         }
 
         this.grid = new Muuri(element, this.layoutConfig);
