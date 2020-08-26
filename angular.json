@@ -32,7 +32,7 @@
                         ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.slim.min.js",
-                            "node_modules/slick-carousel/slick/slick.min.js",
+                            "apps/flingo/src/vendor/slick/slick.js",
                             "node_modules/muuri/dist/muuri.min.js"
                         ]
                     },
