@@ -26,8 +26,8 @@ import { AppBreadcrumbComponent } from './layouts/full/breadcrumb/breadcrumb.com
 import { SpinnerComponent } from './shared/spinner.component';
 import { MatListModule } from '@angular/material/list';
 import { SliderComponent } from './pages/slider/slider.component';
-import { MuuriModule } from '@flingo/muuri';
-import { SlickModule } from '@flingo/slick';
+import { MuuriModule } from '@rooi/muuri';
+import { SlickModule } from '@rooi/slick';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,

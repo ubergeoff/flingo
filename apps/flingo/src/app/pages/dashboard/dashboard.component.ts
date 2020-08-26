@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { TileGridDirective } from '@flingo/muuri';
+import { TileGridDirective } from '@rooi/muuri';
 import { v4 as uuid } from 'uuid';
 
 @Component({

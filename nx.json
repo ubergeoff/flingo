@@ -1,5 +1,5 @@
 {
-    "npmScope": "flingo",
+    "npmScope": "rooi",
     "affected": {
         "defaultBase": "master"
     },

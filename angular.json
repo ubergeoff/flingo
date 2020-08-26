@@ -130,7 +130,7 @@
             "projectType": "library",
             "root": "libs/muuri",
             "sourceRoot": "libs/muuri/src",
-            "prefix": "awe",
+            "prefix": "rooi",
             "architect": {
                 "build": {
                     "builder": "@nrwl/angular:package",
@@ -171,7 +171,7 @@
             "projectType": "library",
             "root": "libs/slick",
             "sourceRoot": "libs/slick/src",
-            "prefix": "flingo",
+            "prefix": "rooi",
             "architect": {
                 "build": {
                     "builder": "@nrwl/angular:package",

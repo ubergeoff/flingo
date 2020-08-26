@@ -33,7 +33,9 @@
     "bump:slick:patch": "cd libs/slick && npm version patch --force",
     "build:muuri": "ng build muuri --configuration=production && cd dist/libs/muuri && npm pack",
     "build:slick": "ng build slick --configuration=production && cd dist/libs/slick && npm pack",
-    "build:flingo": "ng build flingo --configuration=production"
+    "build:flingo": "ng build flingo --configuration=production",
+    "publish:muuri": "npm publish --access public ./dist/libs/muuri/rooi-muuri-0.x.x.tgz",
+    "publish:slick": "npm publish --access public ./dist/libs/slick/rooi-slick-0.x.x.tgz"
   },
   "private": true,
   "dependencies": {
