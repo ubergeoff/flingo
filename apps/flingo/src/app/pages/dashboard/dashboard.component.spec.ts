@@ -8,33 +8,35 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { DashboardComponent } from './dashboard.component';
+import { MuuriModule } from '@rooi/muuri';
 
 describe('DashboardComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
+    let component: DashboardComponent;
+    let fixture: ComponentFixture<DashboardComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [DashboardComponent],
-      imports: [
-        NoopAnimationsModule,
-        LayoutModule,
-        MatButtonModule,
-        MatCardModule,
-        MatGridListModule,
-        MatIconModule,
-        MatMenuModule,
-      ]
-    }).compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [DashboardComponent],
+            imports: [
+                NoopAnimationsModule,
+                LayoutModule,
+                MatButtonModule,
+                MatCardModule,
+                MatGridListModule,
+                MatIconModule,
+                MatMenuModule,
+                MuuriModule
+            ]
+        }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DashboardComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should compile', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should compile', () => {
+        expect(component).toBeTruthy();
+    });
 });
