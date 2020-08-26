@@ -896,19 +896,22 @@
 
     Slick.prototype.cleanUpEvents = function () {
         var _ = this;
+        const thisDots = $(_.$dots);
+        const thisList = $(_.$list);
+        const thisSlider = $(_.$slider);
 
         if (_.options.dots && _.$dots !== null) {
-            $('li', _.$dots)
+            $('li', thisDots)
                 .off('click.slick', _.changeSlide)
                 .off('mouseenter.slick', $.proxy(_.interrupt, _, true))
                 .off('mouseleave.slick', $.proxy(_.interrupt, _, false));
 
             if (_.options.accessibility === true) {
-                _.$dots.off('keydown.slick', _.keyHandler);
+                thisDots.off('keydown.slick', _.keyHandler);
             }
         }
 
-        _.$slider.off('focus.slick blur.slick');
+        thisSlider.off('focus.slick blur.slick');
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
             _.$prevArrow && _.$prevArrow.off('click.slick', _.changeSlide);
@@ -920,19 +923,19 @@
             }
         }
 
-        _.$list.off('touchstart.slick mousedown.slick', _.swipeHandler);
-        _.$list.off('touchmove.slick mousemove.slick', _.swipeHandler);
-        _.$list.off('touchend.slick mouseup.slick', _.swipeHandler);
-        _.$list.off('touchcancel.slick mouseleave.slick', _.swipeHandler);
+        thisList.off('touchstart.slick mousedown.slick', _.swipeHandler);
+        thisList.off('touchmove.slick mousemove.slick', _.swipeHandler);
+        thisList.off('touchend.slick mouseup.slick', _.swipeHandler);
+        thisList.off('touchcancel.slick mouseleave.slick', _.swipeHandler);
 
-        _.$list.off('click.slick', _.clickHandler);
+        thisList.off('click.slick', _.clickHandler);
 
         $(document).off(_.visibilityChange, _.visibility);
 
         _.cleanUpSlideEvents();
 
         if (_.options.accessibility === true) {
-            _.$list.off('keydown.slick', _.keyHandler);
+            thisList.off('keydown.slick', _.keyHandler);
         }
 
         if (_.options.focusOnSelect === true) {
@@ -959,11 +962,13 @@
     Slick.prototype.cleanUpRows = function () {
         var _ = this,
             originalSlides;
+        const thisSlides = $(_.$slides);
+        const thisSlider = $(_.$slider);
 
         if (_.options.rows > 0) {
-            originalSlides = _.$slides.children().children();
+            originalSlides = thisSlides.children().children();
             originalSlides.removeAttr('style');
-            _.$slider.empty().append(originalSlides);
+            thisSlider.empty().append(originalSlides);
         }
     };
 
@@ -982,6 +987,9 @@
 
     Slick.prototype.destroy = function (refresh) {
         var _ = this;
+        const thisSlider = $(_.$slider);
+        const thisSlides = $(_.$slides);
+        const thisSlideTrack = $(_.$slideTrack);
 
         _.autoPlayClear();
 
@@ -989,7 +997,7 @@
 
         _.cleanUpEvents();
 
-        $('.slick-cloned', _.$slider).detach();
+        $('.slick-cloned', thisSlider).detach();
 
         if (_.$dots) {
             _.$dots.remove();
@@ -1017,8 +1025,8 @@
             }
         }
 
-        if (_.$slides) {
-            _.$slides
+        if (thisSlides) {
+            thisSlides
                 .removeClass('slick-slide slick-active slick-center slick-visible slick-current')
                 .removeAttr('aria-hidden')
                 .removeAttr('data-slick-index')
@@ -1026,20 +1034,20 @@
                     $(this).attr('style', $(this).data('originalStyling'));
                 });
 
-            _.$slideTrack.children(this.options.slide).detach();
+            thisSlideTrack.children(this.options.slide).detach();
 
-            _.$slideTrack.detach();
+            thisSlideTrack.detach();
 
-            _.$list.detach();
+            $(_.$list).detach();
 
-            _.$slider.append(_.$slides);
+            thisSlider.append(thisSlides);
         }
 
         _.cleanUpRows();
 
-        _.$slider.removeClass('slick-slider');
-        _.$slider.removeClass('slick-initialized');
-        _.$slider.removeClass('slick-dotted');
+        thisSlider.removeClass('slick-slider');
+        thisSlider.removeClass('slick-initialized');
+        thisSlider.removeClass('slick-dotted');
 
         _.unslicked = true;
 
