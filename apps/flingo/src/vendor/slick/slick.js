@@ -674,10 +674,17 @@
                             row.appendChild(originalSlides.get(target));
                         }*/
                         if (originalSlides[target]) {
-                            _.cssAppender(row, {
-                                width: _.options.slideWidth + 'px',
-                                display: 'inline-block'
-                            });
+                            if (_.options.variableWidth === false && _.options.slideWidth !== 0) {
+                                _.cssAppender(row, {
+                                    width: _.options.slideWidth + 'px',
+                                    display: 'inline-block'
+                                });
+                            } else {
+                                _.cssAppender(row, {
+                                    width: 100 / _.options.slidesPerRow + '%',
+                                    display: 'inline-block'
+                                });
+                            }
 
                             row.appendChild(originalSlides[target]);
                         }

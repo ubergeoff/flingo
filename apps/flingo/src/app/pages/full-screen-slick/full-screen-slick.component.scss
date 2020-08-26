@@ -1,0 +1,32 @@
+.grid-container {
+    margin: 20px;
+}
+
+.grid-head {
+}
+
+.grid {
+    position: relative;
+}
+
+.dashboard-card {
+    height: 250px;
+}
+
+.more-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.dashboard-card-content {
+    text-align: center;
+}
+
+.footer {
+    margin-top: 16px;
+}
+
+.mat-card {
+    cursor: grab;
+}

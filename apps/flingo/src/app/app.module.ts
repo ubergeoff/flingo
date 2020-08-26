@@ -28,6 +28,7 @@ import { MatListModule } from '@angular/material/list';
 import { SliderComponent } from './pages/slider/slider.component';
 import { MuuriModule } from '@rooi/muuri';
 import { SlickModule } from '@rooi/slick';
+import { FullScreenSlickComponent } from './pages/full-screen-slick/full-screen-slick.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -43,7 +44,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         FullComponent,
         AppSidebarComponent,
         SpinnerComponent,
-        SliderComponent
+        SliderComponent,
+        FullScreenSlickComponent
     ],
     imports: [
         BrowserModule,

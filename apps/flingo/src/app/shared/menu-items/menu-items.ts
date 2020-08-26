@@ -44,7 +44,8 @@ const MENUITEMS = [
         icon: 'av_timer',
         children: [
             { state: 'dashboard1', name: 'Muuri', type: 'link' },
-            { state: 'dashboard2', name: 'Carousel', type: 'link' }
+            { state: 'slick1', name: 'Carousel 1', type: 'link' },
+            { state: 'slick2', name: 'Carousel 2', type: 'link' }
         ]
     }
 ];

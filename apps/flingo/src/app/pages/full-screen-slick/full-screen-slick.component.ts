@@ -1,15 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Platform } from '@angular/cdk/platform';
 import { v4 as uuid } from 'uuid';
 
-import { Platform } from '@angular/cdk/platform';
-
 @Component({
-    selector: 'app-slider',
-    templateUrl: './slider.component.html',
-    styleUrls: ['./slider.component.scss']
+    selector: 'app-full-screen-slick',
+    templateUrl: './full-screen-slick.component.html',
+    styleUrls: ['./full-screen-slick.component.scss']
 })
-export class SliderComponent implements OnInit {
+export class FullScreenSlickComponent implements OnInit {
     allCards$: Observable<any>;
 
     @ViewChild('container') container: ElementRef;
@@ -26,8 +25,7 @@ export class SliderComponent implements OnInit {
         nextArrow: "<div class='nav-btn next-slide'></div>",
         prevArrow: "<div class='nav-btn prev-slide'></div>",
         dots: true,
-        infinite: false,
-        slideWidth: 280
+        infinite: false
     };
 
     constructor(private platform: Platform) {
