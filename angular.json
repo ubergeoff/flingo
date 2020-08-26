@@ -41,6 +41,7 @@
                                     "with": "apps/flingo/src/environments/environment.prod.ts"
                                 }
                             ],
+                            "index": "apps/flingo/src/environments/index.html",
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
