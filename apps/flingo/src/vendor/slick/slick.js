@@ -2292,12 +2292,12 @@
     };
 
     //------------------
-    // Almost there ..!
+    // Complete
     // ----------------
     Slick.prototype.setDimensions = function () {
         var _ = this;
         //const thisSlides = $(_.$slides);
-        const thisSideTrack = $(_.$slideTrack);
+        //const thisSideTrack = $(_.$slideTrack);
         //const thisList = $(_.$list);
 
         if (_.options.vertical === false) {
@@ -2350,7 +2350,7 @@
 
             //const slickSlideChildren = thisSideTrack.children('.slick-slide');
             const calc = Math.ceil(_.outerHeight(_.$slides[0], true) * _.$slideTrack.children.length);
-            thisSideTrack.height(calc);
+            _.setHeight(_.$slideTrack, calc);
             //thisSideTrack.height(Math.ceil((thisSlides.first().outerHeight(true) * thisSideTrack.children('.slick-slide').length)));
         }
 
