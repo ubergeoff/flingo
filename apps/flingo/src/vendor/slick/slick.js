@@ -1000,7 +1000,8 @@
         $('.slick-cloned', thisSlider).detach();
 
         if (_.$dots) {
-            _.$dots.remove();
+            //_.$dots.remove();
+            _.$dots.parentNode.removeChild(_.$dots);
         }
 
         if (_.$prevArrow && _.$prevArrow.length) {
@@ -1010,7 +1011,8 @@
                 .css('display', '');
 
             if (_.htmlExpr.test(_.options.prevArrow)) {
-                _.$prevArrow.remove();
+                //_.$prevArrow.remove();
+                _.$prevArrow.parentNode.removeChild(_.$prevArrow);
             }
         }
 
@@ -1021,7 +1023,8 @@
                 .css('display', '');
 
             if (_.htmlExpr.test(_.options.nextArrow)) {
-                _.$nextArrow.remove();
+                //_.$nextArrow.remove();
+                _.$nextArrow.parentNode.removeChild(_.$nextArrow);
             }
         }
 
@@ -2225,7 +2228,10 @@
         _.unload();
 
         if (removeAll === true) {
-            thisSlideTrack.children().remove();
+            //thisSlideTrack.children().remove();
+            for (let item of Array.from(_.$slideTrack.children)) {
+                item.parentNode.removeChild(item);
+            }
         } else {
             //thisSlideTrack.children(this.options.slide).eq(index).remove();
             const toRemove = _.$slideTrack.children[index];
@@ -2237,12 +2243,12 @@
 
         //const makker = thisSlideTrack.children(this.options.slide);
         //thisSlideTrack.children(this.options.slide).detach();
-        for (var item of Array.from(_.$slideTrack.children)) {
+        for (let item of Array.from(_.$slideTrack.children)) {
             item.parentNode.removeChild(item);
         }
 
         //thisSlideTrack.append(_.$slides);
-        for (var item of _.$slides) {
+        for (let item of _.$slides) {
             _.$slideTrack.appendChild(item);
         }
 
@@ -2330,16 +2336,20 @@
             } else {
                 _.slideWidth = _.options.slideWidth;
             }
-            const width = Math.ceil(_.slideWidth * thisSideTrack.children('.slick-slide').length);
 
-            _.$slideTrack.style.width = width + 'px';
+            //const slickSlideChildren = thisSideTrack.children('.slick-slide');
+            const width = Math.ceil(_.slideWidth * _.$slideTrack.children.length);
+
             //thisSideTrack.width(width);
+            _.setWidth(_.$slideTrack, width);
         } else if (_.options.variableWidth === true) {
-            thisSideTrack.width(5000 * _.slideCount);
+            //thisSideTrack.width(5000 * _.slideCount);
+            _.setWidth(_.$slideTrack, 5000 * _.slideCount);
         } else {
             _.slideWidth = Math.ceil(_.listWidth);
 
-            const calc = Math.ceil(_.outerHeight(_.$slides[0], true) * thisSideTrack.children('.slick-slide').length);
+            //const slickSlideChildren = thisSideTrack.children('.slick-slide');
+            const calc = Math.ceil(_.outerHeight(_.$slides[0], true) * _.$slideTrack.children.length);
             thisSideTrack.height(calc);
             //thisSideTrack.height(Math.ceil((thisSlides.first().outerHeight(true) * thisSideTrack.children('.slick-slide').length)));
         }
@@ -2350,7 +2360,11 @@
         //let bb = thisSlides.first().width();
         //var offsetOther = aa - bb;
         if (_.options.variableWidth === false) {
-            thisSideTrack.children('.slick-slide').width(_.slideWidth - offset);
+            //const slickSlideChildren = thisSideTrack.children('.slick-slide');
+            //slickSlideChildren.width(_.slideWidth - offset);
+            for (let el of _.$slideTrack.children) {
+                _.setWidth(el, _.slideWidth - offset);
+            }
         }
     };
 
@@ -2429,6 +2443,15 @@
 
     //-----------------------------------
     // Complete
+    //-----------------------------------
+    Slick.prototype.setWidth = function (el, val) {
+        if (typeof val === 'function') val = val();
+        if (typeof val === 'string') el.style.width = val;
+        else el.style.width = val + 'px';
+    };
+
+    //-----------------------------------
+    // Complete
     // ----- Not using "setFade"
     //-----------------------------------
     Slick.prototype.setFade = function () {
@@ -2464,7 +2487,7 @@
 
     //-----------------------------------
     // Complete
-    // ---- Not using "adaptiveHeight"
+    // ---- Not using "adaptiveHeight" yet
     //-----------------------------------
     Slick.prototype.setHeight = function () {
         var _ = this;
@@ -2660,7 +2683,7 @@
     };
 
     // ------------------
-    // Almost done ..!
+    // Complete
     // ------------------
     Slick.prototype.setSlideClasses = function (index) {
         var _ = this,
@@ -2696,10 +2719,15 @@
 
             if (_.options.infinite === true) {
                 if (index >= centerOffset && index <= _.slideCount - 1 - centerOffset) {
-                    thisSlides
+                    /*thisSlides
                         .slice(index - centerOffset + evenCoef, index + centerOffset + 1)
                         .addClass('slick-active')
-                        .attr('aria-hidden', 'false');
+                        .attr('aria-hidden', 'false');*/
+                    const ss = Array.from(_.$slides).slice(index - centerOffset + evenCoef, index + centerOffset + 1);
+                    for (let item of ss) {
+                        ss.classList.add('slick-active');
+                        ss.setAttribute('aria-hidden', 'false');
+                    }
                 } else {
                     indexOffset = _.options.slidesToShow + index;
                     allSlides
@@ -2746,7 +2774,7 @@
                     .attr('aria-hidden', 'false');*/
                 for (let item of allSlides) {
                     item.classList.add('slick-active');
-                    item.addAttribute('aria-hidden', 'false');
+                    item.setAttribute('aria-hidden', 'false');
                 }
             } else {
                 remainder = _.slideCount % _.options.slidesToShow;
@@ -2964,6 +2992,7 @@
         }
 
         _.updateDots();
+        // not using this yet
         //_.updateArrows();
 
         if (_.options.fade === true) {
@@ -3301,21 +3330,35 @@
         $('.slick-cloned', _.$slider).remove();
 
         if (_.$dots) {
-            _.$dots.remove();
+            //_.$dots.remove();
+            _.$dots.parentNode.removeChild(_.$dots);
         }
 
         if (_.$prevArrow && _.htmlExpr.test(_.options.prevArrow)) {
-            _.$prevArrow.remove();
+            //_.$prevArrow.remove();
+            _.$prevArrow.parentNode.removeChild(_.$prevArrow);
         }
 
         if (_.$nextArrow && _.htmlExpr.test(_.options.nextArrow)) {
-            _.$nextArrow.remove();
+            _.$nextArrow.parentNode.removeChild(_.$nextArrow);
         }
 
-        $(_.$slides)
+        /*$(_.$slides)
             .removeClass('slick-slide slick-active slick-visible slick-current')
             .attr('aria-hidden', 'true')
-            .css('width', '');
+            .css('width', '');*/
+        for (let item of _.$slides) {
+            _.removeClasses(item, ['slick-slide', 'slick-active', 'slick-visible', 'slick-current']);
+
+            item.setAttribute('aria-hidden', 'true');
+            item.style.width = '';
+        }
+    };
+
+    Slick.prototype.removeClasses = function (el, classArray) {
+        for (let cl of classArray) {
+            el.classList.remove(cl);
+        }
     };
 
     // ------------------------
