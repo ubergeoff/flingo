@@ -3121,7 +3121,7 @@
                 default:
             }
 
-            if (direction != 'vertical') {
+            if (direction !== 'vertical') {
                 _.slideHandler(slideCount);
                 _.touchObject = {};
                 //$(thisSlider).trigger('swipe', [_, direction]);
@@ -3140,10 +3140,11 @@
     // Complete
     // ------------------------
     Slick.prototype.createTrigger = function (eventName, data) {
+        let event;
         if (window.CustomEvent && typeof window.CustomEvent === 'function') {
-            var event = new CustomEvent(eventName, { detail: data });
+            event = new CustomEvent(eventName, { detail: data });
         } else {
-            var event = document.createEvent('CustomEvent');
+            event = document.createEvent('CustomEvent');
             event.initCustomEvent(eventName, true, true, data);
         }
 
