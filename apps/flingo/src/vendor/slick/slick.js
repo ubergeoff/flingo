@@ -2710,8 +2710,8 @@
                         .attr('aria-hidden', 'false');*/
                     const ss = Array.from(_.$slides).slice(index - centerOffset + evenCoef, index + centerOffset + 1);
                     for (let item of ss) {
-                        ss.classList.add('slick-active');
-                        ss.setAttribute('aria-hidden', 'false');
+                        item.classList.add('slick-active');
+                        item.setAttribute('aria-hidden', 'false');
                     }
                 } else {
                     indexOffset = _.options.slidesToShow + index;
