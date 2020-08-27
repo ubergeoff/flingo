@@ -734,7 +734,7 @@
 
         //const thisSlider = $(_.$slider);
         //var sliderWidth = thisSlider.width();
-        var sliderWidth = _.getWidth(_.$slider);
+        var sliderWidth = _.get_Width(_.$slider);
 
         var windowWidth = window.innerWidth || $(window).width();
 
@@ -2311,8 +2311,8 @@
             }
         } else {
             //thisList.height(thisSlides.first().outerHeight(true) * _.options.slidesToShow);
-            const outerHeight = _.outerHeight(_.$slides[0], true) * _.options.slidesToShow;
-            _.setHeight(_.$list, outerHeight);
+            const outerHeight = _.get_OuterHeight(_.$slides[0], true) * _.options.slidesToShow;
+            _.set_Height(_.$list, outerHeight);
             //thisList.height(outerHeight);
 
             if (_.options.centerMode === true) {
@@ -2326,9 +2326,9 @@
         }
 
         //_.listWidth = thisList.width();
-        _.listWidth = _.getWidth(_.$list);
+        _.listWidth = _.get_Width(_.$list);
         //_.listHeight = thisList.height();
-        _.listHeight = _.getHeight(_.$list);
+        _.listHeight = _.get_Height(_.$list);
 
         if (_.options.vertical === false && _.options.variableWidth === false) {
             if (!_.options.slideWidth) {
@@ -2341,20 +2341,20 @@
             const width = Math.ceil(_.slideWidth * _.$slideTrack.children.length);
 
             //thisSideTrack.width(width);
-            _.setWidth(_.$slideTrack, width);
+            _.set_Width(_.$slideTrack, width);
         } else if (_.options.variableWidth === true) {
             //thisSideTrack.width(5000 * _.slideCount);
-            _.setWidth(_.$slideTrack, 5000 * _.slideCount);
+            _.set_Width(_.$slideTrack, 5000 * _.slideCount);
         } else {
             _.slideWidth = Math.ceil(_.listWidth);
 
             //const slickSlideChildren = thisSideTrack.children('.slick-slide');
-            const calc = Math.ceil(_.outerHeight(_.$slides[0], true) * _.$slideTrack.children.length);
-            _.setHeight(_.$slideTrack, calc);
+            const calc = Math.ceil(_.get_OuterHeight(_.$slides[0], true) * _.$slideTrack.children.length);
+            _.set_Height(_.$slideTrack, calc);
             //thisSideTrack.height(Math.ceil((thisSlides.first().outerHeight(true) * thisSideTrack.children('.slick-slide').length)));
         }
 
-        const offset = _.getOuterWidth(_.$slides[0], true) - _.getOuterWidth(_.$slides[0]);
+        const offset = _.get_OuterWidth(_.$slides[0], true) - _.get_OuterWidth(_.$slides[0]);
 
         //let aa = thisSlides.first().outerWidth(true);
         //let bb = thisSlides.first().width();
@@ -2363,7 +2363,7 @@
             //const slickSlideChildren = thisSideTrack.children('.slick-slide');
             //slickSlideChildren.width(_.slideWidth - offset);
             for (let el of _.$slideTrack.children) {
-                _.setWidth(el, _.slideWidth - offset);
+                _.set_Width(el, _.slideWidth - offset);
             }
         }
     };
@@ -2371,7 +2371,7 @@
     // --------------------------
     // Complete
     // --------------------------
-    Slick.prototype.getOuterHeight = function (el, withMargin) {
+    Slick.prototype.get_OuterHeight = function (el, withMargin) {
         if (withMargin) {
             var height = el.offsetHeight;
             var style = getComputedStyle(el);
@@ -2391,7 +2391,7 @@
     // --------------------------
     // Complete
     // --------------------------
-    Slick.prototype.getOuterWidth = function (el, withMargin) {
+    Slick.prototype.get_OuterWidth = function (el, withMargin) {
         if (withMargin) {
             var width = el.offsetWidth;
             var style = getComputedStyle(el);
@@ -2411,7 +2411,7 @@
     //-----------------------------------
     // Complete
     //-----------------------------------
-    Slick.prototype.getWidth = function (el) {
+    Slick.prototype.get_Width = function (el) {
         let num = parseFloat(getComputedStyle(el, null).width.replace('px', ''));
         if (num) {
             return num;
@@ -2423,7 +2423,7 @@
     //-----------------------------------
     // Complete
     //-----------------------------------
-    Slick.prototype.getHeight = function (el) {
+    Slick.prototype.get_Height = function (el) {
         let num = parseFloat(getComputedStyle(el, null).height.replace('px', ''));
         if (num) {
             return num;
@@ -2435,7 +2435,7 @@
     //-----------------------------------
     // Complete
     //-----------------------------------
-    Slick.prototype.setHeight = function (el, val) {
+    Slick.prototype.set_Height = function (el, val) {
         if (typeof val === 'function') val = val();
         if (typeof val === 'string') el.style.height = val;
         else el.style.height = val + 'px';
@@ -2444,7 +2444,7 @@
     //-----------------------------------
     // Complete
     //-----------------------------------
-    Slick.prototype.setWidth = function (el, val) {
+    Slick.prototype.set_Width = function (el, val) {
         if (typeof val === 'function') val = val();
         if (typeof val === 'string') el.style.width = val;
         else el.style.width = val + 'px';
@@ -2489,7 +2489,7 @@
     // Complete
     // ---- Not using "adaptiveHeight" yet
     //-----------------------------------
-    Slick.prototype.setHeight = function () {
+    Slick.prototype.setListHeight = function () {
         var _ = this;
 
         if (_.options.slidesToShow === 1 && _.options.adaptiveHeight === true && _.options.vertical === false) {
@@ -2497,21 +2497,6 @@
             //_.$list.css('height', targetHeight);
             _.$list.style.height = targetHeight;
         }
-    };
-
-    // --------------------------
-    // Complete
-    // --------------------------
-    Slick.prototype.outerHeight = function (el, withMargin) {
-        if (withMargin) {
-            var height = el.offsetHeight;
-            var style = getComputedStyle(el);
-
-            height += parseInt(style.marginTop) + parseInt(style.marginBottom);
-            return height;
-        }
-
-        return el.offsetHeight;
     };
 
     // --------------------------
@@ -2596,7 +2581,7 @@
 
         _.setDimensions();
 
-        _.setHeight();
+        _.setListHeight();
 
         if (_.options.fade === false) {
             _.setCSS(_.getLeft(_.currentSlide));
