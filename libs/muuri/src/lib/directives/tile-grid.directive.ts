@@ -55,6 +55,8 @@ export class TileGridDirective implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.init(this.elRef.nativeElement);
+
         this.subscription.add(
             this.addItemChange
                 .pipe(
@@ -64,11 +66,8 @@ export class TileGridDirective implements OnInit, OnDestroy {
                     filter((t) => this.items.length > 0)
                 )
                 .subscribe(() => {
-                    if (this.isInit === false) {
-                        this.init(this.elRef.nativeElement);
-                        this.isInit = true;
-                    }
                     this.finalizeLayoutItems(this.items);
+                    this.isInit = true;
                 })
         );
 
