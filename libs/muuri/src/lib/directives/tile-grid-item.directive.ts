@@ -8,10 +8,10 @@ export class TileGridItemDirective implements OnInit, OnDestroy {
     constructor(@Host() private tileGrid: TileGridDirective, private elRef: ElementRef) {}
 
     ngOnInit(): void {
-        this.tileGrid.addItem(this.elRef.nativeElement);
+        this.tileGrid.addItem(this.elRef);
     }
 
     ngOnDestroy(): void {
-        this.tileGrid.removeItem(this.elRef.nativeElement);
+        this.tileGrid.removeItem(this.elRef);
     }
 }
