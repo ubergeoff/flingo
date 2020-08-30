@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TileGridDirective } from '@rooi/muuri';
 import { v4 as uuid } from 'uuid';
@@ -9,14 +9,16 @@ import { v4 as uuid } from 'uuid';
     styleUrls: ['./dashboard.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
     @ViewChild(TileGridDirective) grid: TileGridDirective;
 
-    allCards$: Observable<any>;
+    allCards$: Observable<ICard[]>;
 
     private counter = 1;
-    private array = [];
-    private cards = new BehaviorSubject<any>([]);
+    private array: ICard[] = [];
+    private cards = new BehaviorSubject<ICard[]>([]);
+    private moveData: { start: any; end: any };
+    message = new BehaviorSubject<string>('');
 
     constructor() {
         this.allCards$ = this.cards.asObservable();
@@ -54,4 +56,36 @@ export class DashboardComponent implements OnInit {
     addCard() {
         this.createCard('Card ' + this.counter++);
     }
+
+    trackByCardId(index, item: ICard) {
+        return item.id;
+    }
+
+    ngAfterViewInit(): void {
+        if (this.grid && this.grid.dragEnabled) {
+            this.grid.on('dragStart', (item, event) => {});
+
+            this.grid.on('dragEnd', (item, event) => {
+                this.updateTileOrder(item);
+            });
+
+            this.grid.on('move', (data) => {
+                this.moveData = { start: data.fromIndex + 1, end: data.toIndex + 1 };
+            });
+        }
+    }
+
+    updateTileOrder(item) {
+        if (item._element && this.moveData) {
+            const cardElement = item._element;
+            const found = this.array.find((t) => t.id === cardElement.id);
+
+            this.message.next('You just moved: ' + found.title + ' to Pos: ' + this.moveData.end);
+        }
+    }
+}
+
+export interface ICard {
+    id: string;
+    title: string;
 }

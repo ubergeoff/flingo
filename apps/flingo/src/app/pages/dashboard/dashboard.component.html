@@ -1,9 +1,15 @@
 <div class="grid-container">
     <div class="grid-head">
         <h1 class="mat-h1">Dashboard</h1>
+        <span>{{ message | async }}</span>
     </div>
     <div class="grid" roiTileGrid [dragHandle]="'mat-card-header'" [dragEnabled]="true" [threshold]="25">
-        <mat-card roiTileGridItem class="item" *ngFor="let card of allCards$ | async">
+        <mat-card
+            roiTileGridItem
+            class="item"
+            *ngFor="let card of allCards$ | async; trackBy: trackByCardId"
+            id="{{ card.id }}"
+        >
             <mat-card-header>
                 <mat-card-title>
                     {{ card.title }}
