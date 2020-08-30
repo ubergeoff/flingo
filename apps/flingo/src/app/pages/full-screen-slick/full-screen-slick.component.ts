@@ -2,11 +2,13 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { v4 as uuid } from 'uuid';
+import { CardService } from '../../services/card-service/card.service';
 
 @Component({
     selector: 'app-full-screen-slick',
     templateUrl: './full-screen-slick.component.html',
-    styleUrls: ['./full-screen-slick.component.scss']
+    styleUrls: ['./full-screen-slick.component.scss'],
+    providers: [CardService]
 })
 export class FullScreenSlickComponent implements OnInit {
     allCards$: Observable<any>;
@@ -28,7 +30,7 @@ export class FullScreenSlickComponent implements OnInit {
         infinite: false
     };
 
-    constructor(private platform: Platform) {
+    constructor(private platform: Platform, private cardService: CardService) {
         this.allCards$ = this.cards.asObservable();
     }
 
@@ -37,32 +39,26 @@ export class FullScreenSlickComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.createCard('Card 1');
-        this.createCard('Card 2');
-        this.createCard('Card 3');
-        this.createCard('Card 4');
-        this.createCard('Card 5');
-        this.createCard('Card 6');
+        this.cardService.createCard('Card 1');
+        this.cardService.createCard('Card 2');
+        this.cardService.createCard('Card 3');
+        this.cardService.createCard('Card 4');
+        this.cardService.createCard('Card 5');
+        this.cardService.createCard('Card 6');
 
-        this.counter = this.array.length + 1;
+        this.counter = this.cardService.allCards().length + 1;
 
-        this.cards.next(this.array);
+        this.cards.next(this.cardService.allCards());
     }
 
     createCard(title) {
-        this.array.push({
-            id: uuid(),
-            title: title
-        });
+        this.cardService.createCard(title);
     }
 
     remove(card: any) {
-        const index = this.array.indexOf(card);
-        if (index > -1) {
-            this.array.splice(index, 1);
-        }
+        this.cardService.remove(card);
 
-        this.cards.next(this.array);
+        this.cards.next(this.cardService.allCards());
     }
 
     addCard() {

@@ -1,13 +1,15 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TileGridDirective } from '@rooi/muuri';
-import { v4 as uuid } from 'uuid';
+import { CardService } from '../../services/card-service/card.service';
+import { ICard } from '../../interfaces/card.interface';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [CardService]
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
     @ViewChild(TileGridDirective) grid: TileGridDirective;
@@ -15,46 +17,35 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     allCards$: Observable<ICard[]>;
 
     private counter = 1;
-    private array: ICard[] = [];
+
     private cards = new BehaviorSubject<ICard[]>([]);
     private moveData: { start: any; end: any };
     message = new BehaviorSubject<string>('');
 
-    constructor() {
+    constructor(private cardService: CardService) {
         this.allCards$ = this.cards.asObservable();
     }
 
     ngOnInit(): void {
-        this.createCard('Card 1');
-        this.createCard('Card 2');
-        this.createCard('Card 3');
-        this.createCard('Card 4');
-        this.createCard('Card 5');
-        this.createCard('Card 6');
+        this.cardService.createCard('Card 1');
+        this.cardService.createCard('Card 2');
+        this.cardService.createCard('Card 3');
+        this.cardService.createCard('Card 4');
+        this.cardService.createCard('Card 5');
+        this.cardService.createCard('Card 6');
 
-        this.counter = this.array.length + 1;
+        this.counter = this.cardService.allCards().length + 1;
 
-        this.cards.next(this.array);
-    }
-
-    createCard(title) {
-        this.array.push({
-            id: uuid(),
-            title: title
-        });
+        this.cards.next(this.cardService.allCards());
     }
 
     remove(card: any) {
-        const index = this.array.indexOf(card);
-        if (index > -1) {
-            this.array.splice(index, 1);
-        }
-
-        this.cards.next(this.array);
+        this.cardService.remove(card);
+        this.cards.next(this.cardService.allCards());
     }
 
     addCard() {
-        this.createCard('Card ' + this.counter++);
+        this.cardService.createCard('Card ' + this.counter++);
     }
 
     trackByCardId(index, item: ICard) {
@@ -78,14 +69,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     updateTileOrder(item) {
         if (item._element && this.moveData) {
             const cardElement = item._element as HTMLElement;
-            const found = this.array.find((t) => t.id === cardElement.id);
+            const found = this.cardService.findCard(cardElement.id);
 
             this.message.next('You just moved: ' + found.title + ' to Pos: ' + this.moveData.end);
         }
     }
-}
-
-export interface ICard {
-    id: string;
-    title: string;
 }
