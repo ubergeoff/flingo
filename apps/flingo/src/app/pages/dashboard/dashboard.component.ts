@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     updateTileOrder(item) {
         if (item._element && this.moveData) {
-            const cardElement = item._element;
+            const cardElement = item._element as HTMLElement;
             const found = this.array.find((t) => t.id === cardElement.id);
 
             this.message.next('You just moved: ' + found.title + ' to Pos: ' + this.moveData.end);
