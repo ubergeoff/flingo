@@ -30,7 +30,8 @@ import { SlickModule } from '@rooi/slick';
 import { FullScreenSlickComponent } from './pages/full-screen-slick/full-screen-slick.component';
 import { VariableWidthSlickComponent } from './pages/variabe-width-slick/variabe-width-slick.component';
 import { CenterSlickComponent } from './pages/center-slick/center-slick.component';
-import { SliderComponent } from './pages/fixed-width-slick/slider.component';
+import { FixedWidthComponent } from './pages/fixed-width-slick/fixed-width.component';
+import { ShowThreeSlickComponent } from './pages/show-three-slick/show-three-slick.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -46,10 +47,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         FullComponent,
         AppSidebarComponent,
         SpinnerComponent,
-        SliderComponent,
+        FixedWidthComponent,
         FullScreenSlickComponent,
         VariableWidthSlickComponent,
-        CenterSlickComponent
+        CenterSlickComponent,
+        ShowThreeSlickComponent
     ],
     imports: [
         BrowserModule,

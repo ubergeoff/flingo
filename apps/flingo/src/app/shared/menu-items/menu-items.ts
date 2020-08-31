@@ -47,7 +47,8 @@ const MENUITEMS = [
             { state: 'slick1', name: 'Fixed Width', type: 'link' },
             { state: 'slick3', name: 'Variable width', type: 'link' },
             { state: 'slick2', name: 'Full screen', type: 'link' },
-            { state: 'slick4', name: 'Center', type: 'link' }
+            { state: 'slick4', name: 'Center', type: 'link' },
+            { state: 'slick5', name: 'Show three', type: 'link' }
         ]
     }
 ];

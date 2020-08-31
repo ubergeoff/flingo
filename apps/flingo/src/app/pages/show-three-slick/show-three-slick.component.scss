@@ -23,13 +23,12 @@
     margin-top: 16px;
 }
 
-.mat-card {
-    cursor: grab;
-    margin: 15px;
-    /*margin-bottom: 15px;
-    margin-right: 15px;*/
-}
-
 .dashboard-card {
     height: 250px;
+}
+
+.mat-card {
+    cursor: grab;
+    margin-bottom: 15px;
+    margin-right: 15px;
 }

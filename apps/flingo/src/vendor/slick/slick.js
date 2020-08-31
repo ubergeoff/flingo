@@ -1335,7 +1335,7 @@
             verticalOffset = 0,
             targetSlide,
             coef;
-        const thisSlideTrack = $(_.$slideTrack);
+        //const thisSlideTrack = $(_.$slideTrack);
 
         _.slideOffset = 0;
         //verticalHeight = $(_.$slides).first().outerHeight(true);
@@ -2886,15 +2886,30 @@
                     _.options.slidesToShow == _.options.slidesToScroll &&
                     _.slideCount - index < _.options.slidesToShow
                 ) {
-                    allSlides
+                    /*allSlides
                         .slice(indexOffset - (_.options.slidesToShow - remainder), indexOffset + remainder)
                         .addClass('slick-active')
-                        .attr('aria-hidden', 'false');
+                        .attr('aria-hidden', 'false');*/
+
+                    const slicer = allSlides.slice(
+                        indexOffset - (_.options.slidesToShow - remainder),
+                        indexOffset + remainder
+                    );
+                    for (let item of slicer) {
+                        item.classList.add('slick-active');
+                        item.setAttribute('aria-hidden', 'false');
+                    }
                 } else {
-                    allSlides
+                    /*allSlides
                         .slice(indexOffset, indexOffset + _.options.slidesToShow)
                         .addClass('slick-active')
-                        .attr('aria-hidden', 'false');
+                        .attr('aria-hidden', 'false');*/
+
+                    const slicer = allSlides.slice(indexOffset, indexOffset + _.options.slidesToShow);
+                    for (let item of slicer) {
+                        item.classList.add('slick-active');
+                        item.setAttribute('aria-hidden', 'false');
+                    }
                 }
             }
         }

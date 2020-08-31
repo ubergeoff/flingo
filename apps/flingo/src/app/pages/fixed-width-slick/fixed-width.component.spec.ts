@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SliderComponent } from './slider.component';
+import { FixedWidthComponent } from './fixed-width.component';
 import { SlickModule } from '@rooi/slick';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,18 +8,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 describe('SliderComponent', () => {
-    let component: SliderComponent;
-    let fixture: ComponentFixture<SliderComponent>;
+    let component: FixedWidthComponent;
+    let fixture: ComponentFixture<FixedWidthComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SlickModule, MatButtonModule, MatCardModule, MatIconModule, MatMenuModule, MatIconModule],
-            declarations: [SliderComponent]
+            declarations: [FixedWidthComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SliderComponent);
+        fixture = TestBed.createComponent(FixedWidthComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

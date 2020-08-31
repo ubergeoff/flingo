@@ -4,7 +4,8 @@ import { FullComponent } from './layouts/full/full.component';
 import { FullScreenSlickComponent } from './pages/full-screen-slick/full-screen-slick.component';
 import { VariableWidthSlickComponent } from './pages/variabe-width-slick/variabe-width-slick.component';
 import { CenterSlickComponent } from './pages/center-slick/center-slick.component';
-import { SliderComponent } from './pages/fixed-width-slick/slider.component';
+import { FixedWidthComponent } from './pages/fixed-width-slick/fixed-width.component';
+import { ShowThreeSlickComponent } from './pages/show-three-slick/show-three-slick.component';
 
 export const AppRoutes: Routes = [
     {
@@ -29,7 +30,7 @@ export const AppRoutes: Routes = [
                     },
                     {
                         path: 'slick1',
-                        component: SliderComponent,
+                        component: FixedWidthComponent,
                         data: {
                             title: 'Carousel: Fixed width',
                             urls: [{ title: 'Slick', url: '/slider1' }, { title: 'Carousel' }]
@@ -57,6 +58,14 @@ export const AppRoutes: Routes = [
                         data: {
                             title: 'Carousel: Center mode',
                             urls: [{ title: 'Slick', url: '/slider4' }, { title: 'Carousel' }]
+                        }
+                    },
+                    {
+                        path: 'slick5',
+                        component: ShowThreeSlickComponent,
+                        data: {
+                            title: 'Carousel: Show three',
+                            urls: [{ title: 'Slick', url: '/slider5' }, { title: 'Carousel' }]
                         }
                     }
                 ]

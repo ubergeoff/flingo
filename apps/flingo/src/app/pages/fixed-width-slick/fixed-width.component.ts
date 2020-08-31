@@ -6,10 +6,10 @@ import { Platform } from '@angular/cdk/platform';
 
 @Component({
     selector: 'app-slider',
-    templateUrl: './slider.component.html',
-    styleUrls: ['./slider.component.scss']
+    templateUrl: './fixed-width.component.html',
+    styleUrls: ['./fixed-width.component.scss']
 })
-export class SliderComponent implements OnInit {
+export class FixedWidthComponent implements OnInit {
     allCards$: Observable<any>;
 
     @ViewChild('container') container: ElementRef;
@@ -20,14 +20,13 @@ export class SliderComponent implements OnInit {
     width: any;
 
     slideConfig = {
-        slidesToShow: 1,
         slidesToScroll: 1,
         variableWidth: false,
+        slideWidth: 280,
         nextArrow: "<div class='nav-btn next-slide'></div>",
         prevArrow: "<div class='nav-btn prev-slide'></div>",
         dots: true,
-        infinite: false,
-        slideWidth: 280
+        infinite: false
     };
 
     constructor(private platform: Platform) {

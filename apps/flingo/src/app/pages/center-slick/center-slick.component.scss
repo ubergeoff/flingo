@@ -9,11 +9,6 @@
     position: relative;
 }
 
-.dashboard-card {
-    height: 250px;
-    width: 250px;
-}
-
 .more-button {
     position: absolute;
     top: 5px;
@@ -31,4 +26,9 @@
 .mat-card {
     cursor: grab;
     margin: 10px;
+}
+
+.dashboard-card {
+    height: 250px;
+    width: 250px;
 }

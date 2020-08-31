@@ -5,11 +5,11 @@ import { CardService } from '../../services/card-service/card.service';
 
 @Component({
     selector: 'app-full-screen-slick',
-    templateUrl: './variabe-width-slick.component.html',
-    styleUrls: ['./variabe-width-slick.component.scss'],
+    templateUrl: './show-three-slick.component.html',
+    styleUrls: ['./show-three-slick.component.scss'],
     providers: [CardService]
 })
-export class VariableWidthSlickComponent implements OnInit {
+export class ShowThreeSlickComponent implements OnInit {
     allCards$: Observable<any>;
 
     @ViewChild('container') container: ElementRef;
@@ -20,8 +20,9 @@ export class VariableWidthSlickComponent implements OnInit {
     width: any;
 
     slideConfig = {
-        slidesToScroll: 1,
-        variableWidth: true,
+        slidesToScroll: 3,
+        slidesToShow: 3,
+        variableWidth: false,
         nextArrow: "<div class='nav-btn next-slide'></div>",
         prevArrow: "<div class='nav-btn prev-slide'></div>",
         dots: true,
