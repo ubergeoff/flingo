@@ -218,9 +218,13 @@
             });
     };
 
+    //---------------------------
+    // Complete
+    // -- $(markup)
+    // ---------------------------
     Slick.prototype.addSlide = function (markup, index, addBefore) {
         var _ = this;
-        const thisSlideTrack = $(_.$slideTrack);
+        //const thisSlideTrack = $(_.$slideTrack);
 
         if (typeof index === 'boolean') {
             addBefore = index;
@@ -241,27 +245,44 @@
             }
         } else {
             if (addBefore === true) {
+                // not using yet
                 $(markup).prependTo(thisSlideTrack);
             } else {
-                $(markup).appendTo(thisSlideTrack);
+                //$(markup).appendTo(thisSlideTrack);
+                _.$slideTrack.appendChild(markup);
             }
         }
 
-        _.$slides = thisSlideTrack.children(this.options.slide);
+        //_.$slides = thisSlideTrack.children(this.options.slide);
+        _.$slides = Array.from(_.$slideTrack.children);
 
-        thisSlideTrack.children(this.options.slide).detach();
+        //thisSlideTrack.children(this.options.slide).detach();
+        for (let item of Array.from(_.$slideTrack.children)) {
+            item.parentNode.removeChild(item);
+        }
 
-        thisSlideTrack.append(_.$slides);
+        //thisSlideTrack.append(_.$slides);
+        let indexer = 0;
+        for (let item of _.$slides) {
+            _.$slideTrack.appendChild(item);
+            item.setAttribute('data-slick-index', indexer++);
+        }
 
-        _.$slides.each(function (index, element) {
+        /*_.$slides.each(function (index, element) {
             $(element).attr('data-slick-index', index);
-        });
+
+        });*/
 
         _.$slidesCache = _.$slides;
 
         _.reinit();
     };
 
+    //---------------------------
+    // Complete
+    // -- not using adaptive height
+    // - finsh this is you need this
+    // ---------------------------
     Slick.prototype.animateHeight = function () {
         var _ = this;
         if (_.options.slidesToShow === 1 && _.options.adaptiveHeight === true && _.options.vertical === false) {
@@ -275,6 +296,11 @@
         }
     };
 
+    // ---------------------
+    // Complete
+    // We always use CSS transitions
+    // So consider this complete ?
+    // ---------------------------------
     Slick.prototype.animateSlide = function (targetLeft, callback) {
         var animProps = {},
             _ = this;
@@ -2269,8 +2295,8 @@
         if (_.options.rtl === true) {
             position = -position;
         }
-        x = _.positionProp == 'left' ? Math.ceil(position) + 'px' : '0px';
-        y = _.positionProp == 'top' ? Math.ceil(position) + 'px' : '0px';
+        x = _.positionProp === 'left' ? Math.ceil(position) + 'px' : '0px';
+        y = _.positionProp === 'top' ? Math.ceil(position) + 'px' : '0px';
 
         positionProps[_.positionProp] = position;
 
@@ -2589,9 +2615,10 @@
             _.setFade();
         }
 
+        //dont really want or need this trigger event
         //$(_.$slider).trigger('setPosition', [_]);
-        const event = _.createTrigger('setPosition', [_]);
-        _.$slider.dispatchEvent(event);
+        //const event = _.createTrigger('setPosition', [_]);
+        //_.$slider.dispatchEvent(event);
     };
 
     // --------------------------
@@ -3011,7 +3038,7 @@
         var _ = this;
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
-            // -- not using arrows
+            // -- not using arrows yet
             //_.$prevArrow.hide();
             //_.$nextArrow.hide();
         }
