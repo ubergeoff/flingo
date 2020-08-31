@@ -31,6 +31,9 @@
 
     var instanceUid = 0;
 
+    // --------------------------
+    // Complete
+    // --------------------------
     function Slick(element, settings) {
         var _ = this,
             dataSettings;
@@ -165,7 +168,7 @@
             _.visibilityChange = 'webkitvisibilitychange';
         }
 
-        _.autoPlay = $.proxy(_.autoPlay, _);
+        /*_.autoPlay = $.proxy(_.autoPlay, _);
         _.autoPlayClear = $.proxy(_.autoPlayClear, _);
         _.autoPlayIterator = $.proxy(_.autoPlayIterator, _);
         _.changeSlide = $.proxy(_.changeSlide, _);
@@ -174,7 +177,18 @@
         _.setPosition = $.proxy(_.setPosition, _);
         _.swipeHandler = $.proxy(_.swipeHandler, _);
         _.dragHandler = $.proxy(_.dragHandler, _);
-        _.keyHandler = $.proxy(_.keyHandler, _);
+        _.keyHandler = $.proxy(_.keyHandler, _);*/
+
+        _.autoPlay = _.autoPlay.bind(_);
+        _.autoPlayClear = _.autoPlayClear.bind(_);
+        _.autoPlayIterator = _.autoPlayIterator.bind(_);
+        _.changeSlide = _.changeSlide.bind(_);
+        _.clickHandler = _.clickHandler.bind(_);
+        _.selectHandler = _.selectHandler.bind(_);
+        _.setPosition = _.setPosition.bind(_);
+        _.swipeHandler = _.swipeHandler.bind(_);
+        //_.dragHandler = _.dragHandler.bind(_);
+        _.keyHandler = _.keyHandler.bind(_);
 
         _.instanceUid = instanceUid++;
 
