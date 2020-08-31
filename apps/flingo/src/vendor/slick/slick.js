@@ -1325,6 +1325,9 @@
         return pagerQty - 1;
     };
 
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.getLeft = function (slideIndex) {
         var _ = this,
             targetLeft,
@@ -2421,7 +2424,7 @@
             }
         }
 
-        let check = $(_.$list).width();
+        //let check = $(_.$list).width();
 
         if (_.options.centerMode === true) {
             _.listWidth = _.get_Width(_.$list, true);
