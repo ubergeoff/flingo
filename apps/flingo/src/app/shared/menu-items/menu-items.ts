@@ -45,6 +45,13 @@ const MENUITEMS = [
         children: [{ state: 'dashboard1', name: 'Muuri', type: 'link' }]
     },
     {
+        state: 'grid',
+        name: 'Gridjs',
+        type: 'sub',
+        icon: 'dashboard',
+        children: [{ state: 'dashboard1', name: 'Gridjs', type: 'link' }]
+    },
+    {
         state: 'slick',
         name: 'Slick',
         type: 'sub',

@@ -6,6 +6,7 @@ import { VariableWidthSlickComponent } from './pages/variabe-width-slick/variabe
 import { CenterSlickComponent } from './pages/center-slick/center-slick.component';
 import { FixedWidthComponent } from './pages/fixed-width-slick/fixed-width.component';
 import { ShowThreeSlickComponent } from './pages/show-three-slick/show-three-slick.component';
+import { GridDemoComponent } from './pages/grid/grid-demo.component';
 
 export const AppRoutes: Routes = [
     {
@@ -14,7 +15,7 @@ export const AppRoutes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'dashboards/dashboard1',
+                redirectTo: 'muuri/dashboard1',
                 pathMatch: 'full'
             },
             {
@@ -26,6 +27,19 @@ export const AppRoutes: Routes = [
                         data: {
                             title: 'Muuri example',
                             urls: [{ title: 'Dashboards', url: '/dashboard' }, { title: 'Muuri' }]
+                        }
+                    }
+                ]
+            },
+            {
+                path: 'grid',
+                children: [
+                    {
+                        path: 'dashboard1',
+                        component: GridDemoComponent,
+                        data: {
+                            title: 'Gridjs example',
+                            urls: [{ title: 'Dashboards', url: '/dashboard' }, { title: 'Gridjs' }]
                         }
                     }
                 ]

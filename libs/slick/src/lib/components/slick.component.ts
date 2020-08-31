@@ -5,7 +5,6 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    forwardRef,
     Inject,
     Input,
     OnChanges,
@@ -14,7 +13,6 @@ import {
     PLATFORM_ID,
     SimpleChanges
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SlickItemDirective } from '../directives/slick-item.directive';
 
 declare var Slick: any;
@@ -25,13 +23,6 @@ declare var Slick: any;
 @Component({
     selector: 'roi-slick-carousel',
     exportAs: 'slick-carousel',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => SlickCarouselComponent),
-            multi: true
-        }
-    ],
     template: '<ng-content></ng-content>'
 })
 export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewInit, AfterViewChecked {
@@ -53,7 +44,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
     @Output() destroy: EventEmitter<{ event: any; slick: any }> = new EventEmitter();
     @Output() init: EventEmitter<{ event: any; slick: any }> = new EventEmitter();
 
-    public $instance: any;
+    public slick: any;
 
     // access from parent component can be a problem with change detection timing. Please use afterChange output
     private currentIndex = 0;
@@ -100,7 +91,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
                 this._addedSlides.forEach((slickItem) => {
                     this.slides.push(slickItem);
 
-                    this.$instance.addSlide(slickItem.el.nativeElement);
+                    this.slick.addSlide(slickItem.el.nativeElement);
                 });
                 this._addedSlides = [];
 
@@ -108,7 +99,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
                     const idx = this.slides.indexOf(slickItem);
                     this.slides = this.slides.filter((s) => s !== slickItem);
 
-                    this.$instance.removeSlide(idx);
+                    this.slick.removeSlide(idx);
                 });
                 this._removedSlides = [];
             }
@@ -122,58 +113,19 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
         this.slides = this._addedSlides;
         this._addedSlides = [];
         this._removedSlides = [];
-        /*this.zone.runOutsideAngular(() => {*/
-        this.$instance = new Slick(this.el.nativeElement, this.config);
+
+        this.slick = new Slick(this.el.nativeElement, this.config);
         this.initialized = true;
 
-        /*
-            this.$instance.on('init', (event, slick) => {
-                this.zone.run(() => {
-                    this.init.emit({ event, slick });
-                });
-            });
+        this.slick.$slider.addEventListener('afterChange', (a, b, c) => {
+            if (a) {
+            }
+        });
 
-            this.$instance.slick(this.config);
-
-            this.zone.run(() => {
-                this.initialized = true;
-
-                this.currentIndex = this.config?.initialSlide || 0;
-            });
-
-            this.$instance.on('afterChange', (event, slick, currentSlide) => {
-                this.zone.run(() => {
-                    this.afterChange.emit({
-                        event,
-                        slick,
-                        currentSlide,
-                        first: currentSlide === 0,
-                        last: slick.$slides.length === currentSlide + slick.options.slidesToScroll
-                    });
-                    this.currentIndex = currentSlide;
-                });
-            });
-
-            this.$instance.on('beforeChange', (event, slick, currentSlide, nextSlide) => {
-                this.zone.run(() => {
-                    this.beforeChange.emit({ event, slick, currentSlide, nextSlide });
-                    this.currentIndex = nextSlide;
-                });
-            });
-
-            this.$instance.on('breakpoint', (event, slick, breakpoint) => {
-                this.zone.run(() => {
-                    this.breakpoint.emit({ event, slick, breakpoint });
-                });
-            });
-
-            this.$instance.on('destroy', (event, slick) => {
-                this.zone.run(() => {
-                    this.destroy.emit({ event, slick });
-                    this.initialized = false;
-                });
-            });*/
-        /*});*/
+        this.slick.$slider.addEventListener('init', (a, b, c) => {
+            if (a) {
+            }
+        });
     }
 
     addSlide(slickItem: SlickItemDirective) {
@@ -184,45 +136,12 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
         this._removedSlides.push(slickItem);
     }
 
-    /**
-     * Slick Method
-     */
-    /*public slickGoTo(index: number) {
-        this.zone.runOutsideAngular(() => {
-            this.$instance.slick('slickGoTo', index);
-        });
-    }
-
-    public slickNext() {
-        this.zone.runOutsideAngular(() => {
-            this.$instance.slick('slickNext');
-        });
-    }
-
-    public slickPrev() {
-        this.zone.runOutsideAngular(() => {
-            this.$instance.slick('slickPrev');
-        });
-    }
-
-    public slickPause() {
-        this.zone.runOutsideAngular(() => {
-            this.$instance.slick('slickPause');
-        });
-    }
-
-    public slickPlay() {
-        this.zone.runOutsideAngular(() => {
-            this.$instance.slick('slickPlay');
-        });
-    }*/
-
     public unslick() {
-        if (this.$instance) {
+        if (this.slick) {
             /*this.zone.runOutsideAngular(() => {*/
-            this.$instance.unslick();
+            this.slick.unslick();
             /*});*/
-            this.$instance = undefined;
+            this.slick = undefined;
         }
         this.initialized = false;
     }

@@ -27,11 +27,13 @@ import { SpinnerComponent } from './shared/spinner.component';
 import { MatListModule } from '@angular/material/list';
 import { MuuriModule } from '@rooi/muuri';
 import { SlickModule } from '@rooi/slick';
+import { GridModule } from '@rooi/grid';
 import { FullScreenSlickComponent } from './pages/full-screen-slick/full-screen-slick.component';
 import { VariableWidthSlickComponent } from './pages/variabe-width-slick/variabe-width-slick.component';
 import { CenterSlickComponent } from './pages/center-slick/center-slick.component';
 import { FixedWidthComponent } from './pages/fixed-width-slick/fixed-width.component';
 import { ShowThreeSlickComponent } from './pages/show-three-slick/show-three-slick.component';
+import { GridDemoComponent } from './pages/grid/grid-demo.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -51,7 +53,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         FullScreenSlickComponent,
         VariableWidthSlickComponent,
         CenterSlickComponent,
-        ShowThreeSlickComponent
+        ShowThreeSlickComponent,
+        GridDemoComponent
     ],
     imports: [
         BrowserModule,
@@ -70,7 +73,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatToolbarModule,
         MatListModule,
         MuuriModule,
-        SlickModule
+        SlickModule,
+        GridModule
     ],
     providers: [
         {

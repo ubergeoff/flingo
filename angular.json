@@ -25,7 +25,8 @@
                         "styles": [
                             "apps/flingo/src/styles.scss",
                             "node_modules/slick-carousel/slick/slick.scss",
-                            "node_modules/slick-carousel/slick/slick-theme.scss"
+                            "node_modules/slick-carousel/slick/slick-theme.scss",
+                            "node_modules/gridjs/dist/theme/mermaid.css"
                         ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.slim.min.js",
@@ -200,6 +201,47 @@
                         "tsConfig": "libs/slick/tsconfig.spec.json",
                         "passWithNoTests": true,
                         "setupFile": "libs/slick/src/test-setup.ts"
+                    }
+                }
+            },
+            "schematics": {
+                "@nrwl/angular:component": {
+                    "style": "scss"
+                }
+            }
+        },
+        "grid": {
+            "projectType": "library",
+            "root": "libs/grid",
+            "sourceRoot": "libs/grid/src",
+            "prefix": "rooi",
+            "architect": {
+                "build": {
+                    "builder": "@nrwl/angular:package",
+                    "options": {
+                        "tsConfig": "libs/grid/tsconfig.lib.json",
+                        "project": "libs/grid/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "libs/grid/tsconfig.lib.prod.json"
+                        }
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": ["libs/grid/tsconfig.lib.json", "libs/grid/tsconfig.spec.json"],
+                        "exclude": ["**/node_modules/**", "!libs/grid/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/grid/jest.config.js",
+                        "tsConfig": "libs/grid/tsconfig.spec.json",
+                        "passWithNoTests": true,
+                        "setupFile": "libs/grid/src/test-setup.ts"
                     }
                 }
             },
