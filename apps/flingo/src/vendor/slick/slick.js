@@ -234,7 +234,7 @@
 
     //---------------------------
     // Complete
-    // -- $(markup)
+    // -- not using $(markup)
     // ---------------------------
     Slick.prototype.addSlide = function (markup, index, addBefore) {
         var _ = this;
@@ -295,7 +295,7 @@
     //---------------------------
     // Complete
     // -- not using adaptive height
-    // - finsh this is you need this
+    // - finish this, if you require this
     // ---------------------------
     Slick.prototype.animateHeight = function () {
         var _ = this;
@@ -671,7 +671,6 @@
     // ------------------------
     // Complete
     // ------------------------
-    // Wrap an HTMLElement around another HTMLElement or an array of them.
     Slick.prototype.wrapAll = function (nodes, wrapper) {
         // Cache the current parent and previous sibling of the first node.
         var parent = nodes[0].parentNode;
@@ -1226,8 +1225,7 @@
     // --------------------------
     Slick.prototype.cssAppender = function (el, styles) {
         Object.keys(styles).forEach((t) => {
-            const val = styles[t];
-            el.style[t] = val;
+            el.style[t] = styles[t];
         });
     };
 
@@ -1495,6 +1493,10 @@
         return this;
     };
 
+    // --------------------------
+    // Complete
+    // -- not using "swipeToSlide"
+    // --------------------------
     Slick.prototype.getSlideCount = function () {
         var _ = this,
             slidesTraversed,
@@ -1736,6 +1738,9 @@
         }
     };
 
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.isMatches = function (el, selector) {
         return (
             el.matches ||
