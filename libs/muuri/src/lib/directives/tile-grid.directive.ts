@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
@@ -7,9 +7,9 @@ declare var Muuri: any;
 @Directive({
     selector: '[roiTileGrid]'
 })
-export class TileGridDirective implements OnInit, OnDestroy {
+export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
     layoutConfig = {
-        items: [],
+        items: '*',
         layoutOnInit: false,
         dragEnabled: false,
         layout: {
@@ -43,51 +43,28 @@ export class TileGridDirective implements OnInit, OnDestroy {
     @Input() dragHandle = '.tile-handle';
 
     private events: string[];
-    private items: ElementRef[];
     private addItemChange = new Subject<ElementRef>();
-    private removeItemChange = new Subject<ElementRef>();
     private subscription = new Subscription();
-    private isInit = false;
+    private _isInit = false;
 
     constructor(private elRef: ElementRef) {
         this.events = [];
-        this.items = [];
     }
 
     ngOnInit(): void {
         this.init(this.elRef.nativeElement);
 
         this.subscription.add(
-            this.addItemChange
-                .pipe(
-                    filter((item) => !!item),
-                    tap((item) => this.items.push(item)),
-                    debounceTime(10),
-                    filter((t) => this.items.length > 0)
-                )
-                .subscribe(() => {
-                    this.finalizeLayoutItems(this.items);
-                    this.isInit = true;
-                })
+            this.addItemChange.pipe(debounceTime(10)).subscribe(() => {
+                if (this._isInit) {
+                    this.grid.layout();
+                }
+            })
         );
-
-        this.subscription.add(
-            this.removeItemChange
-                .pipe(
-                    filter((item) => !!item),
-                    tap((item) => {
-                        const index = this.items.indexOf(item);
-                        if (index > -1) {
-                            this.items.splice(index, 1);
-                        }
-                    }),
-                    debounceTime(10),
-                    filter((t) => this.items.length > 0)
-                )
-                .subscribe(() => {
-                    this.finalizeLayoutItems(this.items);
-                })
-        );
+    }
+    ngAfterViewInit(): void {
+        this.grid = new Muuri(this.elRef.nativeElement, this.layoutConfig);
+        this._isInit = true;
     }
 
     init(element: ElementRef) {
@@ -105,27 +82,22 @@ export class TileGridDirective implements OnInit, OnDestroy {
                 handle: this.dragHandle
             };
         }
-
-        this.grid = new Muuri(element, this.layoutConfig);
-    }
-
-    private finalizeLayoutItems(items: ElementRef[]) {
-        const existingItems = this.grid.getItems();
-
-        if (existingItems && existingItems.length > 0) {
-            this.grid.remove(existingItems, { layout: false });
-        }
-
-        this.grid.add(items, { layout: true });
-        return true;
     }
 
     addItem(item: ElementRef) {
-        this.addItemChange.next(item.nativeElement);
+        if (this._isInit) {
+            this.grid.add(item.nativeElement, { layout: true });
+        } else {
+            this.addItemChange.next(item);
+        }
     }
 
     removeItem(item: ElementRef) {
-        this.removeItemChange.next(item.nativeElement);
+        const found = this.grid.getItems().find((t) => t._element.id === item.nativeElement.id);
+
+        if (this._isInit && found) {
+            this.grid.remove([found], { layout: true });
+        }
     }
 
     on(eventName: string, action: any) {
