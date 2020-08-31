@@ -41,14 +41,14 @@ const MENUITEMS = [
         state: 'muuri',
         name: 'Muuri',
         type: 'sub',
-        icon: 'av_timer',
+        icon: 'dashboard',
         children: [{ state: 'dashboard1', name: 'Muuri', type: 'link' }]
     },
     {
         state: 'slick',
         name: 'Slick',
         type: 'sub',
-        icon: 'av_timer',
+        icon: 'view_carousel',
         children: [
             { state: 'slick1', name: 'Fixed Width', type: 'link' },
             { state: 'slick3', name: 'Variable width', type: 'link' },
