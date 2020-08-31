@@ -38,12 +38,18 @@ const MENUITEMS = [
         icon: 'av_timer'
     },
     {
-        state: 'dashboards',
-        name: 'Dashboards',
+        state: 'muuri',
+        name: 'Muuri',
+        type: 'sub',
+        icon: 'av_timer',
+        children: [{ state: 'dashboard1', name: 'Muuri', type: 'link' }]
+    },
+    {
+        state: 'slick',
+        name: 'Slick',
         type: 'sub',
         icon: 'av_timer',
         children: [
-            { state: 'dashboard1', name: 'Muuri', type: 'link' },
             { state: 'slick1', name: 'Fixed Width', type: 'link' },
             { state: 'slick3', name: 'Variable width', type: 'link' },
             { state: 'slick2', name: 'Full screen', type: 'link' },

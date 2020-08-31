@@ -18,7 +18,7 @@ export const AppRoutes: Routes = [
                 pathMatch: 'full'
             },
             {
-                path: 'dashboards',
+                path: 'muuri',
                 children: [
                     {
                         path: 'dashboard1',
@@ -27,7 +27,12 @@ export const AppRoutes: Routes = [
                             title: 'Muuri example',
                             urls: [{ title: 'Dashboards', url: '/dashboard' }, { title: 'Muuri' }]
                         }
-                    },
+                    }
+                ]
+            },
+            {
+                path: 'slick',
+                children: [
                     {
                         path: 'slick1',
                         component: FixedWidthComponent,
