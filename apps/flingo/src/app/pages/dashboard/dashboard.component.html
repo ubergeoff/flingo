@@ -3,7 +3,14 @@
         <h1 class="mat-h1">Dashboard</h1>
         <span>{{ message | async }}</span>
     </div>
-    <div class="grid" roiTileGrid [dragHandle]="'mat-card-header'" [dragEnabled]="true" [threshold]="25">
+    <div
+        class="grid"
+        roiTileGrid
+        [dragHandle]="'mat-card-header'"
+        [dragEnabled]="true"
+        [threshold]="25"
+        [fillGaps]="true"
+    >
         <mat-card
             roiTileGridItem
             class="item"

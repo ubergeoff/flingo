@@ -25,10 +25,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppBreadcrumbComponent } from './layouts/full/breadcrumb/breadcrumb.component';
 import { SpinnerComponent } from './shared/spinner.component';
 import { MatListModule } from '@angular/material/list';
-import { SliderComponent } from './pages/slider/slider.component';
 import { MuuriModule } from '@rooi/muuri';
 import { SlickModule } from '@rooi/slick';
 import { FullScreenSlickComponent } from './pages/full-screen-slick/full-screen-slick.component';
+import { VariableWidthSlickComponent } from './pages/variabe-width-slick/variabe-width-slick.component';
+import { CenterSlickComponent } from './pages/center-slick/center-slick.component';
+import { SliderComponent } from './pages/fixed-width-slick/slider.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -45,7 +47,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         AppSidebarComponent,
         SpinnerComponent,
         SliderComponent,
-        FullScreenSlickComponent
+        FullScreenSlickComponent,
+        VariableWidthSlickComponent,
+        CenterSlickComponent
     ],
     imports: [
         BrowserModule,

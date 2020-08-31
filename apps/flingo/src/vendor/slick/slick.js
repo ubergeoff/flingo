@@ -933,6 +933,9 @@
         }
     };
 
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.indexInParent = function (node) {
         var children = node.parentNode.childNodes;
         var num = 0;
@@ -1332,7 +1335,8 @@
         const thisSlideTrack = $(_.$slideTrack);
 
         _.slideOffset = 0;
-        verticalHeight = $(_.$slides).first().outerHeight(true);
+        //verticalHeight = $(_.$slides).first().outerHeight(true);
+        verticalHeight = _.get_OuterHeight(_.$slides[0], true);
 
         if (_.options.infinite === true) {
             if (_.slideCount > _.options.slidesToShow) {
@@ -1388,39 +1392,56 @@
 
         if (_.options.variableWidth === true) {
             if (_.slideCount <= _.options.slidesToShow || _.options.infinite === false) {
-                targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex);
+                //targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex);
+                targetSlide = _.$slideTrack.children[slideIndex];
             } else {
-                targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex + _.options.slidesToShow);
+                //targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex + _.options.slidesToShow);
+                targetSlide = _.$slideTrack.children[slideIndex + _.options.slidesToShow];
             }
 
             if (_.options.rtl === true) {
-                if (targetSlide[0]) {
+                // not using rtl yes - so this wont work yet
+                /* if (targetSlide[0]) {
                     targetLeft = (thisSlideTrack.width() - targetSlide[0].offsetLeft - targetSlide.width()) * -1;
                 } else {
                     targetLeft = 0;
-                }
+                }*/
             } else {
-                targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
+                //targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
+                targetLeft = targetSlide ? targetSlide.offsetLeft * -1 : 0;
             }
 
             if (_.options.centerMode === true) {
                 if (_.slideCount <= _.options.slidesToShow || _.options.infinite === false) {
-                    targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex);
+                    //targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex);
+                    targetSlide = _.$slideTrack.children[slideIndex];
                 } else {
-                    targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex + _.options.slidesToShow + 1);
+                    //targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex + _.options.slidesToShow + 1);
+                    targetSlide = _.$slideTrack.children[slideIndex + _.options.slidesToShow + 1];
                 }
 
                 if (_.options.rtl === true) {
-                    if (targetSlide[0]) {
+                    // not using rtl yes - so this wont work yet
+                    /*if (targetSlide) {
                         targetLeft = (thisSlideTrack.width() - targetSlide[0].offsetLeft - targetSlide.width()) * -1;
                     } else {
                         targetLeft = 0;
-                    }
+                    }*/
                 } else {
-                    targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
+                    //targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
+                    targetLeft = targetSlide ? targetSlide.offsetLeft * -1 : 0;
                 }
 
-                targetLeft += (_.$list.width() - targetSlide.outerWidth()) / 2;
+                /*let one = $(_.$list).width();
+                let two = targetSlide.outerWidth();*/
+
+                //let one = $(_.$list).width();
+                //let other = _.get_Width(_.$list);
+
+                let trueWidth = _.get_Width(_.$list, true);
+
+                //targetLeft += ($(_.$list).width() - targetSlide.outerWidth()) / 2;
+                targetLeft += (trueWidth - _.get_OuterWidth(targetSlide)) / 2;
             }
         }
 
@@ -1478,7 +1499,8 @@
             swipeTarget,
             centerOffset;
 
-        centerOffset = _.options.centerMode === true ? Math.floor(_.$list.width() / 2) : 0;
+        //centerOffset = _.options.centerMode === true ? Math.floor(_.$list.width() / 2) : 0;
+        centerOffset = _.options.centerMode === true ? Math.floor(_.get_Width(_.$list, true) / 2) : 0;
         swipeTarget = _.swipeLeft * -1 + centerOffset;
 
         if (_.options.swipeToSlide === true) {
@@ -2399,8 +2421,14 @@
             }
         }
 
-        //_.listWidth = thisList.width();
-        _.listWidth = _.get_Width(_.$list);
+        let check = $(_.$list).width();
+
+        if (_.options.centerMode === true) {
+            _.listWidth = _.get_Width(_.$list, true);
+        } else {
+            _.listWidth = _.get_Width(_.$list);
+        }
+
         //_.listHeight = thisList.height();
         _.listHeight = _.get_Height(_.$list);
 
@@ -2485,10 +2513,21 @@
     //-----------------------------------
     // Complete
     //-----------------------------------
-    Slick.prototype.get_Width = function (el) {
-        let num = parseFloat(getComputedStyle(el, null).width.replace('px', ''));
-        if (num) {
-            return num;
+    Slick.prototype.get_Width = function (el, removePadding) {
+        let comp = getComputedStyle(el, null);
+
+        if (removePadding) {
+            let num = parseFloat(comp.width.replace('px', ''));
+            let padLeft = parseFloat(comp.paddingLeft.replace('px', ''));
+            let padRight = parseFloat(comp.paddingRight.replace('px', ''));
+            if (num) {
+                return num - padLeft - padRight;
+            }
+        } else {
+            let num = parseFloat(comp.width.replace('px', ''));
+            if (num) {
+                return num;
+            }
         }
 
         return 0;

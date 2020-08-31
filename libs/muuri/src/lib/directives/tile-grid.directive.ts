@@ -37,7 +37,7 @@ export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
     grid: any;
 
     @Input() dragEnabled = true;
-    @Input() fillGaps = true;
+    @Input() fillGaps = false;
     @Input() sortAction = 'swap';
     @Input() threshold = 40;
     @Input() dragHandle = '.tile-handle';
@@ -93,7 +93,10 @@ export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
     }
 
     removeItem(item: ElementRef) {
-        const found = this.grid.getItems().find((t) => t._element.id === item.nativeElement.id);
+        let found = null;
+        if (item.nativeElement.id) {
+            found = this.grid.getItems().find((t) => t._element.id === item.nativeElement.id);
+        }
 
         if (this._isInit && found) {
             this.grid.remove([found], { layout: true });
