@@ -204,10 +204,24 @@
         return out;
     };
 
+    //---------------------------
+    // Complete
+    // -- Not sure of behaviour tho ??
+    // ---------------------------
     Slick.prototype.activateADA = function () {
         var _ = this;
 
-        $(_.$slideTrack)
+        const slickActive = _.$slideTrack.querySelector('.slick-active');
+        if (slickActive) {
+            slickActive.setAttribute('aria-hidden', 'false');
+            const allOther = slickActive.querySelectorAll('a, input, button, select');
+
+            for (let element of allOther) {
+                element.setAttribute('aria-hidden', 'false');
+            }
+        }
+
+        /* $(_.$slideTrack)
             .find('.slick-active')
             .attr({
                 'aria-hidden': 'false'
@@ -215,7 +229,7 @@
             .find('a, input, button, select')
             .attr({
                 tabindex: '0'
-            });
+            });*/
     };
 
     //---------------------------
@@ -386,6 +400,10 @@
         }
     };
 
+    //---------------------------
+    // Complete
+    // -- not using "asNavFor"
+    // ---------------------------
     Slick.prototype.getNavTarget = function () {
         var _ = this,
             asNavFor = _.options.asNavFor;
@@ -397,6 +415,10 @@
         return asNavFor;
     };
 
+    //---------------------------
+    // Complete
+    // -- not using "asNavFor"
+    // ---------------------------
     Slick.prototype.asNavFor = function (index) {
         var _ = this,
             asNavFor = _.getNavTarget();
@@ -480,6 +502,10 @@
         }
     };
 
+    //---------------------------
+    // Complete
+    // -- not using "arrows" yet
+    // ---------------------------
     Slick.prototype.buildArrows = function () {
         var _ = this;
 
@@ -848,22 +874,29 @@
         }
     };
 
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.changeSlide = function (event, dontAnimate) {
+        //$target = $(event.currentTarget),
+
         var _ = this,
-            $target = $(event.currentTarget),
+            $target = event.currentTarget,
             indexOffset,
             slideOffset,
             unevenOffset;
 
         // If target is a link, prevent default action.
-        if ($target.is('a')) {
+        //not using
+        /*if ($target.is('a')) {
             event.preventDefault();
-        }
+        }*/
 
         // If target is not the <li> element (ie: a child), find the <li>.
-        if (!$target.is('li')) {
+        //not using
+        /*if (!$target.is('li')) {
             $target = $target.closest('li');
-        }
+        }*/
 
         unevenOffset = _.slideCount % _.options.slidesToScroll !== 0;
         indexOffset = unevenOffset ? 0 : (_.slideCount - _.currentSlide) % _.options.slidesToScroll;
@@ -884,15 +917,30 @@
                 break;
 
             case 'index':
-                var index = event.data.index === 0 ? 0 : event.data.index || $target.index() * _.options.slidesToScroll;
+                var index =
+                    event.data.index === 0
+                        ? 0
+                        : event.data.index || _.indexInParent($target) * _.options.slidesToScroll;
 
                 _.slideHandler(_.checkNavigable(index), false, dontAnimate);
-                $target.children().trigger('focus');
+
+                //not doing focus yet
+                //$target.children().trigger('focus');
                 break;
 
             default:
                 return;
         }
+    };
+
+    Slick.prototype.indexInParent = function (node) {
+        var children = node.parentNode.childNodes;
+        var num = 0;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i] == node) return num;
+            if (children[i].nodeType == 1) num++;
+        }
+        return -1;
     };
 
     // --------------------------
