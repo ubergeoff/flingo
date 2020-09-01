@@ -42,7 +42,10 @@ const MENUITEMS = [
         name: 'Muuri',
         type: 'sub',
         icon: 'dashboard',
-        children: [{ state: 'dashboard1', name: 'Muuri', type: 'link' }]
+        children: [
+            { state: 'dashboard1', name: 'Dashboard', type: 'link' },
+            { state: 'starwars', name: 'Star Wars', type: 'link' }
+        ]
     },
     {
         state: 'grid',

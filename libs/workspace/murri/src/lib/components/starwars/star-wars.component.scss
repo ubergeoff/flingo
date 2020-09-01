@@ -1,0 +1,66 @@
+.grid-container {
+    margin: 20px;
+}
+
+.grid-head {
+}
+
+.grid {
+    position: relative;
+}
+
+.item {
+    position: absolute;
+    /* width: 190px;
+    height: 280px;*/
+    margin: 8px;
+    cursor: grab;
+
+    &.muuri-item-dragging {
+        z-index: 3;
+    }
+
+    &.muuri-item-releasing {
+        z-index: 2;
+    }
+
+    &.muuri-item-hidden {
+        z-index: 0;
+    }
+}
+
+.item.muuri-item-dragging {
+    z-index: 3;
+}
+
+.item.muuri-item-releasing {
+    z-index: 2;
+}
+
+.item.muuri-item-hidden {
+    z-index: 0;
+}
+
+.more-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.dashboard-card-content {
+    text-align: center;
+}
+
+.footer {
+    margin-top: 16px;
+}
+
+.nice-wars {
+    background-color: black;
+    border-radius: 12px;
+    width: 200px;
+    height: 290px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
