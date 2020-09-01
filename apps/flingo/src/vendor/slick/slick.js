@@ -231,7 +231,7 @@
             const allOther = slickActive.querySelectorAll('a, input, button, select');
 
             for (let element of allOther) {
-                element.setAttribute('aria-hidden', 'false');
+                element.setAttribute('tabindex', '0');
             }
         }
 
