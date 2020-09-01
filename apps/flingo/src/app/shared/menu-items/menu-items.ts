@@ -48,7 +48,7 @@ const MENUITEMS = [
         state: 'grid',
         name: 'Gridjs',
         type: 'sub',
-        icon: 'dashboard',
+        icon: 'table_chart',
         children: [{ state: 'dashboard1', name: 'Gridjs', type: 'link' }]
     },
     {
