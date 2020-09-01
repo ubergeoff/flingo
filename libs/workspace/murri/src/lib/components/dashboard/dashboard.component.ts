@@ -1,8 +1,8 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TileGridDirective } from '@rooi/muuri';
-import { CardService } from '../../services/card-service/card.service';
-import { ICard } from '../../interfaces/card.interface';
+import { CardService } from '../../../../../../../apps/flingo/src/app/services/card-service/card.service';
+import { ICard } from '../../../../../../../apps/flingo/src/app/interfaces/card.interface';
 
 @Component({
     selector: 'app-dashboard',

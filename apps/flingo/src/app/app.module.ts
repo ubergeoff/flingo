@@ -2,9 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,19 +18,10 @@ import { SharedModule } from './shared/shared.module';
 import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppBreadcrumbComponent } from './layouts/full/breadcrumb/breadcrumb.component';
 import { SpinnerComponent } from './shared/spinner.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
-import { MuuriModule } from '@rooi/muuri';
-import { SlickModule } from '@rooi/slick';
-import { GridModule } from '@rooi/grid';
-import { FullScreenSlickComponent } from './pages/full-screen-slick/full-screen-slick.component';
-import { VariableWidthSlickComponent } from './pages/variabe-width-slick/variabe-width-slick.component';
-import { CenterSlickComponent } from './pages/center-slick/center-slick.component';
-import { FixedWidthComponent } from './pages/fixed-width-slick/fixed-width.component';
-import { ShowThreeSlickComponent } from './pages/show-three-slick/show-three-slick.component';
-import { GridDemoComponent } from './pages/grid/grid-demo.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -42,26 +30,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        AppBreadcrumbComponent,
-        DashboardComponent,
-        FullComponent,
-        AppSidebarComponent,
-        SpinnerComponent,
-        FixedWidthComponent,
-        FullScreenSlickComponent,
-        VariableWidthSlickComponent,
-        CenterSlickComponent,
-        ShowThreeSlickComponent,
-        GridDemoComponent
-    ],
+    declarations: [AppComponent, AppBreadcrumbComponent, FullComponent, AppSidebarComponent, SpinnerComponent],
     imports: [
         BrowserModule,
         PerfectScrollbarModule,
         BrowserAnimationsModule,
-        MatGridListModule,
-        MatCardModule,
         MatMenuModule,
         MatIconModule,
         MatButtonModule,
@@ -71,10 +44,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatSidenavModule,
         FlexLayoutModule,
         MatToolbarModule,
-        MatListModule,
-        MuuriModule,
-        SlickModule,
-        GridModule
+        MatListModule
     ],
     providers: [
         {

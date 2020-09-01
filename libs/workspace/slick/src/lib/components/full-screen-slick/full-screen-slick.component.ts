@@ -1,15 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
-import { CardService } from '../../services/card-service/card.service';
+import { CardService } from '../../../../../../../apps/flingo/src/app/services/card-service/card.service';
 
 @Component({
     selector: 'app-full-screen-slick',
-    templateUrl: './center-slick.component.html',
-    styleUrls: ['./center-slick.component.scss'],
+    templateUrl: './full-screen-slick.component.html',
+    styleUrls: ['./full-screen-slick.component.scss'],
     providers: [CardService]
 })
-export class CenterSlickComponent implements OnInit {
+export class FullScreenSlickComponent implements OnInit {
     allCards$: Observable<any>;
 
     @ViewChild('container') container: ElementRef;
@@ -20,9 +20,9 @@ export class CenterSlickComponent implements OnInit {
     width: any;
 
     slideConfig = {
+        slidesToShow: 1,
         slidesToScroll: 1,
-        variableWidth: true,
-        centerMode: true,
+        variableWidth: false,
         nextArrow: "<div class='nav-btn next-slide'></div>",
         prevArrow: "<div class='nav-btn prev-slide'></div>",
         dots: true,

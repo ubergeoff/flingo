@@ -37,6 +37,15 @@
         },
         "grid": {
             "tags": []
+        },
+        "workspace-grid": {
+            "tags": []
+        },
+        "workspace-murri": {
+            "tags": []
+        },
+        "workspace-slick": {
+            "tags": []
         }
     }
 }

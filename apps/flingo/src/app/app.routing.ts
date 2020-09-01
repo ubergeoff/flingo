@@ -1,12 +1,5 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FullComponent } from './layouts/full/full.component';
-import { FullScreenSlickComponent } from './pages/full-screen-slick/full-screen-slick.component';
-import { VariableWidthSlickComponent } from './pages/variabe-width-slick/variabe-width-slick.component';
-import { CenterSlickComponent } from './pages/center-slick/center-slick.component';
-import { FixedWidthComponent } from './pages/fixed-width-slick/fixed-width.component';
-import { ShowThreeSlickComponent } from './pages/show-three-slick/show-three-slick.component';
-import { GridDemoComponent } from './pages/grid/grid-demo.component';
 
 export const AppRoutes: Routes = [
     {
@@ -20,74 +13,24 @@ export const AppRoutes: Routes = [
             },
             {
                 path: 'muuri',
-                children: [
-                    {
-                        path: 'dashboard1',
-                        component: DashboardComponent,
-                        data: {
-                            title: 'Muuri example',
-                            urls: [{ title: 'Dashboards', url: '/dashboard' }, { title: 'Muuri' }]
-                        }
-                    }
-                ]
+                loadChildren: () =>
+                    import('../../../../libs/workspace/murri/src/lib/workspace-murri.module').then(
+                        (m) => m.WorkspaceMurriModule
+                    )
             },
             {
                 path: 'grid',
-                children: [
-                    {
-                        path: 'dashboard1',
-                        component: GridDemoComponent,
-                        data: {
-                            title: 'Gridjs example',
-                            urls: [{ title: 'Dashboards', url: '/dashboard' }, { title: 'Gridjs' }]
-                        }
-                    }
-                ]
+                loadChildren: () =>
+                    import('../../../../libs/workspace/grid/src/lib/workspace-grid.module').then(
+                        (m) => m.WorkspaceGridModule
+                    )
             },
             {
                 path: 'slick',
-                children: [
-                    {
-                        path: 'slick1',
-                        component: FixedWidthComponent,
-                        data: {
-                            title: 'Carousel: Fixed width',
-                            urls: [{ title: 'Slick', url: '/slider1' }, { title: 'Carousel' }]
-                        }
-                    },
-                    {
-                        path: 'slick3',
-                        component: VariableWidthSlickComponent,
-                        data: {
-                            title: 'Carousel: Variable width',
-                            urls: [{ title: 'Slick', url: '/slider3' }, { title: 'Carousel' }]
-                        }
-                    },
-                    {
-                        path: 'slick2',
-                        component: FullScreenSlickComponent,
-                        data: {
-                            title: 'Carousel: Full screen',
-                            urls: [{ title: 'Slick', url: '/slider2' }, { title: 'Carousel' }]
-                        }
-                    },
-                    {
-                        path: 'slick4',
-                        component: CenterSlickComponent,
-                        data: {
-                            title: 'Carousel: Center mode',
-                            urls: [{ title: 'Slick', url: '/slider4' }, { title: 'Carousel' }]
-                        }
-                    },
-                    {
-                        path: 'slick5',
-                        component: ShowThreeSlickComponent,
-                        data: {
-                            title: 'Carousel: Show three',
-                            urls: [{ title: 'Slick', url: '/slider5' }, { title: 'Carousel' }]
-                        }
-                    }
-                ]
+                loadChildren: () =>
+                    import('../../../../libs/workspace/slick/src/lib/workspace-slick.module').then(
+                        (m) => m.WorkspaceSlickModule
+                    )
             }
         ]
     },
