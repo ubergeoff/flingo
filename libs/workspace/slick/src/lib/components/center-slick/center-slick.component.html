@@ -3,7 +3,7 @@
         <h1 class="mat-h1">Dashboard</h1>
     </div>
     <div class="grid">
-        <roi-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+        <roi-slick-carousel class="carousel" [config]="slideConfig">
             <div roiSlickItem *ngFor="let card of allCards$ | async">
                 <mat-card class="dashboard-card">
                     <mat-card-header>

@@ -1,26 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FullScreenSlickComponent } from './full-screen-slick.component';
 import { SlickModule } from '@rooi/slick';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatGridListModule } from '@angular/material/grid-list';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { VariableWidthSlickComponent } from './variabe-width-slick.component';
 
-describe('FullScreenSlickComponent', () => {
-    let component: FullScreenSlickComponent;
-    let fixture: ComponentFixture<FullScreenSlickComponent>;
+describe('VariableWidthSlickComponent', () => {
+    let component: VariableWidthSlickComponent;
+    let fixture: ComponentFixture<VariableWidthSlickComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SlickModule, MatButtonModule, MatCardModule, MatIconModule, MatMenuModule, MatIconModule],
-            declarations: [FullScreenSlickComponent]
+            declarations: [VariableWidthSlickComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(FullScreenSlickComponent);
+        fixture = TestBed.createComponent(VariableWidthSlickComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -21,7 +21,8 @@
             "@rooi/grid": ["libs/grid/src/index.ts"],
             "@rooi/workspace/grid": ["libs/workspace/grid/src/index.ts"],
             "@rooi/workspace/murri": ["libs/workspace/murri/src/index.ts"],
-            "@rooi/workspace/slick": ["libs/workspace/slick/src/index.ts"]
+            "@rooi/workspace/slick": ["libs/workspace/slick/src/index.ts"],
+            "@rooi/workspace/shared": ["libs/workspace/shared/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

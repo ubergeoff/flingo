@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
-import { CardService } from '../../../../../../../apps/flingo/src/app/services/card-service/card.service';
+import { CardService } from '@rooi/workspace/shared';
 
 @Component({
     selector: 'app-full-screen-slick',

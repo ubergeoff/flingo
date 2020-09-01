@@ -331,6 +331,34 @@
                 }
             },
             "schematics": {}
+        },
+        "workspace-shared": {
+            "projectType": "library",
+            "root": "libs/workspace/shared",
+            "sourceRoot": "libs/workspace/shared/src",
+            "prefix": "rooi",
+            "architect": {
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "libs/workspace/shared/tsconfig.lib.json",
+                            "libs/workspace/shared/tsconfig.spec.json"
+                        ],
+                        "exclude": ["**/node_modules/**", "!libs/workspace/shared/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/workspace/shared/jest.config.js",
+                        "tsConfig": "libs/workspace/shared/tsconfig.spec.json",
+                        "passWithNoTests": true,
+                        "setupFile": "libs/workspace/shared/src/test-setup.ts"
+                    }
+                }
+            },
+            "schematics": {}
         }
     },
     "cli": {

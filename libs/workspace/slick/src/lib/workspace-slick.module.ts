@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
 import { SlickRoutes } from './workspace-slick.routing';
 import { FixedWidthComponent } from './components/fixed-width-slick/fixed-width.component';
 import { CenterSlickComponent } from './components/center-slick/center-slick.component';

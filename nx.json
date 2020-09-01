@@ -46,6 +46,9 @@
         },
         "workspace-slick": {
             "tags": []
+        },
+        "workspace-shared": {
+            "tags": []
         }
     }
 }
