@@ -15,7 +15,7 @@ export class FullComponent implements OnDestroy {
     mobileQuery: MediaQueryList;
     dir = 'ltr';
     green = false;
-    blue = true;
+    blue = false;
     dark = false;
     minisidebar = false;
     boxed = false;
