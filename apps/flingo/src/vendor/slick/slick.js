@@ -1087,7 +1087,10 @@
 
         _.cleanUpEvents();
 
-        $('.slick-cloned', thisSlider).detach();
+        //$('.slick-cloned', thisSlider).detach();
+        _.queryAll('.slick-cloned', _.$slider).forEach(function (elem) {
+            _.removeNodeUtil(elem);
+        });
 
         if (_.$dots) {
             //_.$dots.remove();
@@ -1138,9 +1141,10 @@
 
         _.cleanUpRows();
 
-        thisSlider.removeClass('slick-slider');
+        /*thisSlider.removeClass('slick-slider');
         thisSlider.removeClass('slick-initialized');
-        thisSlider.removeClass('slick-dotted');
+        thisSlider.removeClass('slick-dotted');*/
+        _.$slider.classList.remove('slick-slider', 'slick-initialized', 'slick-dotted');
 
         _.unslicked = true;
 
@@ -1806,7 +1810,7 @@
 
         thisList.on('click.slick', _.clickHandler);
 
-        $(document).on(_.visibilityChange, $.proxy(_.visibility, _));
+        $(document).on(_.visibilityChange, _.visibility.bind(_));
 
         if (_.options.accessibility === true) {
             thisList.on('keydown.slick', _.keyHandler);
@@ -3461,10 +3465,16 @@
         }
     };
 
+    // ------------------------
+    // Complete
+    // ------------------------
     Slick.prototype.unload = function () {
         var _ = this;
 
-        $('.slick-cloned', _.$slider).remove();
+        //$('.slick-cloned', _.$slider).remove();
+        _.queryAll('.slick-cloned', _.$slider).forEach(function (elem) {
+            _.removeNodeUtil(elem);
+        });
 
         if (_.$dots) {
             //_.$dots.remove();
@@ -3485,17 +3495,30 @@
             .attr('aria-hidden', 'true')
             .css('width', '');*/
         for (let item of _.$slides) {
-            _.removeClasses(item, ['slick-slide', 'slick-active', 'slick-visible', 'slick-current']);
-
+            //_.removeClasses(item, ['slick-slide', 'slick-active', 'slick-visible', 'slick-current']);
+            item.classList.remove('slick-slide', 'slick-active', 'slick-visible', 'slick-current');
             item.setAttribute('aria-hidden', 'true');
             item.style.width = '';
         }
     };
 
-    Slick.prototype.removeClasses = function (el, classArray) {
-        for (let cl of classArray) {
-            el.classList.remove(cl);
+    // ------------------------
+    // Complete
+    // ------------------------
+    Slick.prototype.removeNodeUtil = function (el) {
+        var nodeRemoved = el;
+        if (el.parentNode) {
+            //Prevent error if node is allready out the dom.
+            nodeRemoved = el.parentNode.removeChild(el);
         }
+        return nodeRemoved;
+    };
+
+    // ------------------------
+    // Complete
+    // ------------------------
+    Slick.prototype.queryAll = function (expr, container) {
+        return Array.prototype.slice.call((container || document).querySelectorAll(expr));
     };
 
     // ------------------------
