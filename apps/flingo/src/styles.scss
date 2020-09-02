@@ -19,8 +19,6 @@ File: scss
 
 @import 'styles/variable';
 
-@import 'styles/icons/themify-icons/themify-icons.css';
-@import 'styles/icons/font-awesome/css/font-awesome.css';
 @import 'styles/spinner';
 @import 'styles/app';
 @import 'styles/header';
@@ -32,10 +30,10 @@ File: scss
 
 // Red Theme
 
-.danger {
+/*.danger {
     @import 'styles/colors/red';
     @include angular-material-theme($red-app-theme);
-}
+}*/
 
 // Blue Theme
 
@@ -46,10 +44,10 @@ File: scss
 
 // Green Theme
 
-.green {
+/*.green {
     @import 'styles/colors/green';
     @include angular-material-theme($green-app-theme);
-}
+}*/
 
 // Dark Theme
 

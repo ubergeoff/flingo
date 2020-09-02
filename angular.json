@@ -44,7 +44,7 @@
                             ],
                             "index": "apps/flingo/src/environments/index.html",
                             "optimization": true,
-                            "outputHashing": "all",
+                            "outputHashing": "bundles",
                             "sourceMap": false,
                             "extractCss": true,
                             "namedChunks": false,
