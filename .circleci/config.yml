@@ -41,11 +41,17 @@ jobs:
       # Checkout the code from the branch into the working_directory
       - checkout
 
+      # Restore local dependencies from cache
       - restore_cache:
           keys:
             - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
             - v1-deps-{{ .Branch }}
             - v1-deps
+
+      # Install project dependencies
+      - run:
+        name: Install local dependencies
+        command: npm install
 
       # Lint the source code
       - run:
