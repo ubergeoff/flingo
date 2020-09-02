@@ -5,7 +5,8 @@ jobs:
   build:
     working_directory: ~/flingo
     docker:
-      - image: circleci/node:9.9-browsers
+      - image: circleci/node:latest-browsers
+
     steps:
       # Checkout the code from the branch into the working_directory
       - checkout
