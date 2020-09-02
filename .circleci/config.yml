@@ -38,6 +38,15 @@ jobs:
       - image: circleci/node:latest-browsers
 
     steps:
+      # Checkout the code from the branch into the working_directory
+      - checkout
+
+      #- restore_cache:
+      #    keys:
+      #      - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+      #      - v1-deps-{{ .Branch }}
+      #      - v1-deps
+
       # Lint the source code
       - run:
           name: Linting
@@ -56,6 +65,6 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test1:
+      - test:
           requires:
             - build
