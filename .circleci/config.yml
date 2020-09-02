@@ -1,7 +1,43 @@
-version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-workflows:
-  node-tests:
-    jobs:
-      - node/test
+version: 2
+
+jobs:
+  # The build job
+  build:
+    working_directory: ~/flingo
+    docker:
+      - image: circleci/node:9.9-browsers
+    steps:
+      # Checkout the code from the branch into the working_directory
+      - checkout
+      # Log the current branch
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      # Restore local dependencies from cache
+      - restore_cache:
+          keys:
+            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+            - v1-deps-{{ .Branch }}
+            - v1-deps
+      # Install project dependencies
+      - run:
+          name: Install local dependencies
+          command: npm install
+      # Cache local dependencies if they don't exist
+      - save_cache:
+          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
+      # Lint the source code
+      - run:
+          name: Linting
+          command: npm run affected:lint
+      # Test the source code
+      - run:
+          name: Unit testing
+          command: npm run affected:test
+
+      - run:
+          name: 2e2 testing
+          command: npm run affected:e2e
