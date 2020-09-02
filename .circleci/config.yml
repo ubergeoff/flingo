@@ -30,6 +30,14 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
+
+  # The test job
+  test:
+    working_directory: ~/flingo
+    docker:
+      - image: circleci/node:latest-browsers
+
+    steps:
       # Lint the source code
       - run:
           name: Linting
@@ -42,3 +50,10 @@ jobs:
       - run:
           name: 2e2 testing
           command: npm run affected:e2e
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
