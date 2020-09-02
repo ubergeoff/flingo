@@ -50,8 +50,8 @@ jobs:
 
       # Install project dependencies
       - run:
-        name: Install local dependencies
-        command: npm install
+          name: Install testing dependencies
+          command: npm install
 
       # Lint the source code
       - run:
