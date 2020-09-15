@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StarWarsComponent } from './components/starwars/star-wars.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { StarWarsComponent } from './components/starwars/star-wars.component';
         MatCardModule,
         MatMenuModule,
         MatIconModule,
-        MatButtonModule
+        MatButtonModule,
+        MatProgressBarModule
     ],
     declarations: [DashboardComponent, StarWarsComponent]
 })

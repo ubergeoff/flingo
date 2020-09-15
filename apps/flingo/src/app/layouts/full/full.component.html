@@ -15,11 +15,8 @@
         <!-- ============================================================== -->
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
-
-
                 <!-- Logo text -->
                 <span fxShow="false" fxShow.gt-xs>
-
                     <!-- Light Logo text -->
                     <img src="assets/images/awesome.png" class="light-logo" alt="homepage" />
                 </span>
@@ -80,6 +77,7 @@
         <!-- ============================================================== -->
         <mat-sidenav-content class="page-wrapper" [ngClass]="status ? 'minitoggle' : ''">
             <app-breadcrumb></app-breadcrumb>
+            <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
             <div class="page-content">
                 <router-outlet>
                     <app-spinner></app-spinner>

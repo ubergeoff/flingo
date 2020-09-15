@@ -22,6 +22,7 @@ import { AppBreadcrumbComponent } from './layouts/full/breadcrumb/breadcrumb.com
 import { SpinnerComponent } from './shared/spinner.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -44,7 +45,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatSidenavModule,
         FlexLayoutModule,
         MatToolbarModule,
-        MatListModule
+        MatListModule,
+        MatProgressBarModule
     ],
     providers: [
         {

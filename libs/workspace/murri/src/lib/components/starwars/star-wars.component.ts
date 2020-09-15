@@ -1,7 +1,8 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TileGridDirective } from '@rooi/muuri';
-import { CardService, ICard } from '@rooi/workspace/shared';
+import { CardService, ICard, ProgressService } from '@rooi/workspace/shared';
+import { delay, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-dashboard',
@@ -21,8 +22,14 @@ export class StarWarsComponent implements OnInit, AfterViewInit {
     private moveData: { start: any; end: any };
     message = new BehaviorSubject<string>('');
 
-    constructor(private cardService: CardService) {
-        this.allCards$ = this.cards.asObservable();
+    constructor(private cardService: CardService, private progress: ProgressService) {
+        this.progress.isLoading(true);
+        this.allCards$ = this.cards.pipe(
+            delay(1000),
+            tap(() => {
+                this.progress.isLoading(false);
+            })
+        );
     }
 
     ngOnInit(): void {

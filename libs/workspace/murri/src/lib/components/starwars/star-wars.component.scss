@@ -29,18 +29,6 @@
     }
 }
 
-.item.muuri-item-dragging {
-    z-index: 3;
-}
-
-.item.muuri-item-releasing {
-    z-index: 2;
-}
-
-.item.muuri-item-hidden {
-    z-index: 0;
-}
-
 .more-button {
     position: absolute;
     top: 5px;
@@ -63,4 +51,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &:hover {
+        transition: all 200ms ease-out !important;
+        transform: scale(1.015) !important;
+        box-shadow: 3px 3px 15px chocolate !important;
+    }
 }
