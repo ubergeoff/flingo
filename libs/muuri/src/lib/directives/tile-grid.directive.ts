@@ -62,6 +62,7 @@ export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
             })
         );
     }
+
     ngAfterViewInit(): void {
         this.grid = new Muuri(this.elRef.nativeElement, this.layoutConfig);
         this._isInit = true;
@@ -95,7 +96,7 @@ export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
     removeItem(item: ElementRef) {
         let found = null;
         if (item.nativeElement.id) {
-            found = this.grid.getItems().find((t) => t._element.id === item.nativeElement.id);
+            found = this.grid.getItems().find((t) => t._element === item.nativeElement);
         }
 
         if (this._isInit && found) {
