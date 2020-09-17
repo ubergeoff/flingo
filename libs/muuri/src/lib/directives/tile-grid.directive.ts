@@ -52,7 +52,7 @@ export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.init(this.elRef.nativeElement);
+        this.init();
 
         this.subscription.add(
             this.addItemChange.pipe(debounceTime(10)).subscribe(() => {
@@ -68,7 +68,7 @@ export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
         this._isInit = true;
     }
 
-    init(element: ElementRef) {
+    init() {
         this.layoutConfig.layout.fillGaps = this.fillGaps;
         this.layoutConfig.dragEnabled = this.dragEnabled;
         if (this.dragEnabled) {
