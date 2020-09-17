@@ -94,10 +94,7 @@ export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
     }
 
     removeItem(item: ElementRef) {
-        let found = null;
-        if (item.nativeElement.id) {
-            found = this.grid.getItems().find((t) => t._element === item.nativeElement);
-        }
+        const found = this.grid.getItems().find((t) => t._element === item.nativeElement);
 
         if (this._isInit && found) {
             this.grid.remove([found], { layout: true });
