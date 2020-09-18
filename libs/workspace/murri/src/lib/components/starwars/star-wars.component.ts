@@ -1,17 +1,17 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { TileGridDirective } from '@rooi/muuri';
+import { IMoveData, TileGridDirective } from '@rooi/muuri';
 import { CardService, ICard, ProgressService } from '@rooi/workspace/shared';
 import { delay, tap } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-dashboard',
+    selector: 'rooi-star-wars',
     templateUrl: './star-wars.component.html',
     styleUrls: ['./star-wars.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [CardService]
 })
-export class StarWarsComponent implements OnInit, AfterViewInit {
+export class StarWarsComponent implements OnInit {
     @ViewChild(TileGridDirective) grid: TileGridDirective;
 
     allCards$: Observable<ICard[]>;
@@ -19,7 +19,6 @@ export class StarWarsComponent implements OnInit, AfterViewInit {
     private counter = 1;
 
     private cards = new BehaviorSubject<ICard[]>([]);
-    private moveData: { start: any; end: any };
     message = new BehaviorSubject<string>('');
 
     constructor(private cardService: CardService, private progress: ProgressService) {
@@ -58,26 +57,12 @@ export class StarWarsComponent implements OnInit, AfterViewInit {
         return item.id;
     }
 
-    ngAfterViewInit(): void {
-        if (this.grid && this.grid.dragEnabled) {
-            this.grid.on('dragStart', (item, event) => {});
-
-            this.grid.on('dragEnd', (item, event) => {
-                this.updateTileOrder(item);
-            });
-
-            this.grid.on('move', (data) => {
-                this.moveData = { start: data.fromIndex + 1, end: data.toIndex + 1 };
-            });
-        }
-    }
-
-    updateTileOrder(item) {
-        if (item._element && this.moveData) {
-            const cardElement = item._element as HTMLElement;
+    dragEnd(info: IMoveData) {
+        if (info.item._element) {
+            const cardElement = info.item._element as HTMLElement;
             const found = this.cardService.findCard(cardElement.id);
 
-            this.message.next('Force pushed: ' + found.title + ' to Pos: ' + this.moveData.end);
+            this.message.next('Force pushed: ' + found.title + ' to Pos: ' + info.positions.toIndex);
         }
     }
 }

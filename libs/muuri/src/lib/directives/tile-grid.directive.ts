@@ -1,6 +1,17 @@
-import { AfterViewChecked, AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+    AfterViewChecked,
+    AfterViewInit,
+    Directive,
+    ElementRef,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    EventEmitter
+} from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
-import { debounceTime, filter, tap } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
+import { IMoveData } from '../../lib/interfaces/move-data.interface';
 
 declare var Muuri: any;
 
@@ -42,10 +53,13 @@ export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
     @Input() threshold = 40;
     @Input() dragHandle = '.tile-handle';
 
+    @Output() dragEnd = new EventEmitter<IMoveData>();
+
     private events: string[];
     private addItemChange = new Subject<ElementRef>();
     private subscription = new Subscription();
     private _isInit = false;
+    private moveData = { fromIndex: 0, toIndex: 0 };
 
     constructor(private elRef: ElementRef) {
         this.events = [];
@@ -66,6 +80,18 @@ export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
     ngAfterViewInit(): void {
         this.grid = new Muuri(this.elRef.nativeElement, this.layoutConfig);
         this._isInit = true;
+
+        if (this.dragEnabled) {
+            this.grid.on('dragEnd', (item, event) => {
+                this.dragEnd.emit({ item, event, positions: this.moveData });
+            });
+            this.events.push('dragEnd');
+
+            this.grid.on('move', (data) => {
+                this.moveData = { fromIndex: data.fromIndex + 1, toIndex: data.toIndex + 1 };
+            });
+            this.events.push('move');
+        }
     }
 
     init() {
@@ -99,17 +125,6 @@ export class TileGridDirective implements OnInit, OnDestroy, AfterViewInit {
         if (this._isInit && found) {
             this.grid.remove([found], { layout: true });
         }
-    }
-
-    on(eventName: string, action: any) {
-        if (this.events.find((x) => x === eventName)) {
-            return;
-        }
-
-        this.grid.on(eventName, function (item, event) {
-            action(item, event);
-        });
-        this.events.push(eventName);
     }
 
     destroyEvents() {

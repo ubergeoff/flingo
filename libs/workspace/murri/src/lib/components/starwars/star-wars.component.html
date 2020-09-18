@@ -11,6 +11,7 @@
         [dragEnabled]="true"
         [threshold]="25"
         [fillGaps]="true"
+        (dragEnd)="dragEnd($event)"
     >
         <div
             roiTileGridItem

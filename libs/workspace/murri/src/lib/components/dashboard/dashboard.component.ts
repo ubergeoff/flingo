@@ -1,24 +1,23 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { TileGridDirective } from '@rooi/muuri';
+import { IMoveData, TileGridDirective } from '@rooi/muuri';
 import { CardService, ICard } from '@rooi/workspace/shared';
 
 @Component({
-    selector: 'app-dashboard',
+    selector: 'rooi-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [CardService]
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit {
     @ViewChild(TileGridDirective) grid: TileGridDirective;
 
     allCards$: Observable<ICard[]>;
 
     private counter = 1;
-
     private cards = new BehaviorSubject<ICard[]>([]);
-    private moveData: { start: any; end: any };
+
     message = new BehaviorSubject<string>('');
 
     constructor(private cardService: CardService) {
@@ -51,26 +50,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         return item.id;
     }
 
-    ngAfterViewInit(): void {
-        if (this.grid && this.grid.dragEnabled) {
-            this.grid.on('dragStart', (item, event) => {});
-
-            this.grid.on('dragEnd', (item, event) => {
-                this.updateTileOrder(item);
-            });
-
-            this.grid.on('move', (data) => {
-                this.moveData = { start: data.fromIndex + 1, end: data.toIndex + 1 };
-            });
-        }
-    }
-
-    updateTileOrder(item) {
-        if (item._element && this.moveData) {
-            const cardElement = item._element as HTMLElement;
+    dragEnded(event: IMoveData) {
+        if (event.item._element) {
+            const cardElement = event.item._element as HTMLElement;
             const found = this.cardService.findCard(cardElement.id);
 
-            this.message.next('You just moved: ' + found.title + ' to Pos: ' + this.moveData.end);
+            this.message.next('You just moved: ' + found.title + ' to Pos: ' + event.positions.toIndex);
         }
     }
 }
