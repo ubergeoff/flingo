@@ -955,6 +955,9 @@
         return index;
     };
 
+    /*
+    NEEDS TO BE FINISHED OFF
+    */
     Slick.prototype.cleanUpEvents = function () {
         var _ = this;
         const thisDots = $(_.$dots);
@@ -993,7 +996,8 @@
 
         thisList.off('click.slick', _.clickHandler);
 
-        $(document).off(_.visibilityChange, _.visibility);
+        //$(document).off(_.visibilityChange, _.visibility);
+        document.removeEventListener(_.visibilityChange, _.visibility);
 
         _.cleanUpSlideEvents();
 
@@ -1005,23 +1009,34 @@
             $(_.$slideTrack).children().off('click.slick', _.selectHandler);
         }
 
-        $(window).off('orientationchange.slick.slick-' + _.instanceUid, _.orientationChange);
+        //$(window).off('orientationchange.slick.slick-' + _.instanceUid, _.orientationChange);
 
-        $(window).off('resize.slick.slick-' + _.instanceUid, _.resize);
+        //$(window).off('resize.slick.slick-' + _.instanceUid, _.resize);
+        window.removeEventListener('resize', _.resize);
 
         $('[draggable!=true]', _.$slideTrack).off('dragstart', _.preventDefault);
 
-        $(window).off('load.slick.slick-' + _.instanceUid, _.setPosition);
+        //$(window).off('load.slick.slick-' + _.instanceUid, _.setPosition);
+        window.removeEventListener('load', _.setPosition);
     };
 
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.cleanUpSlideEvents = function () {
         var _ = this;
-        const thisList = $(_.$list);
+        //const thisList = $(_.$list);
 
-        thisList.off('mouseenter.slick', $.proxy(_.interrupt, _, true));
-        thisList.off('mouseleave.slick', $.proxy(_.interrupt, _, false));
+        //thisList.off('mouseenter.slick', $.proxy(_.interrupt, _, true));
+        //thisList.off('mouseleave.slick', $.proxy(_.interrupt, _, false));
+
+        _.$list.removeEventListener('mouseenter', _.interrupt.bind(_), true);
+        _.$list.removeEventListener('mouseleave', _.interrupt.bind(_), false);
     };
 
+    /*
+    NEEDS TO BE FINISHED OFF
+    */
     Slick.prototype.cleanUpRows = function () {
         var _ = this,
             originalSlides;
@@ -1048,6 +1063,9 @@
         }
     };
 
+    /*
+    NEEDS TO BE FINISHED OFF
+    */
     Slick.prototype.destroy = function (refresh) {
         var _ = this;
         const thisSlider = $(_.$slider);
