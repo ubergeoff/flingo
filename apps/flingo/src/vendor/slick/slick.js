@@ -463,7 +463,6 @@
 
     //---------------------------
     // Complete
-    // -- not using "arrows" yet
     // ---------------------------
     Slick.prototype.buildArrows = function () {
         var _ = this;
@@ -603,7 +602,7 @@
 
         _.setupInfinite();
 
-        //_.buildArrows();
+        _.buildArrows();
 
         _.buildDots();
 
@@ -1050,7 +1049,8 @@
 
             if (_.htmlExpr.test(_.options.prevArrow)) {
                 //_.$prevArrow.remove();
-                _.$prevArrow.parentNode.removeChild(_.$prevArrow);
+                //_.$prevArrow.parentNode.removeChild(_.$prevArrow);
+                _.removeNodeUtil(_.$prevArrow[0]);
             }
         }
 
@@ -1062,7 +1062,8 @@
 
             if (_.htmlExpr.test(_.options.nextArrow)) {
                 //_.$nextArrow.remove();
-                _.$nextArrow.parentNode.removeChild(_.$nextArrow);
+                //_.$nextArrow.parentNode.removeChild(_.$nextArrow);
+                _.removeNodeUtil(_.$nextArrow[0]);
             }
         }
 
@@ -1505,7 +1506,7 @@
             _.startLoad();
             _.loadSlider();
             _.initializeEvents();
-            //_.updateArrows();
+            _.updateArrows();
             _.updateDots();
             _.checkResponsive(true);
             _.focusHandler();
@@ -1614,9 +1615,6 @@
         _.activateADA();
     };
 
-    //----------
-    // Complete - not using Arrows
-    //----------
     Slick.prototype.initArrowEvents = function () {
         var _ = this;
 
@@ -1718,7 +1716,7 @@
         var _ = this;
         const thisList = $(_.$list);
 
-        //_.initArrowEvents();
+        _.initArrowEvents();
 
         _.initDotEvents();
         _.initSlideEvents();
@@ -1839,15 +1837,13 @@
 
     // --------------------------
     // Complete
-    // --- not using arrows
     // --------------------------
     Slick.prototype.initUI = function () {
         var _ = this;
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
-            // --- not using arrows
-            //_.$prevArrow.show();
-            //_.$nextArrow.show();
+            _.$prevArrow.show();
+            _.$nextArrow.show();
         }
 
         if (_.options.dots === true && _.slideCount > _.options.slidesToShow) {
@@ -2273,9 +2269,9 @@
 
         _.setProps();
         _.setupInfinite();
-        //_.buildArrows();
-        //_.updateArrows();
-        //_.initArrowEvents();
+        _.buildArrows();
+        _.updateArrows();
+        _.initArrowEvents();
         _.buildDots();
         _.updateDots();
         _.initDotEvents();
@@ -3106,8 +3102,7 @@
         }
 
         _.updateDots();
-        // not using this yet
-        //_.updateArrows();
+        _.updateArrows();
 
         if (_.options.fade === true) {
             if (dontAnimate !== true) {
@@ -3134,15 +3129,13 @@
 
     // --------------------------
     // Complete
-    // -- not using arrows
     // ---------------------------
     Slick.prototype.startLoad = function () {
         var _ = this;
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
-            // -- not using arrows yet
-            //_.$prevArrow.hide();
-            //_.$nextArrow.hide();
+            _.$prevArrow.hide();
+            _.$nextArrow.hide();
         }
 
         if (_.options.dots === true && _.slideCount > _.options.slidesToShow) {
@@ -3461,11 +3454,13 @@
 
         if (_.$prevArrow && _.htmlExpr.test(_.options.prevArrow)) {
             //_.$prevArrow.remove();
-            _.$prevArrow.parentNode.removeChild(_.$prevArrow);
+            //_.$prevArrow.parentNode.removeChild(_.$prevArrow);
+            _.removeNodeUtil(_.$prevArrow[0]);
         }
 
         if (_.$nextArrow && _.htmlExpr.test(_.options.nextArrow)) {
-            _.$nextArrow.parentNode.removeChild(_.$nextArrow);
+            //_.$nextArrow.parentNode.removeChild(_.$nextArrow);
+            _.removeNodeUtil(_.$nextArrow[0]);
         }
 
         /*$(_.$slides)
@@ -3511,9 +3506,6 @@
         _.destroy();
     };
 
-    // ------------------------
-    // Not using "updateArrows"
-    // ------------------------
     Slick.prototype.updateArrows = function () {
         var _ = this,
             centerOffset;

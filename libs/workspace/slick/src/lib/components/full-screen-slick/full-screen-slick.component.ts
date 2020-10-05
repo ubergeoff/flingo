@@ -23,8 +23,6 @@ export class FullScreenSlickComponent implements OnInit {
         slidesToShow: 1,
         slidesToScroll: 1,
         variableWidth: false,
-        nextArrow: "<div class='nav-btn next-slide'></div>",
-        prevArrow: "<div class='nav-btn prev-slide'></div>",
         dots: true,
         infinite: false
     };

@@ -23,8 +23,6 @@ export class CenterSlickComponent implements OnInit {
         slidesToScroll: 1,
         variableWidth: true,
         centerMode: true,
-        nextArrow: "<div class='nav-btn next-slide'></div>",
-        prevArrow: "<div class='nav-btn prev-slide'></div>",
         dots: true,
         infinite: false
     };
