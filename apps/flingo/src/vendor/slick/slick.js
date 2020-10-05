@@ -1644,6 +1644,9 @@
         _.activateADA();
     };
 
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.initArrowEvents = function () {
         var _ = this;
 
@@ -1759,6 +1762,9 @@
         ).call(el, selector);
     };
 
+    /*
+    NEEDS TO BE FINISHED OFF
+    */
     Slick.prototype.initializeEvents = function () {
         var _ = this;
         const thisList = $(_.$list);
@@ -1856,14 +1862,18 @@
             $(_.$slideTrack).children().on('click.slick', _.selectHandler);
         }
 
-        $(window).on('orientationchange.slick.slick-' + _.instanceUid, $.proxy(_.orientationChange, _));
+        //TODO: find a way to do vanilla orientation change
+        //$(window).on('orientationchange.slick.slick-' + _.instanceUid, $.proxy(_.orientationChange, _));
 
-        $(window).on('resize.slick.slick-' + _.instanceUid, $.proxy(_.resize, _));
+        //$(window).on('resize.slick.slick-' + _.instanceUid, $.proxy(_.resize, _));
+        window.addEventListener('resize', _.resize.bind(_));
 
         $('[draggable!=true]', _.$slideTrack).on('dragstart', _.preventDefault);
 
-        $(window).on('load.slick.slick-' + _.instanceUid, _.setPosition);
-        $(_.setPosition);
+        //$(window).on('load.slick.slick-' + _.instanceUid, _.setPosition);
+        window.addEventListener('load', _.setPosition);
+
+        //$(_.setPosition);
     };
 
     Slick.prototype.onHandler = function (eventName, elementSelector, handler) {
@@ -3557,6 +3567,9 @@
         _.destroy();
     };
 
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.updateArrows = function () {
         var _ = this,
             centerOffset;
