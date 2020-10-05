@@ -1069,7 +1069,7 @@
             _.$dots.parentNode.removeChild(_.$dots);
         }
 
-        if (_.$prevArrow) {
+        if (_.$prevArrow && _.htmlExpr.test(_.options.prevArrow)) {
             /*_.$prevArrow
                 .removeClass('slick-disabled slick-arrow slick-hidden')
                 .removeAttr('aria-hidden aria-disabled tabindex')
@@ -1078,13 +1078,11 @@
             _.$prevArrow.removeAttribute('aria-hidden', 'aria-disabled', 'tabindex');
             _.$prevArrow.style.display = '';
 
-            if (_.htmlExpr.test(_.options.prevArrow)) {
-                //_.$prevArrow.remove();
-                _.removeNodeUtil(_.$prevArrow);
-            }
+            //_.$prevArrow.remove();
+            _.removeNodeUtil(_.$prevArrow);
         }
 
-        if (_.$nextArrow) {
+        if (_.$nextArrow && _.htmlExpr.test(_.options.nextArrow)) {
             /*_.$nextArrow
                 .removeClass('slick-disabled slick-arrow slick-hidden')
                 .removeAttr('aria-hidden aria-disabled tabindex')
@@ -1093,10 +1091,8 @@
             _.$nextArrow.removeAttribute('aria-hidden', 'aria-disabled', 'tabindex');
             _.$nextArrow.style.display = '';
 
-            if (_.htmlExpr.test(_.options.nextArrow)) {
-                //_.$nextArrow.remove();
-                _.removeNodeUtil(_.$nextArrow);
-            }
+            //_.$nextArrow.remove();
+            _.removeNodeUtil(_.$nextArrow);
         }
 
         if (thisSlides) {
@@ -3509,13 +3505,12 @@
 
         if (_.$prevArrow && _.htmlExpr.test(_.options.prevArrow)) {
             //_.$prevArrow.remove();
-            //_.$prevArrow.parentNode.removeChild(_.$prevArrow);
-            _.removeNodeUtil(_.$prevArrow[0]);
+            _.removeNodeUtil(_.$prevArrow);
         }
 
         if (_.$nextArrow && _.htmlExpr.test(_.options.nextArrow)) {
-            //_.$nextArrow.parentNode.removeChild(_.$nextArrow);
-            _.removeNodeUtil(_.$nextArrow[0]);
+            //_.$nextArrow.remove();
+            _.removeNodeUtil(_.$nextArrow);
         }
 
         /*$(_.$slides)
