@@ -317,11 +317,11 @@
         _.reinit();
     };
 
-    //---------------------------
+    //---------------------------------------
     // Complete
-    // -- not using adaptive height
+    // -- not using adaptive height, as yet
     // - finish this, if you require this
-    // ---------------------------
+    // --------------------------------------
     Slick.prototype.animateHeight = function () {
         var _ = this;
         if (_.options.slidesToShow === 1 && _.options.adaptiveHeight === true && _.options.vertical === false) {
@@ -335,10 +335,9 @@
         }
     };
 
-    // ---------------------
+    // ------------------------------
     // Complete
     // We always use CSS transitions
-    // So consider this complete ?
     // ---------------------------------
     Slick.prototype.animateSlide = function (targetLeft, callback) {
         var animProps = {},
@@ -874,6 +873,8 @@
         /*if ($target.is('a')) {
             event.preventDefault();
         }*/
+        if (_.isMatches($target, 'a')) {
+        }
 
         // If target is not the <li> element (ie: a child), find the <li>.
         //not using
@@ -923,8 +924,8 @@
         var children = node.parentNode.childNodes;
         var num = 0;
         for (var i = 0; i < children.length; i++) {
-            if (children[i] == node) return num;
-            if (children[i].nodeType == 1) num++;
+            if (children[i] === node) return num;
+            if (children[i].nodeType === 1) num++;
         }
         return -1;
     };
