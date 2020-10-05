@@ -246,6 +246,17 @@
             });*/
     };
 
+    Slick.prototype.createFromMarkup = function (markup) {
+        // Convert markup to an HTMLElement
+        if (!(markup instanceof HTMLElement)) {
+            var tempNode = document.createElement('div');
+            tempNode.innerHTML = markup;
+            return tempNode.children[0];
+        }
+
+        return null;
+    };
+
     //---------------------------
     // Complete
     // -- not using $(markup)
@@ -468,23 +479,38 @@
         var _ = this;
 
         if (_.options.arrows === true) {
-            _.$prevArrow = $(_.options.prevArrow).addClass('slick-arrow');
-            _.$nextArrow = $(_.options.nextArrow).addClass('slick-arrow');
+            /*_.$prevArrow = $(_.options.prevArrow).addClass('slick-arrow');
+            _.$nextArrow = $(_.options.nextArrow).addClass('slick-arrow');*/
+
+            _.$prevArrow = _.createFromMarkup(_.options.prevArrow);
+            _.$nextArrow = _.createFromMarkup(_.options.nextArrow);
+
+            _.$prevArrow.classList.add('slick-arrow');
+            _.$nextArrow.classList.add('slick-arrow');
 
             if (_.slideCount > _.options.slidesToShow) {
-                _.$prevArrow.removeClass('slick-hidden').removeAttr('aria-hidden tabindex');
-                _.$nextArrow.removeClass('slick-hidden').removeAttr('aria-hidden tabindex');
+                //_.$prevArrow.removeClass('slick-hidden').removeAttr('aria-hidden tabindex');
+                //_.$nextArrow.removeClass('slick-hidden').removeAttr('aria-hidden tabindex');
+                _.$prevArrow.classList.remove('slick-hidden');
+                _.$nextArrow.classList.remove('slick-hidden');
+
+                _.$prevArrow.removeAttribute('aria-hidden', 'tabindex');
+                _.$nextArrow.removeAttribute('aria-hidden', 'tabindex');
 
                 if (_.htmlExpr.test(_.options.prevArrow)) {
-                    _.$prevArrow.prependTo(_.options.appendArrows);
+                    //_.$prevArrow.prependTo(_.options.appendArrows);
+                    _.options.appendArrows.insertBefore(_.$prevArrow, _.options.appendArrows.firstChild);
                 }
 
                 if (_.htmlExpr.test(_.options.nextArrow)) {
-                    _.$nextArrow.appendTo(_.options.appendArrows);
+                    //_.$nextArrow.appendTo(_.options.appendArrows);
+                    _.options.appendArrows.appendChild(_.$nextArrow);
                 }
 
                 if (_.options.infinite !== true) {
-                    _.$prevArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
+                    //_.$prevArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
+                    _.$prevArrow.classList.add('slick-disabled');
+                    _.$prevArrow.setAttribute('aria-disabled', 'true');
                 }
             } else {
                 _.$prevArrow
@@ -933,6 +959,8 @@
         const thisDots = $(_.$dots);
         const thisList = $(_.$list);
         const thisSlider = $(_.$slider);
+        const thisPrevArrow = $(_.$prevArrow);
+        const thisNextArrow = $(_.$nextArrow);
 
         if (_.options.dots && _.$dots !== null) {
             $('li', thisDots)
@@ -948,12 +976,12 @@
         thisSlider.off('focus.slick blur.slick');
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
-            _.$prevArrow && _.$prevArrow.off('click.slick', _.changeSlide);
-            _.$nextArrow && _.$nextArrow.off('click.slick', _.changeSlide);
+            thisPrevArrow && thisPrevArrow.off('click', _.changeSlide);
+            thisNextArrow && thisNextArrow.off('click', _.changeSlide);
 
             if (_.options.accessibility === true) {
-                _.$prevArrow && _.$prevArrow.off('keydown.slick', _.keyHandler);
-                _.$nextArrow && _.$nextArrow.off('keydown.slick', _.keyHandler);
+                thisPrevArrow && thisPrevArrow.off('keydown', _.keyHandler);
+                thisNextArrow && thisNextArrow.off('keydown', _.keyHandler);
             }
         }
 
@@ -1041,29 +1069,33 @@
             _.$dots.parentNode.removeChild(_.$dots);
         }
 
-        if (_.$prevArrow && _.$prevArrow.length) {
-            _.$prevArrow
+        if (_.$prevArrow) {
+            /*_.$prevArrow
                 .removeClass('slick-disabled slick-arrow slick-hidden')
                 .removeAttr('aria-hidden aria-disabled tabindex')
-                .css('display', '');
+                .css('display', '');*/
+            _.$prevArrow.classList.remove('slick-disabled', 'slick-arrow', 'slick-hidden');
+            _.$prevArrow.removeAttribute('aria-hidden', 'aria-disabled', 'tabindex');
+            _.$prevArrow.style.display = '';
 
             if (_.htmlExpr.test(_.options.prevArrow)) {
                 //_.$prevArrow.remove();
-                //_.$prevArrow.parentNode.removeChild(_.$prevArrow);
-                _.removeNodeUtil(_.$prevArrow[0]);
+                _.removeNodeUtil(_.$prevArrow);
             }
         }
 
-        if (_.$nextArrow && _.$nextArrow.length) {
-            _.$nextArrow
+        if (_.$nextArrow) {
+            /*_.$nextArrow
                 .removeClass('slick-disabled slick-arrow slick-hidden')
                 .removeAttr('aria-hidden aria-disabled tabindex')
-                .css('display', '');
+                .css('display', '');*/
+            _.$nextArrow.classList.remove('slick-disabled', 'slick-arrow', 'slick-hidden');
+            _.$nextArrow.removeAttribute('aria-hidden', 'aria-disabled', 'tabindex');
+            _.$nextArrow.style.display = '';
 
             if (_.htmlExpr.test(_.options.nextArrow)) {
                 //_.$nextArrow.remove();
-                //_.$nextArrow.parentNode.removeChild(_.$nextArrow);
-                _.removeNodeUtil(_.$nextArrow[0]);
+                _.removeNodeUtil(_.$nextArrow);
             }
         }
 
@@ -1619,24 +1651,42 @@
         var _ = this;
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
-            _.$prevArrow.off('click.slick').on(
+            const arrowClickPrev = function (event) {
+                event.data = { message: 'previous' };
+                event.originalEvent = event;
+                _.changeSlide(event);
+            };
+
+            const arrowClickNext = function (event) {
+                event.data = { message: 'next' };
+                event.originalEvent = event;
+                _.changeSlide(event);
+            };
+
+            /*_.$prevArrow.off('click.slick').on(
                 'click.slick',
                 {
                     message: 'previous'
                 },
                 _.changeSlide
-            );
-            _.$nextArrow.off('click.slick').on(
+            );*/
+            _.$prevArrow.removeEventListener('click', arrowClickPrev);
+            _.$prevArrow.addEventListener('click', arrowClickPrev);
+
+            /*_.$nextArrow.off('click.slick').on(
                 'click.slick',
                 {
                     message: 'next'
                 },
                 _.changeSlide
-            );
+            );*/
+
+            _.$nextArrow.removeEventListener('click', arrowClickNext);
+            _.$nextArrow.addEventListener('click', arrowClickNext);
 
             if (_.options.accessibility === true) {
-                _.$prevArrow.on('keydown.slick', _.keyHandler);
-                _.$nextArrow.on('keydown.slick', _.keyHandler);
+                //_.$prevArrow.on('keydown.slick', _.keyHandler);
+                //_.$nextArrow.on('keydown.slick', _.keyHandler);
             }
         }
     };
@@ -1842,8 +1892,10 @@
         var _ = this;
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
-            _.$prevArrow.show();
-            _.$nextArrow.show();
+            //_.$prevArrow.show();
+            //_.$nextArrow.show();
+            _.$prevArrow.style.display = '';
+            _.$nextArrow.style.display = '';
         }
 
         if (_.options.dots === true && _.slideCount > _.options.slidesToShow) {
@@ -3134,8 +3186,11 @@
         var _ = this;
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
-            _.$prevArrow.hide();
-            _.$nextArrow.hide();
+            //_.$prevArrow.hide();
+            //_.$nextArrow.hide();
+
+            _.$prevArrow.style.display = 'none';
+            _.$nextArrow.style.display = 'none';
         }
 
         if (_.options.dots === true && _.slideCount > _.options.slidesToShow) {
@@ -3513,18 +3568,41 @@
         centerOffset = Math.floor(_.options.slidesToShow / 2);
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow && !_.options.infinite) {
-            _.$prevArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
-            _.$nextArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
+            //_.$prevArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
+            //_.$nextArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
+            _.$prevArrow.classList.remove('slick-disabled');
+            _.$nextArrow.classList.remove('slick-disabled');
+
+            _.$prevArrow.setAttribute('aria-disabled', 'false');
+            _.$nextArrow.setAttribute('aria-disabled', 'false');
 
             if (_.currentSlide === 0) {
-                _.$prevArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
-                _.$nextArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
+                /*_.$prevArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
+                _.$nextArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');*/
+
+                _.$prevArrow.classList.add('slick-disabled');
+                _.$nextArrow.classList.remove('slick-disabled');
+
+                _.$prevArrow.setAttribute('aria-disabled', 'true');
+                _.$nextArrow.setAttribute('aria-disabled', 'false');
             } else if (_.currentSlide >= _.slideCount - _.options.slidesToShow && _.options.centerMode === false) {
-                _.$nextArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
-                _.$prevArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
+                /*_.$nextArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
+                _.$prevArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');*/
+
+                _.$nextArrow.classList.add('slick-disabled');
+                _.$prevArrow.classList.remove('slick-disabled');
+
+                _.$nextArrow.setAttribute('aria-disabled', 'true');
+                _.$prevArrow.setAttribute('aria-disabled', 'false');
             } else if (_.currentSlide >= _.slideCount - 1 && _.options.centerMode === true) {
-                _.$nextArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
-                _.$prevArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
+                /*_.$nextArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
+                _.$prevArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');*/
+
+                _.$nextArrow.classList.add('slick-disabled');
+                _.$prevArrow.classList.remove('slick-disabled');
+
+                _.$nextArrow.setAttribute('aria-disabled', 'true');
+                _.$prevArrow.setAttribute('aria-disabled', 'false');
             }
         }
     };
