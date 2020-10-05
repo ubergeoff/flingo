@@ -1643,38 +1643,60 @@
         }
     };
 
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.initDotEvents = function () {
         var _ = this;
-        const thisDots = $(_.$dots);
+        //const thisDots = $(_.$dots);
 
         if (_.options.dots === true && _.slideCount > _.options.slidesToShow) {
-            $('li', thisDots).on(
+            /*$('li', thisDots).on(
                 'click.slick',
                 {
                     message: 'index'
                 },
                 _.changeSlide
-            );
+            );*/
+
+            _.queryAll('li', _.$dots).forEach(function (elem) {
+                elem.addEventListener('click', function (event) {
+                    event.data = { message: 'index' };
+                    _.changeSlide(event);
+                });
+            });
 
             if (_.options.accessibility === true) {
-                thisDots.on('keydown.slick', _.keyHandler);
+                //thisDots.on('keydown.slick', _.keyHandler);
+                _.$dots.addEventListener('keydown', _.keyHandler);
             }
         }
 
         if (_.options.dots === true && _.options.pauseOnDotsHover === true && _.slideCount > _.options.slidesToShow) {
-            $('li', thisDots)
+            /*$('li', thisDots)
                 .on('mouseenter.slick', $.proxy(_.interrupt, _, true))
-                .on('mouseleave.slick', $.proxy(_.interrupt, _, false));
+                .on('mouseleave.slick', $.proxy(_.interrupt, _, false));*/
+
+            _.queryAll('li', _.$dots).forEach(function (elem) {
+                elem.addEventListener('mouseenter', _.interrupt.bind(_), true);
+                elem.addEventListener('mouseleave', _.interrupt.bind(_), false);
+            });
         }
     };
 
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.initSlideEvents = function () {
         var _ = this;
-        const thisList = $(_.$list);
+        //const thisList = $(_.$list);
 
         if (_.options.pauseOnHover) {
-            thisList.on('mouseenter.slick', $.proxy(_.interrupt, _, true));
-            thisList.on('mouseleave.slick', $.proxy(_.interrupt, _, false));
+            //thisList.on('mouseenter.slick', $.proxy(_.interrupt, _, true));
+            //thisList.on('mouseleave.slick', $.proxy(_.interrupt, _, false));
+
+            _.$list.addEventListener('mouseenter', _.interrupt.bind(_), true);
+            _.$list.addEventListener('mouseleave', _.interrupt.bind(_), false);
         }
     };
 
@@ -1701,41 +1723,88 @@
         _.initDotEvents();
         _.initSlideEvents();
 
-        thisList.on(
+        /*thisList.on(
             'touchstart.slick mousedown.slick',
             {
                 action: 'start'
             },
             _.swipeHandler
-        );
-        thisList.on(
+        );*/
+        _.$list.addEventListener('touchstart', function (event) {
+            event.data = { action: 'start' };
+            event.originalEvent = event;
+            _.swipeHandler(event);
+        });
+        _.$list.addEventListener('mousedown', function (event) {
+            event.data = { action: 'start' };
+            event.originalEvent = event;
+            _.swipeHandler(event);
+        });
+
+        /*thisList.on(
             'touchmove.slick mousemove.slick',
             {
                 action: 'move'
             },
             _.swipeHandler
-        );
-        thisList.on(
+        );*/
+        _.$list.addEventListener('touchmove', function (event) {
+            event.data = { action: 'move' };
+            event.originalEvent = event;
+            _.swipeHandler(event);
+        });
+        _.$list.addEventListener('mousemove', function (event, other) {
+            event.data = { action: 'move' };
+            event.originalEvent = event;
+            _.swipeHandler(event);
+        });
+
+        /*thisList.on(
             'touchend.slick mouseup.slick',
             {
                 action: 'end'
             },
             _.swipeHandler
-        );
-        thisList.on(
+        );*/
+        _.$list.addEventListener('touchend', function (event) {
+            event.data = { action: 'end' };
+            event.originalEvent = event;
+            _.swipeHandler(event);
+        });
+        _.$list.addEventListener('mouseup', function (event) {
+            event.data = { action: 'end' };
+            event.originalEvent = event;
+            _.swipeHandler(event);
+        });
+
+        /*thisList.on(
             'touchcancel.slick mouseleave.slick',
             {
                 action: 'end'
             },
             _.swipeHandler
-        );
+        );*/
+        _.$list.addEventListener('touchcancel', function (event) {
+            event.data = { action: 'end' };
+            event.originalEvent = event;
+            _.swipeHandler(event);
+        });
+        _.$list.addEventListener('mouseleave', function (event) {
+            event.data = { action: 'end' };
+            event.originalEvent = event;
+            _.swipeHandler(event);
+        });
 
-        thisList.on('click.slick', _.clickHandler);
+        //thisList.on('click.slick', _.clickHandler);
+        // just check if I actually need this one..?!?
+        //_.$list.addEventListener('click', _.clickHandler);
 
-        $(document).on(_.visibilityChange, _.visibility.bind(_));
+        //$(document).on(_.visibilityChange, _.visibility.bind(_));
+        document.addEventListener(_.visibilityChange, _.visibility.bind(_));
 
         if (_.options.accessibility === true) {
-            thisList.on('keydown.slick', _.keyHandler);
+            //thisList.on('keydown.slick', _.keyHandler);
+            _.$list.addEventListener('keydown', _.keyHandler);
         }
 
         if (_.options.focusOnSelect === true) {
@@ -3427,7 +3496,7 @@
     // Complete
     // ------------------------
     Slick.prototype.queryAll = function (expr, container) {
-        return Array.prototype.slice.call((container || document).querySelectorAll(expr));
+        return Array.prototype.slice.call(container.querySelectorAll(expr));
     };
 
     // ------------------------
