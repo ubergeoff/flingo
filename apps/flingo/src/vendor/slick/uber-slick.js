@@ -51,7 +51,6 @@
             centerPadding: '50px',
             cssEase: 'ease',
             customPaging: function (slider, i) {
-                //return $('<button type="button" />').text(i + 1);
                 const button = document.createElement('button');
                 button.text = i + 1 + '';
                 button.type = 'button';
@@ -907,6 +906,7 @@
 
         if (_.options.accessibility === true) {
             //thisList.off('keydown.slick', _.keyHandler);
+            _.$list.removeEventListener('keydown', _.keyHandler);
         }
 
         if (_.options.focusOnSelect === true) {

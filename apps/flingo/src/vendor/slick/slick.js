@@ -1033,6 +1033,7 @@
 
         if (_.options.accessibility === true) {
             //thisList.off('keydown.slick', _.keyHandler);
+            _.$list.removeEventListener('keydown', _.keyHandler);
         }
 
         if (_.options.focusOnSelect === true) {
