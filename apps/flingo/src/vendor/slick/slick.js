@@ -2442,10 +2442,10 @@
     Slick.prototype.resize = function () {
         var _ = this;
 
-        if ($(window).width() !== _.windowWidth) {
+        if (window.innerWidth !== _.windowWidth) {
             clearTimeout(_.windowDelay);
             _.windowDelay = window.setTimeout(function () {
-                _.windowWidth = $(window).width();
+                _.windowWidth = window.innerWidth;
                 _.checkResponsive();
                 if (!_.unslicked) {
                     _.setPosition();
