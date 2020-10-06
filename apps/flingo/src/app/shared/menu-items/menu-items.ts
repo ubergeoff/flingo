@@ -75,7 +75,7 @@ const MENUITEMS = [
     },
     {
         state: 'donate',
-        name: 'Coffee',
+        name: 'Buy coffee',
         type: 'link',
         icon: 'local_cafe'
     }
