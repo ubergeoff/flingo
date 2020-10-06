@@ -190,6 +190,10 @@
         //_.dragHandler = _.dragHandler.bind(_);
         _.keyHandler = _.keyHandler.bind(_);
 
+        _.startSwipeHandler = _.startSwipeHandler.bind(_);
+        _.moveSwipeHandler = _.moveSwipeHandler.bind(_);
+        _.endSwipeHandler = _.endSwipeHandler.bind(_);
+
         _.instanceUid = instanceUid++;
 
         // A simple way to check for HTML strings
@@ -960,41 +964,60 @@
     */
     Slick.prototype.cleanUpEvents = function () {
         var _ = this;
-        const thisDots = $(_.$dots);
-        const thisList = $(_.$list);
+        //const thisDots = $(_.$dots);
+        //const thisList = $(_.$list);
         const thisSlider = $(_.$slider);
-        const thisPrevArrow = $(_.$prevArrow);
-        const thisNextArrow = $(_.$nextArrow);
+        //const thisPrevArrow = $(_.$prevArrow);
+        //const thisNextArrow = $(_.$nextArrow);
 
         if (_.options.dots && _.$dots !== null) {
-            $('li', thisDots)
+            _.queryAll('li', _.$dots).forEach(function (elem) {
+                elem.removeEventListener('click', _.changeSlide);
+                elem.removeEventListener('mouseenter', _.interrupt.bind(_), true);
+                elem.removeEventListener('mouseleave', _.interrupt.bind(_), false);
+            });
+            /*$('li', thisDots)
                 .off('click.slick', _.changeSlide)
                 .off('mouseenter.slick', $.proxy(_.interrupt, _, true))
-                .off('mouseleave.slick', $.proxy(_.interrupt, _, false));
+                .off('mouseleave.slick', $.proxy(_.interrupt, _, false));*/
 
             if (_.options.accessibility === true) {
-                thisDots.off('keydown.slick', _.keyHandler);
+                //thisDots.off('keydown.slick', _.keyHandler);
+                _.$dots.removeEventListener('keydown', _.keyHandler);
             }
         }
 
         thisSlider.off('focus.slick blur.slick');
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
-            thisPrevArrow && thisPrevArrow.off('click', _.changeSlide);
-            thisNextArrow && thisNextArrow.off('click', _.changeSlide);
+            /*thisPrevArrow && thisPrevArrow.off('click', _.changeSlide);
+            thisNextArrow && thisNextArrow.off('click', _.changeSlide);*/
+            _.$prevArrow && _.$prevArrow.removeEventListener('click', _.changeSlide);
+            _.$nextArrow && _.$nextArrow.removeEventListener('click', _.changeSlide);
 
             if (_.options.accessibility === true) {
-                thisPrevArrow && thisPrevArrow.off('keydown', _.keyHandler);
-                thisNextArrow && thisNextArrow.off('keydown', _.keyHandler);
+                /*thisPrevArrow && thisPrevArrow.off('keydown', _.keyHandler);
+                thisNextArrow && thisNextArrow.off('keydown', _.keyHandler);*/
+                _.$prevArrow && _.$prevArrow.removeEventListener('keydown', _.keyHandler);
+                _.$nextArrow && _.$nextArrow.removeEventListener('keydown', _.keyHandler);
             }
         }
 
-        thisList.off('touchstart.slick mousedown.slick', _.swipeHandler);
+        /*thisList.off('touchstart.slick mousedown.slick', _.swipeHandler);
         thisList.off('touchmove.slick mousemove.slick', _.swipeHandler);
         thisList.off('touchend.slick mouseup.slick', _.swipeHandler);
-        thisList.off('touchcancel.slick mouseleave.slick', _.swipeHandler);
+        thisList.off('touchcancel.slick mouseleave.slick', _.swipeHandler);*/
+        _.$list.removeEventListener('touchstart', _.startSwipeHandler);
+        _.$list.removeEventListener('mousedown', _.startSwipeHandler);
+        _.$list.removeEventListener('touchmove', _.moveSwipeHandler);
+        _.$list.removeEventListener('mousemove', _.moveSwipeHandler);
+        _.$list.removeEventListener('touchend', _.endSwipeHandler);
+        _.$list.removeEventListener('mouseup', _.endSwipeHandler);
+        _.$list.removeEventListener('touchcancel', _.endSwipeHandler);
+        _.$list.removeEventListener('mouseleave', _.endSwipeHandler);
 
-        thisList.off('click.slick', _.clickHandler);
+        //thisList.off('click.slick', _.clickHandler);
+        _.$list.removeEventListener('click', _.clickHandler);
 
         //$(document).off(_.visibilityChange, _.visibility);
         document.removeEventListener(_.visibilityChange, _.visibility);
@@ -1002,19 +1025,24 @@
         _.cleanUpSlideEvents();
 
         if (_.options.accessibility === true) {
-            thisList.off('keydown.slick', _.keyHandler);
+            //thisList.off('keydown.slick', _.keyHandler);
         }
 
         if (_.options.focusOnSelect === true) {
-            $(_.$slideTrack).children().off('click.slick', _.selectHandler);
+            //$(_.$slideTrack).children().off('click.slick', _.selectHandler);
+            for (let item of Array.from(_.$slideTrack.children)) {
+                item.removeEventListener('click', _.selectHandler);
+            }
         }
 
+        //leaving this out for now
         //$(window).off('orientationchange.slick.slick-' + _.instanceUid, _.orientationChange);
 
         //$(window).off('resize.slick.slick-' + _.instanceUid, _.resize);
         window.removeEventListener('resize', _.resize);
 
-        $('[draggable!=true]', _.$slideTrack).off('dragstart', _.preventDefault);
+        //TODO: find a way to do this using vanilla js
+        //$('[draggable!=true]', _.$slideTrack).off('dragstart', _.preventDefault);
 
         //$(window).off('load.slick.slick-' + _.instanceUid, _.setPosition);
         window.removeEventListener('load', _.setPosition);
@@ -1799,16 +1827,8 @@
             },
             _.swipeHandler
         );*/
-        _.$list.addEventListener('touchstart', function (event) {
-            event.data = { action: 'start' };
-            event.originalEvent = event;
-            _.swipeHandler(event);
-        });
-        _.$list.addEventListener('mousedown', function (event) {
-            event.data = { action: 'start' };
-            event.originalEvent = event;
-            _.swipeHandler(event);
-        });
+        _.$list.addEventListener('touchstart', _.startSwipeHandler);
+        _.$list.addEventListener('mousedown', _.startSwipeHandler);
 
         /*thisList.on(
             'touchmove.slick mousemove.slick',
@@ -1817,16 +1837,8 @@
             },
             _.swipeHandler
         );*/
-        _.$list.addEventListener('touchmove', function (event) {
-            event.data = { action: 'move' };
-            event.originalEvent = event;
-            _.swipeHandler(event);
-        });
-        _.$list.addEventListener('mousemove', function (event, other) {
-            event.data = { action: 'move' };
-            event.originalEvent = event;
-            _.swipeHandler(event);
-        });
+        _.$list.addEventListener('touchmove', _.moveSwipeHandler);
+        _.$list.addEventListener('mousemove', _.moveSwipeHandler);
 
         /*thisList.on(
             'touchend.slick mouseup.slick',
@@ -1835,16 +1847,8 @@
             },
             _.swipeHandler
         );*/
-        _.$list.addEventListener('touchend', function (event) {
-            event.data = { action: 'end' };
-            event.originalEvent = event;
-            _.swipeHandler(event);
-        });
-        _.$list.addEventListener('mouseup', function (event) {
-            event.data = { action: 'end' };
-            event.originalEvent = event;
-            _.swipeHandler(event);
-        });
+        _.$list.addEventListener('touchend', _.endSwipeHandler);
+        _.$list.addEventListener('mouseup', _.endSwipeHandler);
 
         /*thisList.on(
             'touchcancel.slick mouseleave.slick',
@@ -1853,20 +1857,11 @@
             },
             _.swipeHandler
         );*/
-        _.$list.addEventListener('touchcancel', function (event) {
-            event.data = { action: 'end' };
-            event.originalEvent = event;
-            _.swipeHandler(event);
-        });
-        _.$list.addEventListener('mouseleave', function (event) {
-            event.data = { action: 'end' };
-            event.originalEvent = event;
-            _.swipeHandler(event);
-        });
+        _.$list.addEventListener('touchcancel', _.endSwipeHandler);
+        _.$list.addEventListener('mouseleave', _.endSwipeHandler);
 
         //thisList.on('click.slick', _.clickHandler);
-        // just check if I actually need this one..?!?
-        //_.$list.addEventListener('click', _.clickHandler);
+        _.$list.addEventListener('click', _.clickHandler);
 
         //$(document).on(_.visibilityChange, _.visibility.bind(_));
         document.addEventListener(_.visibilityChange, _.visibility.bind(_));
@@ -1877,16 +1872,20 @@
         }
 
         if (_.options.focusOnSelect === true) {
-            $(_.$slideTrack).children().on('click.slick', _.selectHandler);
+            //$(_.$slideTrack).children().on('click.slick', _.selectHandler);
+            for (let item of Array.from(_.$slideTrack.children)) {
+                item.addEventListener('click', _.selectHandler);
+            }
         }
 
-        //TODO: find a way to do vanilla orientation change
+        //leaving this out for now
         //$(window).on('orientationchange.slick.slick-' + _.instanceUid, $.proxy(_.orientationChange, _));
 
         //$(window).on('resize.slick.slick-' + _.instanceUid, $.proxy(_.resize, _));
         window.addEventListener('resize', _.resize.bind(_));
 
-        $('[draggable!=true]', _.$slideTrack).on('dragstart', _.preventDefault);
+        //TODO: find a way to do this using vanilla js
+        //$('[draggable!=true]', _.$slideTrack).on('dragstart', _.preventDefault);
 
         //$(window).on('load.slick.slick-' + _.instanceUid, _.setPosition);
         window.addEventListener('load', _.setPosition);
@@ -3351,6 +3350,27 @@
         }
 
         return event;
+    };
+
+    Slick.prototype.startSwipeHandler = function (event) {
+        var _ = this;
+        event.data = { action: 'start' };
+        event.originalEvent = event;
+        _.swipeHandler(event);
+    };
+
+    Slick.prototype.moveSwipeHandler = function (event) {
+        var _ = this;
+        event.data = { action: 'move' };
+        event.originalEvent = event;
+        _.swipeHandler(event);
+    };
+
+    Slick.prototype.endSwipeHandler = function (event) {
+        var _ = this;
+        event.data = { action: 'end' };
+        event.originalEvent = event;
+        _.swipeHandler(event);
     };
 
     // ------------------------
