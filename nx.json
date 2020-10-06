@@ -49,6 +49,12 @@
         },
         "workspace-shared": {
             "tags": []
+        },
+        "workspace-donate": {
+            "tags": []
+        },
+        "workspace-source": {
+            "tags": []
         }
     }
 }

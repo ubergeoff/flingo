@@ -31,6 +31,20 @@ export const AppRoutes: Routes = [
                     import('../../../../libs/workspace/slick/src/lib/workspace-slick.module').then(
                         (m) => m.WorkspaceSlickModule
                     )
+            },
+            {
+                path: 'source',
+                loadChildren: () =>
+                    import('../../../../libs/workspace/source/src/lib/workspace-source.module').then(
+                        (m) => m.WorkspaceSourceModule
+                    )
+            },
+            {
+                path: 'donate',
+                loadChildren: () =>
+                    import('../../../../libs/workspace/donate/src/lib/workspace-donate.module').then(
+                        (m) => m.WorkspaceDonateModule
+                    )
             }
         ]
     },

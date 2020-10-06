@@ -28,10 +28,7 @@
                             "node_modules/slick-carousel/slick/slick-theme.scss",
                             "node_modules/gridjs/dist/theme/mermaid.css"
                         ],
-                        "scripts": [
-                            "apps/flingo/src/vendor/slick/slick.js",
-                            "node_modules/muuri/dist/muuri.min.js"
-                        ]
+                        "scripts": ["apps/flingo/src/vendor/slick/slick.js", "node_modules/muuri/dist/muuri.min.js"]
                     },
                     "configurations": {
                         "production": {
@@ -358,6 +355,70 @@
                 }
             },
             "schematics": {}
+        },
+        "workspace-donate": {
+            "projectType": "library",
+            "root": "libs/workspace/donate",
+            "sourceRoot": "libs/workspace/donate/src",
+            "prefix": "rooi",
+            "architect": {
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "libs/workspace/donate/tsconfig.lib.json",
+                            "libs/workspace/donate/tsconfig.spec.json"
+                        ],
+                        "exclude": ["**/node_modules/**", "!libs/workspace/donate/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/workspace/donate/jest.config.js",
+                        "tsConfig": "libs/workspace/donate/tsconfig.spec.json",
+                        "passWithNoTests": true,
+                        "setupFile": "libs/workspace/donate/src/test-setup.ts"
+                    }
+                }
+            },
+            "schematics": {
+                "@nrwl/angular:component": {
+                    "style": "scss"
+                }
+            }
+        },
+        "workspace-source": {
+            "projectType": "library",
+            "root": "libs/workspace/source",
+            "sourceRoot": "libs/workspace/source/src",
+            "prefix": "rooi",
+            "architect": {
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "libs/workspace/source/tsconfig.lib.json",
+                            "libs/workspace/source/tsconfig.spec.json"
+                        ],
+                        "exclude": ["**/node_modules/**", "!libs/workspace/source/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/workspace/source/jest.config.js",
+                        "tsConfig": "libs/workspace/source/tsconfig.spec.json",
+                        "passWithNoTests": true,
+                        "setupFile": "libs/workspace/source/src/test-setup.ts"
+                    }
+                }
+            },
+            "schematics": {
+                "@nrwl/angular:component": {
+                    "style": "scss"
+                }
+            }
         }
     },
     "cli": {

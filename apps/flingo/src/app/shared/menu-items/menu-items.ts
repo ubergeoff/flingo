@@ -66,6 +66,18 @@ const MENUITEMS = [
             { state: 'slick4', name: 'Center', type: 'link' },
             { state: 'slick5', name: 'Show three', type: 'link' }
         ]
+    },
+    {
+        state: 'source',
+        name: 'Source code',
+        type: 'link',
+        icon: 'source'
+    },
+    {
+        state: 'donate',
+        name: 'Coffee',
+        type: 'link',
+        icon: 'local_cafe'
     }
 ];
 
