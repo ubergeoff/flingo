@@ -703,11 +703,11 @@
             numOfSlides = Math.ceil(originalSlides.length / slidesPerSection);
 
             for (a = 0; a < numOfSlides; a++) {
-                var slide = document.createElement('div');
+                const slide = document.createElement('div');
                 for (b = 0; b < _.options.rows; b++) {
-                    var row = document.createElement('div');
+                    const row = document.createElement('div');
                     for (c = 0; c < _.options.slidesPerRow; c++) {
-                        var target = a * slidesPerSection + (b * _.options.slidesPerRow + c);
+                        const target = a * slidesPerSection + (b * _.options.slidesPerRow + c);
                         /*if (originalSlides.get(target)) {
                             row.appendChild(originalSlides.get(target));
                         }*/
@@ -736,6 +736,8 @@
             _.emptyDOM(_.$slider);
             _.$slider.appendChild(newSlides);
 
+            // this is done inside the loop now
+            // just leaving it here for comparison purposes
             /* if (_.options.variableWidth === false && _.options.slideWidth !== 0) {
                  thisSlider.children().children().children()
                      .css({
@@ -959,14 +961,14 @@
         return index;
     };
 
-    /*
-    NEEDS TO BE FINISHED OFF
-    */
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.cleanUpEvents = function () {
         var _ = this;
         //const thisDots = $(_.$dots);
         //const thisList = $(_.$list);
-        const thisSlider = $(_.$slider);
+        //const thisSlider = $(_.$slider);
         //const thisPrevArrow = $(_.$prevArrow);
         //const thisNextArrow = $(_.$nextArrow);
 
@@ -987,7 +989,8 @@
             }
         }
 
-        thisSlider.off('focus.slick blur.slick');
+        // I believe this is done else where
+        //thisSlider.off('focus.slick blur.slick');
 
         if (_.options.arrows === true && _.slideCount > _.options.slidesToShow) {
             /*thisPrevArrow && thisPrevArrow.off('click', _.changeSlide);
@@ -1242,6 +1245,9 @@
         });
     };
 
+    /*
+    NEEDS WORK
+    */
     Slick.prototype.filterSlides = Slick.prototype.slickFilter = function (filter) {
         var _ = this;
 
@@ -1258,6 +1264,9 @@
         }
     };
 
+    /*
+    NEEDS WORK
+    */
     Slick.prototype.focusHandler = function () {
         var _ = this;
 
@@ -1808,12 +1817,11 @@
         ).call(el, selector);
     };
 
-    /*
-    NEEDS TO BE FINISHED OFF
-    */
+    // --------------------------
+    // Complete
+    // --------------------------
     Slick.prototype.initializeEvents = function () {
         var _ = this;
-        const thisList = $(_.$list);
 
         _.initArrowEvents();
 
