@@ -29,7 +29,6 @@
                             "node_modules/gridjs/dist/theme/mermaid.css"
                         ],
                         "scripts": [
-                            "node_modules/jquery/dist/jquery.slim.min.js",
                             "apps/flingo/src/vendor/slick/slick.js",
                             "node_modules/muuri/dist/muuri.min.js"
                         ]
