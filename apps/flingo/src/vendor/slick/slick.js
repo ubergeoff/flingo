@@ -605,21 +605,22 @@
             $('<div class="slick-track"/>').appendTo(thisSlider) :
             _.$slides.wrapAll('<div class="slick-track"/>').parent();*/
 
-        const slickTrackDiv = _.creatDiv('slick-track');
+        const slickTrack = _.creatDiv('slick-track');
 
         if (_.slideCount === 0) {
             // TODO: still need to do this one
             _.$slideTrack = $('<div class="slick-track"/>').appendTo(thisSlider);
         } else {
-            _.$slideTrack = _.wrapAll(_.$slides, slickTrackDiv);
+            _.$slideTrack = _.wrapAll(_.$slides, slickTrack);
         }
 
-        const slickListDiv = _.creatDiv('slick-list');
+        const slickList = _.creatDiv('slick-list');
         //_.$list = _.$slideTrack.wrap('<div class="slick-list"/>').parent();
 
         //const lister = _.wrapAll([_.$slideTrack], slickListDiv);
         //_.$list = $(lister);
-        _.$list = _.wrapAll([_.$slideTrack], slickListDiv);
+        _.$list = _.wrapAll([_.$slideTrack], slickList);
+        _.$slides = _.$slideTrack.children;
 
         //_.$slideTrack.css('opacity', 0);
         _.$slideTrack.style.opacity = 0;
