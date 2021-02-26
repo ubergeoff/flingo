@@ -2,5 +2,5 @@
     <div class="grid-head">
         <h1 class="mat-h1">Dashboard</h1>
     </div>
-    <rooi-grid></rooi-grid>
+    <rooi-grid [search]="true" [columns]="columns" [data]="data$ | async"></rooi-grid>
 </div>
