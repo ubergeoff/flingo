@@ -23,7 +23,7 @@ jobs:
       # Install project dependencies
       - run:
           name: Install local dependencies
-          command: npm install
+          command: npm ci
       # Cache local dependencies if they don't exist
       - save_cache:
           key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
@@ -51,7 +51,7 @@ jobs:
       # Install project dependencies
       - run:
           name: Install testing dependencies
-          command: npm install
+          command: npm ci
 
       # Lint the source code
       - run:

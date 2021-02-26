@@ -14,8 +14,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { SlickItemDirective } from '../directives/slick-item.directive';
-
-declare var Slick: any;
+import { Slicker } from '../helpers/slicker';
 
 /**
  * Slick component
@@ -44,7 +43,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
     @Output() destroy: EventEmitter<{ event: any; slick: any }> = new EventEmitter();
     @Output() init: EventEmitter<{ event: any; slick: any }> = new EventEmitter();
 
-    public slick: any;
+    public slick: Slicker;
 
     // access from parent component can be a problem with change detection timing. Please use afterChange output
     private currentIndex = 0;
@@ -114,7 +113,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
         this._addedSlides = [];
         this._removedSlides = [];
 
-        this.slick = new Slick(this.el.nativeElement, this.config);
+        this.slick = new Slicker(this.el.nativeElement, this.config);
         this.initialized = true;
 
         this.slick.$slider.addEventListener('afterChange', (a, b, c) => {
@@ -138,9 +137,8 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
 
     public unslick() {
         if (this.slick) {
-            /*this.zone.runOutsideAngular(() => {*/
             this.slick.unslick();
-            /*});*/
+
             this.slick = undefined;
         }
         this.initialized = false;

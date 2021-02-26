@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { Platform } from '@angular/cdk/platform';
 
 @Component({
-    selector: 'app-slider',
+    selector: 'rooi-slider',
     templateUrl: './fixed-width.component.html',
     styleUrls: ['./fixed-width.component.scss']
 })
