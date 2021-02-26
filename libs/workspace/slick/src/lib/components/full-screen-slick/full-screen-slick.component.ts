@@ -4,7 +4,7 @@ import { Platform } from '@angular/cdk/platform';
 import { CardService } from '@rooi/workspace/shared';
 
 @Component({
-    selector: 'app-full-screen-slick',
+    selector: 'rooi-full-screen-slick',
     templateUrl: './full-screen-slick.component.html',
     styleUrls: ['./full-screen-slick.component.scss'],
     providers: [CardService]

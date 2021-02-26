@@ -8,7 +8,7 @@ import { ActionButtonComponent } from '../action-button/action-button.component'
 import { createDivContainer } from '@rooi/grid';
 
 @Component({
-    selector: 'app-grid',
+    selector: 'rooi-grid',
     templateUrl: './grid-demo.component.html',
     styleUrls: ['./grid-demo.component.scss']
 })

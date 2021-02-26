@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GridDemoComponent } from './grid-demo.component';
+import { GridModule } from '@rooi/grid';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 describe('GridComponent', () => {
     let component: GridDemoComponent;
@@ -8,6 +11,7 @@ describe('GridComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [GridModule, MatDialogModule, MatButtonModule],
             declarations: [GridDemoComponent]
         }).compileComponents();
     }));
