@@ -280,7 +280,7 @@ export class Slicker {
     // Complete
     // -- not using $(markup)
     // ---------------------------
-    addSlide(markup, index, addBefore) {
+    addSlide(markup, index = null, addBefore = false) {
         //const thisSlideTrack = $(this.$slideTrack);
 
         if (typeof index === 'boolean') {
@@ -2193,9 +2193,7 @@ export class Slicker {
     // --------------------------
     // Complete
     // --------------------------
-    removeSlide(index, removeBefore, removeAll) {
-        //const thisSlideTrack = $(this.$slideTrack);
-
+    removeSlide(index, removeBefore = false, removeAll = false) {
         if (typeof index === 'boolean') {
             removeBefore = index;
             index = removeBefore === true ? 0 : this.slideCount - 1;
@@ -3324,7 +3322,7 @@ export class Slicker {
     // ------------------------
     // Complete
     // ------------------------
-    unslick(fromBreakpoint) {
+    unslick(fromBreakpoint = null) {
         //this.$slider.trigger('unslick', [_, fromBreakpoint]);
         const event = this.createTrigger('unslick', [this, fromBreakpoint]);
         this.$slider.dispatchEvent(event);
