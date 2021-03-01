@@ -419,6 +419,43 @@
                     "style": "scss"
                 }
             }
+        },
+        "slicker": {
+            "projectType": "library",
+            "root": "libs/slicker",
+            "sourceRoot": "libs/slicker/src",
+            "prefix": "rooi",
+            "architect": {
+                "build": {
+                    "builder": "@nrwl/angular:package",
+                    "options": {
+                        "tsConfig": "libs/slicker/tsconfig.lib.json",
+                        "project": "libs/slicker/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "libs/slicker/tsconfig.lib.prod.json"
+                        }
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": ["libs/slicker/tsconfig.lib.json", "libs/slicker/tsconfig.spec.json"],
+                        "exclude": ["**/node_modules/**", "!libs/slicker/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/slicker/jest.config.js",
+                        "tsConfig": "libs/slicker/tsconfig.spec.json",
+                        "passWithNoTests": true,
+                        "setupFile": "libs/slicker/src/test-setup.ts"
+                    }
+                }
+            },
+            "schematics": {}
         }
     },
     "cli": {

@@ -55,6 +55,9 @@
         },
         "workspace-source": {
             "tags": []
+        },
+        "slicker": {
+            "tags": []
         }
     }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-grid',
+    selector: 'rooi-grid-demo',
     templateUrl: './grid-demo.component.html',
     styleUrls: ['./grid-demo.component.scss']
 })

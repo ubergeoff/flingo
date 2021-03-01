@@ -1,7 +1,4 @@
-declare var $: any;
-
-export class SlickService {
-    /*
+/*
      _ _      _       _
  ___| (_) ___| | __  (_)___
 / __| | |/ __| |/ /  | / __|
@@ -11,7 +8,7 @@ export class SlickService {
 
  Version:          0.1.0
  Original Author:  Ken Wheeler
- Vanilla Slick By: UberGeoff
+ Slicker TS By:    UberGeoff
  Website:          http://kenwheeler.github.io
     Docs:          http://kenwheeler.github.io/slick
     Repo:          http://github.com/kenwheeler/slick
@@ -20,64 +17,11 @@ export class SlickService {
 
 
  */
-
+export class Slicker {
     instanceUid = 0;
 
-    accessibility = true;
-    adaptiveHeight = false;
-    appendArrows;
-    appendDots;
-    arrows = true;
-    asNavFor = null;
-    prevArrow = '<button class="slick-prev" aria-label="Previous" type="button">Previous</button>';
-    nextArrow = '<button class="slick-next" aria-label="Next" type="button">Next</button>';
-    autoplay = false;
-    autoplaySpeed = 3000;
-    centerMode = false;
-    centerPadding = '50px';
-    cssEase = 'ease';
-    customPaging;
-    dots = false;
-    dotsClass = 'slick-dots';
-    draggable = true;
-    easing = 'linear';
-    edgeFriction = 0.35;
-    fade = false;
-    focusOnSelect = false;
-    focusOnChange = false;
-    infinite = true;
-    initialSlide = 0;
-    lazyLoad = 'ondemand';
-    mobileFirst = false;
-    pauseOnHover = true;
-    pauseOnFocus = true;
-    pauseOnDotsHover = false;
-    respondTo = 'window';
-    responsive = null;
-    rows = 1;
-    rtl = false;
-    slide = '';
-    slidesPerRow = 1;
-    slidesToShow = 1;
-    slidesToScroll = 1;
-    slideWidth = 0;
-    speed = 500;
-    swipe = true;
-    swipeToSlide = false;
-    touchMove = true;
-    touchThreshold = 5;
-    useCSS = true;
-    useTransform = true;
-    variableWidth = false;
-    vertical = false;
-    verticalSwiping = false;
-    waitForAnimate = true;
-    zIndex = 1000;
-
-    dataSettings = null;
-
     defaults = {
-        accessibility: true,
+        accessibility: false,
         adaptiveHeight: false,
         appendArrows: null,
         appendDots: null,
@@ -91,9 +35,8 @@ export class SlickService {
         centerPadding: '50px',
         cssEase: 'ease',
         customPaging: function (slider, i) {
-            //return $('<button type="button" />').text(i + 1);
             const button = document.createElement('button');
-            //button.text = i + 1 + '';
+            button.value = i + 1 + '';
             button.type = 'button';
 
             return button;
@@ -164,69 +107,9 @@ export class SlickService {
         unslicked: false
     };
 
-    options = {
-        accessibility: true,
-        adaptiveHeight: false,
-        appendArrows: null,
-        appendDots: null,
-        arrows: true,
-        asNavFor: null,
-        prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">Previous</button>',
-        nextArrow: '<button class="slick-next" aria-label="Next" type="button">Next</button>',
-        autoplay: false,
-        autoplaySpeed: 3000,
-        centerMode: false,
-        centerPadding: '50px',
-        cssEase: 'ease',
-        customPaging: function (slider, i) {
-            //return $('<button type="button" />').text(i + 1);
-            const button = document.createElement('button');
-            //button.text = i + 1 + '';
-            button.type = 'button';
-
-            return button;
-        },
-        dots: false,
-        dotsClass: 'slick-dots',
-        draggable: true,
-        easing: 'linear',
-        edgeFriction: 0.35,
-        fade: false,
-        focusOnSelect: false,
-        focusOnChange: false,
-        infinite: true,
-        initialSlide: 0,
-        lazyLoad: 'ondemand',
-        mobileFirst: false,
-        pauseOnHover: true,
-        pauseOnFocus: true,
-        pauseOnDotsHover: false,
-        respondTo: 'window',
-        responsive: null,
-        rows: 1,
-        rtl: false,
-        slide: '',
-        slidesPerRow: 1,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        slideWidth: 0,
-        speed: 500,
-        swipe: true,
-        swipeToSlide: false,
-        touchMove: true,
-        touchThreshold: 5,
-        useCSS: true,
-        useTransform: true,
-        variableWidth: false,
-        vertical: false,
-        verticalSwiping: false,
-        waitForAnimate: true,
-        zIndex: 1000
-    };
-
     activeBreakpoint = null;
     animType = null;
-    //animProp = null;
+    animProp = null;
     breakpoints = [];
     breakpointSettings = [];
     cssTransitions = false;
@@ -235,81 +118,114 @@ export class SlickService {
     hidden = 'hidden';
     paused = true;
     positionProp = null;
+    respondTo = null;
     rowCount = 1;
     shouldClick = true;
-    $slider;
+    $slider = null;
+    $slidesCache = null;
     transformType = null;
     transitionType = null;
     visibilityChange = 'visibilitychange';
     windowWidth = 0;
     windowTimer = null;
+    options: any;
 
-    private currentSlide: any;
+    // A simple way to check for HTML strings
+    // Strict HTML recognition (must start with <)
+    // Extracted from jQuery v1.11 source
+    htmlExpr = /^(?:\s*(<[\w\W]+>)[^>]*)$/;
+
+    // --------------------------
+    // Complete
+    // --------------------------
+    private currentSlide: number;
     private originalSettings: any;
-    private htmlExpr: RegExp;
-    private $slideTrack: any;
+    private $slideTrack: HTMLElement;
     private slideCount: number;
-    $slides;
-    private $slidesCache: any;
-    private currentLeft: number;
+    private $slides: HTMLCollection;
     private $list: any;
-    private transformsEnabled: Boolean;
-    private autoPlayTimer: number;
+    private autoPlayTimer: any;
+    private slideOffset: number;
+    private slideWidth: number;
+    private transformsEnabled: boolean;
+    private windowDelay: any;
+    private unslicked: boolean;
+    private touchObject = {
+        fingerCount: 0,
+        startX: 0,
+        startY: 0,
+        curY: 0,
+        curX: 0,
+        edgeHit: false,
+        swipeLength: 0,
+        minSwipe: 0
+    };
+    private originalTouchObject = {
+        fingerCount: 0,
+        startX: 0,
+        startY: 0,
+        curY: 0,
+        curX: 0,
+        edgeHit: false,
+        swipeLength: 0,
+        minSwipe: 0
+    };
+    private $dots: any;
+    private $prevArrow: any;
+    private $nextArrow: any;
     private direction: number;
     private animating: boolean;
-    $prevArrow: any;
-    $nextArrow: any;
-    $dots: any;
-    private slideOffset: number;
-    private touchObject: any;
-    private swipeLeft: number;
-    private windowDelay: number;
-    private listWidth: number;
     private dragging: boolean;
-    private swiping: boolean;
-    private unslicked: boolean;
-    private listHeight: number;
-    private scrolling: any;
     private currentDirection: number;
+    private currentLeft: any;
+    private swiping: boolean;
+    private scrolling: boolean;
+    private listWidth: number;
+    private swipeLeft: number;
+    private listHeight: number;
 
-    constructor() {
-        //$.extend(_, this.initials);
-        //this.extendAll(_, this.initials);
+    constructor(element, settings) {
+        this.defaults = {
+            ...this.defaults,
+            appendArrows: element,
+            appendDots: element
+        };
 
-        //dataSettings = $(element).data('slick') || {};
+        this.$slider = element;
 
-        //this.options = $.extend({}, this.defaults, settings, dataSettings);
-        //this.options = this.extendAll({}, this.defaults, settings, dataSettings);
-
-        //this.currentSlide = this.options.initialSlide;
+        this.options = this.extendAll({}, this.defaults, settings);
+        this.currentSlide = this.options.initialSlide;
 
         this.originalSettings = this.options;
 
-        /*  if (typeof document.mozHidden !== 'undefined') {
-              this.hidden = 'mozHidden';
-              this.visibilityChange = 'mozvisibilitychange';
-          } else if (typeof document.webkitHidden !== 'undefined') {
-              this.hidden = 'webkitHidden';
-              this.visibilityChange = 'webkitvisibilitychange';
-          }*/
+        // @ts-ignore
+        if (typeof document.mozHidden !== 'undefined') {
+            this.hidden = 'mozHidden';
+            this.visibilityChange = 'mozvisibilitychange';
+        } else {
+            // @ts-ignore
+            if (typeof document.webkitHidden !== 'undefined') {
+                this.hidden = 'webkitHidden';
+                this.visibilityChange = 'webkitvisibilitychange';
+            }
+        }
 
-        this.autoPlay = $.proxy(this.autoPlay, this);
-        this.autoPlayClear = $.proxy(this.autoPlayClear, this);
-        this.autoPlayIterator = $.proxy(this.autoPlayIterator, this);
-        this.changeSlide = $.proxy(this.changeSlide, this);
-        this.clickHandler = $.proxy(this.clickHandler, this);
-        /*this.selectHandler = $.proxy(this.selectHandler, _);
-        this.setPosition = $.proxy(this.setPosition, _);
-        this.swipeHandler = $.proxy(this.swipeHandler, _);
-        this.dragHandler = $.proxy(this.dragHandler, _);
-        this.keyHandler = $.proxy(this.keyHandler, _);*/
+        this.autoPlay = this.autoPlay.bind(this);
+        this.autoPlayClear = this.autoPlayClear.bind(this);
+        this.autoPlayIterator = this.autoPlayIterator.bind(this);
+        this.changeSlide = this.changeSlide.bind(this);
+        this.clickHandler = this.clickHandler.bind(this);
+        //this.selectHandler = this.selectHandler.bind(this);
+        this.setPosition = this.setPosition.bind(this);
+        this.swipeHandler = this.swipeHandler.bind(this);
+        //this.dragHandler = this.dragHandler.bind(_);
+        this.keyHandler = this.keyHandler.bind(this);
+
+        this.startSwipeHandler = this.startSwipeHandler.bind(this);
+        this.moveSwipeHandler = this.moveSwipeHandler.bind(this);
+        this.endSwipeHandler = this.endSwipeHandler.bind(this);
 
         this.instanceUid = this.instanceUid++;
-
-        // A simple way to check for HTML strings
-        // Strict HTML recognition (must start with <)
-        // Extracted from jQuery v1.11 source
-        this.htmlExpr = /^(?:\s*(<[\w\W]+>)[^>]*)$/;
 
         //this.registerBreakpoints();
         this.init(true);
@@ -318,10 +234,10 @@ export class SlickService {
     // --------------------------
     // Complete
     // --------------------------
-    extendAll(out) {
+    extendAll(out, ...args) {
         out = out || {};
 
-        for (const i = 1; i < arguments.length; i++) {
+        for (var i = 1; i < arguments.length; i++) {
             if (!arguments[i]) continue;
 
             for (const key in arguments[i]) {
@@ -332,23 +248,40 @@ export class SlickService {
         return out;
     }
 
+    //---------------------------
+    // Complete
+    // -- Not sure of behaviour tho ??
+    // ---------------------------
     activateADA() {
-        const _ = this;
+        const slickActive = this.$slideTrack.querySelector('.slick-active');
+        if (slickActive) {
+            slickActive.setAttribute('aria-hidden', 'false');
+            const allOther = slickActive.querySelectorAll('a, input, button, select');
 
-        $(this.$slideTrack)
-            .find('.slick-active')
-            .attr({
-                'aria-hidden': 'false'
-            })
-            .find('a, input, button, select')
-            .attr({
-                tabindex: '0'
-            });
+            // @ts-ignore
+            for (const element of allOther) {
+                element.setAttribute('tabindex', '0');
+            }
+        }
     }
 
-    addSlide(markup, index, addBefore) {
-        const _ = this;
-        const thisSlideTrack = $(this.$slideTrack);
+    createFromMarkup(markup) {
+        // Convert markup to an HTMLElement
+        if (!(markup instanceof HTMLElement)) {
+            const tempNode = document.createElement('div');
+            tempNode.innerHTML = markup;
+            return tempNode.children[0];
+        }
+
+        return null;
+    }
+
+    //---------------------------
+    // Complete
+    // -- not using $(markup)
+    // ---------------------------
+    addSlide(markup, index = null, addBefore = false) {
+        //const thisSlideTrack = $(this.$slideTrack);
 
         if (typeof index === 'boolean') {
             addBefore = index;
@@ -360,170 +293,133 @@ export class SlickService {
         this.unload();
 
         if (typeof index === 'number') {
-            if (index === 0 && this.$slides.length === 0) {
+            /*if (index === 0 && this.$slides.length === 0) {
                 $(markup).appendTo(thisSlideTrack);
             } else if (addBefore) {
                 $(markup).insertBefore(this.$slides.eq(index));
             } else {
                 $(markup).insertAfter(this.$slides.eq(index));
-            }
+            }*/
         } else {
             if (addBefore === true) {
-                $(markup).prependTo(thisSlideTrack);
+                // not using yet
+                // $(markup).prependTo(thisSlideTrack);
             } else {
-                $(markup).appendTo(thisSlideTrack);
+                //$(markup).appendTo(thisSlideTrack);
+                this.$slideTrack.appendChild(markup);
             }
         }
 
-        this.$slides = thisSlideTrack.children(this.options.slide);
+        // @ts-ignore
+        this.$slides = Array.from(this.$slideTrack.children);
+        // @ts-ignore
+        for (const item of Array.from(this.$slideTrack.children)) {
+            item.parentNode.removeChild(item);
+        }
 
-        thisSlideTrack.children(this.options.slide).detach();
-
-        thisSlideTrack.append(this.$slides);
-
-        // tslint:disable-next-line:no-shadowed-variable
-        this.$slides.each(function (index, element) {
-            $(element).attr('data-slick-index', index);
-        });
+        let indexer = 0;
+        // @ts-ignore
+        for (const item of this.$slides) {
+            this.$slideTrack.appendChild(item);
+            item.setAttribute('data-slick-index', (indexer++).toString());
+        }
 
         this.$slidesCache = this.$slides;
 
         this.reinit();
     }
 
+    //---------------------------------------
+    // Complete
+    // -- not using adaptive height, as yet
+    // - finish this, if you require this
+    // --------------------------------------
     animateHeight() {
-        const _ = this;
         if (
             this.options.slidesToShow === 1 &&
             this.options.adaptiveHeight === true &&
             this.options.vertical === false
         ) {
-            const targetHeight = this.$slides.eq(this.currentSlide).outerHeight(true);
+            /*const targetHeight = this.$slides.eq(this.currentSlide).outerHeight(true);
             this.$list.animate(
                 {
                     height: targetHeight
                 },
                 this.options.speed
-            );
+            );*/
         }
     }
 
+    // ------------------------------
+    // Complete
+    // We always use CSS transitions
+    // ---------------------------------
     animateSlide(targetLeft, callback) {
-        const animProps = {},
-            _ = this;
+        const animProps = {};
 
         this.animateHeight();
 
         if (this.options.rtl === true && this.options.vertical === false) {
             targetLeft = -targetLeft;
         }
-        if (this.transformsEnabled === false) {
-            if (this.options.vertical === false) {
-                this.$slideTrack.animate(
-                    {
-                        left: targetLeft
-                    },
-                    this.options.speed,
-                    this.options.easing,
-                    callback
-                );
-            } else {
-                this.$slideTrack.animate(
-                    {
-                        top: targetLeft
-                    },
-                    this.options.speed,
-                    this.options.easing,
-                    callback
-                );
-            }
+
+        this.applyTransition();
+        targetLeft = Math.ceil(targetLeft);
+
+        if (this.options.vertical === false) {
+            animProps[this.animType] = 'translate3d(' + targetLeft + 'px, 0px, 0px)';
         } else {
-            if (this.cssTransitions === false) {
-                if (this.options.rtl === true) {
-                    this.currentLeft = -this.currentLeft;
-                }
-                $({
-                    animStart: this.currentLeft
-                }).animate(
-                    {
-                        animStart: targetLeft
-                    },
-                    {
-                        duration: this.options.speed,
-                        easing: this.options.easing,
-                        step: function (now) {
-                            now = Math.ceil(now);
-                            if (this.options.vertical === false) {
-                                animProps[this.animType] = 'translate(' + now + 'px, 0px)';
-                                //this.$slideTrack.css(animProps);
-                                this.cssAppender(this.$slideTrack, animProps);
-                            } else {
-                                animProps[this.animType] = 'translate(0px,' + now + 'px)';
-                                //this.$slideTrack.css(animProps);
-                                this.cssAppender(this.$slideTrack, animProps);
-                            }
-                        },
-                        complete: function () {
-                            if (callback) {
-                                callback.call();
-                            }
-                        }
-                    }
-                );
-            } else {
-                this.applyTransition();
-                targetLeft = Math.ceil(targetLeft);
+            animProps[this.animType] = 'translate3d(0px,' + targetLeft + 'px, 0px)';
+        }
 
-                if (this.options.vertical === false) {
-                    animProps[this.animType] = 'translate3d(' + targetLeft + 'px, 0px, 0px)';
-                } else {
-                    animProps[this.animType] = 'translate3d(0px,' + targetLeft + 'px, 0px)';
-                }
-                //this.$slideTrack.css(animProps);
-                this.cssAppender(this.$slideTrack, animProps);
+        this.cssAppender(this.$slideTrack, animProps);
 
-                if (callback) {
-                    setTimeout(function () {
-                        this.disableTransition();
+        if (callback) {
+            setTimeout(() => {
+                this.disableTransition();
 
-                        callback.call();
-                    }, this.options.speed);
-                }
-            }
+                callback.call();
+            }, this.options.speed);
         }
     }
 
+    //---------------------------
+    // Complete
+    // -- not using "asNavFor"
+    // ---------------------------
     getNavTarget() {
-        //const _ = this,
-        let asNavFor = this.options.asNavFor;
+        const asNavFor = this.options.asNavFor;
 
-        if (asNavFor && asNavFor !== null) {
+        /*if (asNavFor && asNavFor !== null) {
             asNavFor = $(asNavFor).not(this.$slider);
         }
 
-        return asNavFor;
+        return asNavFor;*/
     }
 
-    asNavForIt(index) {
-        const _ = this,
-            asNavFor = this.getNavTarget();
+    //---------------------------
+    // Complete
+    // -- not using "asNavFor"
+    // ---------------------------
+    /*asNavFor(index) {
+        const asNavFor = this.getNavTarget();
 
         if (asNavFor !== null && typeof asNavFor === 'object') {
+            // @ts-ignore
             asNavFor.each(function () {
-                const target = $(this).slick('getSlick');
+                var target = $(this).slick('getSlick');
                 if (!target.unslicked) {
                     target.slideHandler(index, true);
                 }
             });
         }
-    }
+    }*/
 
     // ------------------------
     // Complete
     // ------------------------
-    applyTransition(slide = '') {
-        const _ = this,
-            transition = {};
+    applyTransition(slide = null) {
+        const transition = {};
 
         if (this.options.fade === false) {
             transition[this.transitionType] =
@@ -533,10 +429,9 @@ export class SlickService {
         }
 
         if (this.options.fade === false) {
-            //this.$slideTrack.css(transition);
             this.cssAppender(this.$slideTrack, transition);
         } else {
-            this.$slides.eq(slide).css(transition);
+            // this.$slides.eq(slide).css(transition);
         }
     }
 
@@ -544,8 +439,6 @@ export class SlickService {
     // Complete
     // ------------------------
     autoPlay() {
-        const _ = this;
-
         this.autoPlayClear();
 
         if (this.slideCount > this.options.slidesToShow) {
@@ -557,8 +450,6 @@ export class SlickService {
     // Complete
     // ------------------------
     autoPlayClear() {
-        const _ = this;
-
         if (this.autoPlayTimer) {
             clearInterval(this.autoPlayTimer);
         }
@@ -568,8 +459,8 @@ export class SlickService {
     // Complete
     // ------------------------
     autoPlayIterator() {
-        const _ = this;
-        let slideTo = this.currentSlide + this.options.slidesToScroll;
+        var _ = this,
+            slideTo = this.currentSlide + this.options.slidesToScroll;
 
         if (!this.paused && !this.interrupted && !this.focussed) {
             if (this.options.infinite === false) {
@@ -588,37 +479,44 @@ export class SlickService {
         }
     }
 
+    //---------------------------
+    // Complete
+    // ---------------------------
     buildArrows() {
-        const _ = this;
-
         if (this.options.arrows === true) {
-            this.$prevArrow = $(this.options.prevArrow).addClass('slick-arrow');
-            this.$nextArrow = $(this.options.nextArrow).addClass('slick-arrow');
+            this.$prevArrow = this.createFromMarkup(this.options.prevArrow);
+            this.$nextArrow = this.createFromMarkup(this.options.nextArrow);
+
+            this.$prevArrow.classList.add('slick-arrow');
+            this.$nextArrow.classList.add('slick-arrow');
 
             if (this.slideCount > this.options.slidesToShow) {
-                this.$prevArrow.removeClass('slick-hidden').removeAttr('aria-hidden tabindex');
-                this.$nextArrow.removeClass('slick-hidden').removeAttr('aria-hidden tabindex');
+                this.$prevArrow.classList.remove('slick-hidden');
+                this.$nextArrow.classList.remove('slick-hidden');
+
+                this.$prevArrow.removeAttribute('aria-hidden', 'tabindex');
+                this.$nextArrow.removeAttribute('aria-hidden', 'tabindex');
 
                 if (this.htmlExpr.test(this.options.prevArrow)) {
-                    this.$prevArrow.prependTo(this.options.appendArrows);
+                    this.options.appendArrows.insertBefore(this.$prevArrow, this.options.appendArrows.firstChild);
                 }
 
                 if (this.htmlExpr.test(this.options.nextArrow)) {
-                    this.$nextArrow.appendTo(this.options.appendArrows);
+                    this.options.appendArrows.appendChild(this.$nextArrow);
                 }
 
                 if (this.options.infinite !== true) {
-                    this.$prevArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
+                    this.$prevArrow.classList.add('slick-disabled');
+                    this.$prevArrow.setAttribute('aria-disabled', 'true');
                 }
             } else {
-                this.$prevArrow
-                    .add(this.$nextArrow)
+                this.$prevArrow.classList.add('slick-hidden');
+                this.$prevArrow.setAttribute('aria-disabled', 'true');
+                this.$prevArrow.setAttribute('tabindex', '-1');
 
-                    .addClass('slick-hidden')
-                    .attr({
-                        'aria-disabled': 'true',
-                        tabindex: '-1'
-                    });
+                this.$nextArrow.classList.add('slick-hidden');
+                this.$nextArrow.setAttribute('aria-disabled', 'true');
+                this.$nextArrow.setAttribute('tabindex', '-1');
             }
         }
     }
@@ -627,14 +525,13 @@ export class SlickService {
     // Complete
     // ------------------------
     buildDots() {
-        let i, dot;
-        //const thisSlider = $(this.$slider);
+        var _ = this,
+            i,
+            dot;
 
         if (this.options.dots === true && this.slideCount > this.options.slidesToShow) {
-            //thisSlider.addClass('slick-dotted');
             this.$slider.classList.add('slick-dotted');
 
-            //dot = $('<ul />').addClass(this.options.dotsClass);
             dot = document.createElement('ul');
             dot.classList.add(this.options.dotsClass);
 
@@ -642,15 +539,11 @@ export class SlickService {
                 const li = document.createElement('li');
                 li.appendChild(this.options.customPaging.call(this, _, i));
                 dot.appendChild(li);
-                //dot.append($('<li />').append(this.options.customPaging.call(this, _, i)));
             }
 
-            //this.$dots = dot.appendTo(this.options.appendDots);
-            //this.$dots = $(this.options.appendDots.appendChild(dot));
             this.options.appendDots.appendChild(dot);
-            this.$dots = dot; //this.options.appendDots;
+            this.$dots = dot;
 
-            //this.$dots.find('li').first().addClass('slick-active');
             const firstLi = this.$dots.querySelectorAll('li')[0];
             firstLi.classList.add('slick-active');
         }
@@ -660,58 +553,35 @@ export class SlickService {
     // Complete
     // ------------------------
     buildOut() {
-        const _ = this;
-        //const thisSlider = $(this.$slider);
-
         this.$slides = this.$slider.children;
         let index = 0;
-        for (const item of this.$slides) {
+        // @ts-ignore
+        for (let item of this.$slides) {
             item.classList.add('slick-slide');
             item.setAttribute('data-slick-index', index);
 
             index++;
         }
 
-        //this.$slides = thisSlider.children(this.options.slide + ':not(.slick-cloned)');
-
         this.slideCount = this.$slides.length;
 
-        //this.$slides = thisSlider.children( this.options.slide + ':not(.slick-cloned)');
-        //this.$slides.addClass('slick-slide');
-
-        //this.slideCount = this.$slides.length;
-
-        /*this.$slides.each(function(index, element) {
-            $(element)
-                .attr('data-slick-index', index)
-                .data('originalStyling', $(element).attr('style') || '');
-        });*/
-
-        //thisSlider.addClass('slick-slider');
         this.$slider.classList.add('slick-slider');
 
-        /*this.$slideTrack = (this.slideCount === 0) ?
-            $('<div class="slick-track"/>').appendTo(thisSlider) :
-            this.$slides.wrapAll('<div class="slick-track"/>').parent();*/
-
-        const slickTrackDiv = this.creatDiv('slick-track');
+        const slickTrack = this.creatDiv('slick-track');
 
         if (this.slideCount === 0) {
             // TODO: still need to do this one
-            //this.$slideTrack = $('<div class="slick-track"/>').appendTo(thisSlider);
+            // this.$slideTrack = $('<div class="slick-track"/>').appendTo(thisSlider);
         } else {
-            this.$slideTrack = this.wrapAll(this.$slides, slickTrackDiv);
+            this.$slideTrack = this.wrapAll(this.$slides, slickTrack);
         }
 
-        const slickListDiv = this.creatDiv('slick-list');
-        //this.$list = this.$slideTrack.wrap('<div class="slick-list"/>').parent();
+        const slickList = this.creatDiv('slick-list');
 
-        //const lister = this.wrapAll([this.$slideTrack], slickListDiv);
-        //this.$list = $(lister);
-        this.$list = this.wrapAll([this.$slideTrack], slickListDiv);
+        this.$list = this.wrapAll([this.$slideTrack], slickList);
+        this.$slides = this.$slideTrack.children;
 
-        //this.$slideTrack.css('opacity', 0);
-        this.$slideTrack.style.opacity = 0;
+        this.$slideTrack.style.opacity = '0';
 
         if (this.options.centerMode === true || this.options.swipeToSlide === true) {
             this.options.slidesToScroll = 1;
@@ -722,9 +592,9 @@ export class SlickService {
         //$('img[data-lazy]', thisSlider).not('[src]').addClass('slick-loading');
         // ---------------------
 
-        this.setupInfinite();
+        // this.setupInfinite();
 
-        //this.buildArrows();
+        this.buildArrows();
 
         this.buildDots();
 
@@ -733,7 +603,6 @@ export class SlickService {
         this.setSlideClasses(typeof this.currentSlide === 'number' ? this.currentSlide : 0);
 
         if (this.options.draggable === true) {
-            //this.$list.addClass('draggable');
             this.$list.classList.add('draggable');
         }
     }
@@ -751,24 +620,23 @@ export class SlickService {
     // ------------------------
     // Complete
     // ------------------------
-    // Wrap an HTMLElement around another HTMLElement or an array of them.
     wrapAll(nodes, wrapper) {
         // Cache the current parent and previous sibling of the first node.
-        const parent = nodes[0].parentNode;
-        const previousSibling = nodes[0].previousSibling;
+        var parent = nodes[0].parentNode;
+        var previousSibling = nodes[0].previousSibling;
 
         // Place each node in wrapper.
         //  - If nodes is an array, we must increment the index we grab from
         //    after each loop.
         //  - If nodes is a NodeList, each node is automatically removed from
         //    the NodeList when it is removed from its parent with appendChild.
-        for (const i = 0; nodes.length - i; wrapper.firstChild === nodes[0] && i++) {
+        for (var i = 0; nodes.length - i; wrapper.firstChild === nodes[0] && i++) {
             wrapper.appendChild(nodes[i]);
         }
 
         // Place the wrapper just after the cached previousSibling,
         // or if that is null, just before the first child.
-        const nextSibling = previousSibling ? previousSibling.nextSibling : parent.firstChild;
+        var nextSibling = previousSibling ? previousSibling.nextSibling : parent.firstChild;
         parent.insertBefore(wrapper, nextSibling);
 
         return wrapper;
@@ -778,11 +646,17 @@ export class SlickService {
     // Complete
     // ------------------------
     buildRows() {
-        let a, b, c, newSlides, numOfSlides, originalSlides, slidesPerSection;
+        var _ = this,
+            a,
+            b,
+            c,
+            newSlides,
+            numOfSlides,
+            originalSlides,
+            slidesPerSection;
 
-        //const thisSlider = $(this.$slider);
         newSlides = document.createDocumentFragment();
-        //originalSlides = thisSlider.children();
+        // @ts-ignore
         originalSlides = Array.from(this.$slider.children).slice();
 
         if (this.options.rows > 0) {
@@ -795,9 +669,7 @@ export class SlickService {
                     const row = document.createElement('div');
                     for (c = 0; c < this.options.slidesPerRow; c++) {
                         const target = a * slidesPerSection + (b * this.options.slidesPerRow + c);
-                        /*if (originalSlides.get(target)) {
-                            row.appendChild(originalSlides.get(target));
-                        }*/
+
                         if (originalSlides[target]) {
                             if (this.options.variableWidth === false && this.options.slideWidth !== 0) {
                                 this.cssAppender(row, {
@@ -819,24 +691,8 @@ export class SlickService {
                 newSlides.appendChild(slide);
             }
 
-            //thisSlider.empty().append(newSlides);
             this.emptyDOM(this.$slider);
             this.$slider.appendChild(newSlides);
-
-            /* if (this.options.variableWidth === false && this.options.slideWidth !== 0) {
-                 thisSlider.children().children().children()
-                     .css({
-                         'width': this.options.slideWidth + 'px',
-                         'display': 'inline-block'
-                     });
-
-             } else {
-                 thisSlider.children().children().children()
-                     .css({
-                         'width': (100 / this.options.slidesPerRow) + '%',
-                         'display': 'inline-block'
-                     });
-             }*/
         }
     }
 
@@ -851,16 +707,15 @@ export class SlickService {
     // Complete
     // --------------------------
     checkResponsive(initial = false, forceUpdate = false) {
-        let breakpoint,
+        var _ = this,
+            breakpoint,
             targetBreakpoint,
             respondToWidth,
             triggerBreakpoint = false;
 
-        //const thisSlider = $(this.$slider);
-        //const sliderWidth = thisSlider.width();
-        const sliderWidth = this.get_Width(this.$slider);
+        var sliderWidth = this.get_Width(this.$slider);
 
-        const windowWidth = window.innerWidth || $(window).width();
+        var windowWidth = window.innerWidth; // || $(window).width();
 
         if (this.respondTo === 'window') {
             respondToWidth = windowWidth;
@@ -916,10 +771,6 @@ export class SlickService {
                     if (this.breakpointSettings[targetBreakpoint] === 'unslick') {
                         this.unslick(targetBreakpoint);
                     } else {
-                        /*this.options = $.extend({}, this.originalSettings,
-                            this.breakpointSettings[
-                                targetBreakpoint]);*/
-
                         this.options = this.extendAll(
                             {},
                             this.originalSettings,
@@ -947,28 +798,37 @@ export class SlickService {
 
             // only trigger breakpoints during an actual break. not on initialize.
             if (!initial && triggerBreakpoint !== false) {
-                //thisSlider.trigger('breakpoint', [_, triggerBreakpoint]);
                 const event = this.createTrigger('breakpoint', [_, triggerBreakpoint]);
                 this.$slider.dispatchEvent(event);
             }
         }
     }
 
-    changeSlide(event, dontAnimate = true) {
-        let $target = $(event.currentTarget),
+    // --------------------------
+    // Complete
+    // --------------------------
+    changeSlide(event, dontAnimate = false) {
+        //$target = $(event.currentTarget),
+
+        var _ = this,
+            $target = event.currentTarget,
             indexOffset,
             slideOffset,
             unevenOffset;
 
         // If target is a link, prevent default action.
-        if ($target.is('a')) {
+        //not using
+        /*if ($target.is('a')) {
             event.preventDefault();
+        }*/
+        if (this.isMatches($target, 'a')) {
         }
 
         // If target is not the <li> element (ie: a child), find the <li>.
-        if (!$target.is('li')) {
+        //not using
+        /*if (!$target.is('li')) {
             $target = $target.closest('li');
-        }
+        }*/
 
         unevenOffset = this.slideCount % this.options.slidesToScroll !== 0;
         indexOffset = unevenOffset ? 0 : (this.slideCount - this.currentSlide) % this.options.slidesToScroll;
@@ -989,11 +849,15 @@ export class SlickService {
                 break;
 
             case 'index':
-                const index =
-                    event.data.index === 0 ? 0 : event.data.index || $target.index() * this.options.slidesToScroll;
+                var index =
+                    event.data.index === 0
+                        ? 0
+                        : event.data.index || this.indexInParent($target) * this.options.slidesToScroll;
 
                 this.slideHandler(this.checkNavigable(index), false, dontAnimate);
-                $target.children().trigger('focus');
+
+                //not doing focus yet
+                //$target.children().trigger('focus');
                 break;
 
             default:
@@ -1004,8 +868,21 @@ export class SlickService {
     // --------------------------
     // Complete
     // --------------------------
+    indexInParent(node) {
+        var children = node.parentNode.childNodes;
+        var num = 0;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i] === node) return num;
+            if (children[i].nodeType === 1) num++;
+        }
+        return -1;
+    }
+
+    // --------------------------
+    // Complete
+    // --------------------------
     checkNavigable(index) {
-        let navigables, prevNavigable;
+        var navigables, prevNavigable;
 
         navigables = this.getNavigableIndexes();
         prevNavigable = 0;
@@ -1025,80 +902,101 @@ export class SlickService {
         return index;
     }
 
+    // --------------------------
+    // Complete
+    // --------------------------
     cleanUpEvents() {
-        const _ = this;
-        const thisDots = $(this.$dots);
-        const thisList = $(this.$list);
-        const thisSlider = $(this.$slider);
-
         if (this.options.dots && this.$dots !== null) {
-            $('li', thisDots)
-                .off('click.slick', this.changeSlide)
-                .off('mouseenter.slick', $.proxy(this.interrupt, _, true))
-                .off('mouseleave.slick', $.proxy(this.interrupt, _, false));
+            const _ = this;
+            this.queryAll('li', this.$dots).forEach(function (elem) {
+                elem.removeEventListener('click', _.changeSlide);
+                elem.removeEventListener('mouseenter', _.interrupt.bind(_), true);
+                elem.removeEventListener('mouseleave', _.interrupt.bind(_), false);
+            });
 
             if (this.options.accessibility === true) {
-                thisDots.off('keydown.slick', this.keyHandler);
+                this.$dots.removeEventListener('keydown', this.keyHandler);
             }
         }
 
-        thisSlider.off('focus.slick blur.slick');
+        // I believe this is done else where
+        //thisSlider.off('focus.slick blur.slick');
 
         if (this.options.arrows === true && this.slideCount > this.options.slidesToShow) {
-            if (this.$prevArrow) this.$prevArrow.off('click.slick', this.changeSlide);
-            if (this.$nextArrow) this.$nextArrow.off('click.slick', this.changeSlide);
+            // tslint:disable-next-line:no-unused-expression
+            this.$prevArrow && this.$prevArrow.removeEventListener('click', this.changeSlide);
+            // tslint:disable-next-line:no-unused-expression
+            this.$nextArrow && this.$nextArrow.removeEventListener('click', this.changeSlide);
 
             if (this.options.accessibility === true) {
-                if (this.$prevArrow) this.$prevArrow.off('keydown.slick', this.keyHandler);
-                if (this.$nextArrow) this.$nextArrow.off('keydown.slick', this.keyHandler);
+                // tslint:disable-next-line:no-unused-expression
+                this.$prevArrow && this.$prevArrow.removeEventListener('keydown', this.keyHandler);
+                // tslint:disable-next-line:no-unused-expression
+                this.$nextArrow && this.$nextArrow.removeEventListener('keydown', this.keyHandler);
             }
         }
 
-        thisList.off('touchstart.slick mousedown.slick', this.swipeHandler);
-        thisList.off('touchmove.slick mousemove.slick', this.swipeHandler);
-        thisList.off('touchend.slick mouseup.slick', this.swipeHandler);
-        thisList.off('touchcancel.slick mouseleave.slick', this.swipeHandler);
+        this.$list.removeEventListener('touchstart', this.startSwipeHandler);
+        this.$list.removeEventListener('mousedown', this.startSwipeHandler);
+        this.$list.removeEventListener('touchmove', this.moveSwipeHandler);
+        this.$list.removeEventListener('mousemove', this.moveSwipeHandler);
+        this.$list.removeEventListener('touchend', this.endSwipeHandler);
+        this.$list.removeEventListener('mouseup', this.endSwipeHandler);
+        this.$list.removeEventListener('touchcancel', this.endSwipeHandler);
+        this.$list.removeEventListener('mouseleave', this.endSwipeHandler);
 
-        thisList.off('click.slick', this.clickHandler);
+        this.$list.removeEventListener('click', this.clickHandler);
 
-        $(document).off(this.visibilityChange, this.visibility);
+        document.removeEventListener(this.visibilityChange, this.visibility);
 
         this.cleanUpSlideEvents();
 
         if (this.options.accessibility === true) {
-            thisList.off('keydown.slick', this.keyHandler);
+            //thisList.off('keydown.slick', this.keyHandler);
+            this.$list.removeEventListener('keydown', this.keyHandler);
         }
 
-        if (this.options.focusOnSelect === true) {
-            $(this.$slideTrack).children().off('click.slick', this.selectHandler);
-        }
+        /*if (this.options.focusOnSelect === true) {
+            for (let item of Array.from(this.$slideTrack.children)) {
+                item.removeEventListener('click', this.selectHandler);
+            }
+        }*/
 
-        $(window).off('orientationchange.slick.slick-' + this.instanceUid, this.orientationChange);
+        //leaving this out for now
+        //$(window).off('orientationchange.slick.slick-' + this.instanceUid, this.orientationChange);
 
-        $(window).off('resize.slick.slick-' + this.instanceUid, this.resize);
+        window.removeEventListener('resize', this.resize);
 
-        $('[draggable!=true]', this.$slideTrack).off('dragstart', this.preventDefault);
+        //TODO: find a way to do this using vanilla js
+        //$('[draggable!=true]', this.$slideTrack).off('dragstart', this.preventDefault);
 
-        $(window).off('load.slick.slick-' + this.instanceUid, this.setPosition);
+        window.removeEventListener('load', this.setPosition);
     }
 
+    // --------------------------
+    // Complete
+    // --------------------------
     cleanUpSlideEvents() {
-        const _ = this;
-        const thisList = $(this.$list);
-
-        thisList.off('mouseenter.slick', $.proxy(this.interrupt, _, true));
-        thisList.off('mouseleave.slick', $.proxy(this.interrupt, _, false));
+        this.$list.removeEventListener('mouseenter', this.interrupt.bind(this), true);
+        this.$list.removeEventListener('mouseleave', this.interrupt.bind(this), false);
     }
 
+    // --------------------------
+    // Complete
+    // --------------------------
     cleanUpRows() {
-        let originalSlides;
-        const thisSlides = $(this.$slides);
-        const thisSlider = $(this.$slider);
+        var _ = this,
+            originalSlides;
 
         if (this.options.rows > 0) {
-            originalSlides = thisSlides.children().children();
-            originalSlides.removeAttr('style');
-            thisSlider.empty().append(originalSlides);
+            // @ts-ignore// @ts-ignore
+            for (let item of this.$slides) {
+                item.removeAttribute('style');
+            }
+
+            this.emptyDOM(this.$slider);
+            //why do this..?
+            //this.$slider.appendChild(originalSlides);
         }
     }
 
@@ -1106,8 +1004,6 @@ export class SlickService {
     // Complete
     // --------------------------
     clickHandler(event) {
-        const _ = this;
-
         if (this.shouldClick === false) {
             event.stopImmediatePropagation();
             event.stopPropagation();
@@ -1115,78 +1011,71 @@ export class SlickService {
         }
     }
 
+    // --------------------------
+    // Complete
+    // --------------------------
     destroy(refresh = false) {
         const _ = this;
-        const thisSlider = $(this.$slider);
-        const thisSlides = $(this.$slides);
-        const thisSlideTrack = $(this.$slideTrack);
-
         this.autoPlayClear();
 
-        this.touchObject = {};
+        this.touchObject = { ...this.originalTouchObject };
 
         this.cleanUpEvents();
 
-        $('.slick-cloned', thisSlider).detach();
+        this.queryAll('.slick-cloned', this.$slider).forEach(function (elem) {
+            _.removeNodeUtil(elem);
+        });
 
         if (this.$dots) {
-            //this.$dots.remove();
             this.$dots.parentNode.removeChild(this.$dots);
         }
 
-        if (this.$prevArrow && this.$prevArrow.length) {
-            this.$prevArrow
-                .removeClass('slick-disabled slick-arrow slick-hidden')
-                .removeAttr('aria-hidden aria-disabled tabindex')
-                .css('display', '');
+        if (this.$prevArrow && this.htmlExpr.test(this.options.prevArrow)) {
+            this.$prevArrow.classList.remove('slick-disabled', 'slick-arrow', 'slick-hidden');
+            this.$prevArrow.removeAttribute('aria-hidden', 'aria-disabled', 'tabindex');
+            this.$prevArrow.style.display = '';
 
-            if (this.htmlExpr.test(this.options.prevArrow)) {
-                //this.$prevArrow.remove();
-                this.$prevArrow.parentNode.removeChild(this.$prevArrow);
-            }
+            this.removeNodeUtil(this.$prevArrow);
         }
 
-        if (this.$nextArrow && this.$nextArrow.length) {
-            this.$nextArrow
-                .removeClass('slick-disabled slick-arrow slick-hidden')
-                .removeAttr('aria-hidden aria-disabled tabindex')
-                .css('display', '');
+        if (this.$nextArrow && this.htmlExpr.test(this.options.nextArrow)) {
+            this.$nextArrow.classList.remove('slick-disabled', 'slick-arrow', 'slick-hidden');
+            this.$nextArrow.removeAttribute('aria-hidden', 'aria-disabled', 'tabindex');
+            this.$nextArrow.style.display = '';
 
-            if (this.htmlExpr.test(this.options.nextArrow)) {
-                //this.$nextArrow.remove();
-                this.$nextArrow.parentNode.removeChild(this.$nextArrow);
-            }
+            this.removeNodeUtil(this.$nextArrow);
         }
 
-        if (thisSlides) {
-            thisSlides
-                .removeClass('slick-slide slick-active slick-center slick-visible slick-current')
-                .removeAttr('aria-hidden')
-                .removeAttr('data-slick-index')
-                .each(function () {
-                    $(this).attr('style', $(this).data('originalStyling'));
-                });
+        if (this.$slides && this.$slides.length > 0) {
+            // @ts-ignore
+            for (let item of this.$slides) {
+                item.classList.remove('slick-slide', 'slick-active', 'slick-center', 'slick-visible', 'slick-current');
+                item.removeAttribute('aria-hidden');
+                item.removeAttribute('data-slick-index');
+            }
 
-            thisSlideTrack.children(this.options.slide).detach();
+            // @ts-ignore
+            for (let item of Array.from(this.$slideTrack.children)) {
+                this.removeNodeUtil(item);
+            }
 
-            thisSlideTrack.detach();
+            this.removeNodeUtil(this.$slideTrack);
 
-            $(this.$list).detach();
+            this.removeNodeUtil(this.$list);
 
-            thisSlider.append(thisSlides);
+            //thisSlider.append(thisSlides);
+            //why do this..?
+            //this.$slider.appendChild(this.$slides);
         }
 
         this.cleanUpRows();
 
-        thisSlider.removeClass('slick-slider');
-        thisSlider.removeClass('slick-initialized');
-        thisSlider.removeClass('slick-dotted');
+        this.$slider.classList.remove('slick-slider', 'slick-initialized', 'slick-dotted');
 
         this.unslicked = true;
 
         if (!refresh) {
-            //this.$slider.trigger('destroy', [_]);
-            const event = this.createTrigger('destroy', [_]);
+            const event = this.createTrigger('destroy', [this]);
             this.$slider.dispatchEvent(event);
         }
     }
@@ -1195,14 +1084,13 @@ export class SlickService {
     // Complete
     // -- not using Fade
     // --------------------------
-    disableTransition(slide) {
-        const _ = this,
+    disableTransition(slide = null) {
+        var _ = this,
             transition = {};
 
         transition[this.transitionType] = '';
 
         if (this.options.fade === false) {
-            //this.$slideTrack.css(transition);
             this.cssAppender(this.$slideTrack, transition);
         } else {
             //not using this yet
@@ -1215,37 +1103,20 @@ export class SlickService {
     // -- not using Fade
     // --------------------------
     fadeSlide(slideIndex, callback) {
-        const _ = this;
+        /*this.applyTransition(slideIndex);
 
-        if (this.cssTransitions === false) {
-            this.$slides.eq(slideIndex).css({
-                zIndex: this.options.zIndex
-            });
+        this.$slides.eq(slideIndex).css({
+            opacity: 1,
+            zIndex: this.options.zIndex
+        });
 
-            this.$slides.eq(slideIndex).animate(
-                {
-                    opacity: 1
-                },
-                this.options.speed,
-                this.options.easing,
-                callback
-            );
-        } else {
-            this.applyTransition(slideIndex);
+        if (callback) {
+            setTimeout(function () {
+                this.disableTransition(slideIndex);
 
-            this.$slides.eq(slideIndex).css({
-                opacity: 1,
-                zIndex: this.options.zIndex
-            });
-
-            if (callback) {
-                setTimeout(function () {
-                    this.disableTransition(slideIndex);
-
-                    callback.call();
-                }, this.options.speed);
-            }
-        }
+                callback.call();
+            }, this.options.speed);
+        }*/
     }
 
     // --------------------------
@@ -1253,25 +1124,12 @@ export class SlickService {
     // -- not using Fade
     // --------------------------
     fadeSlideOut(slideIndex) {
-        const _ = this;
+        /*this.applyTransition(slideIndex);
 
-        if (this.cssTransitions === false) {
-            this.$slides.eq(slideIndex).animate(
-                {
-                    opacity: 0,
-                    zIndex: this.options.zIndex - 2
-                },
-                this.options.speed,
-                this.options.easing
-            );
-        } else {
-            this.applyTransition(slideIndex);
-
-            this.$slides.eq(slideIndex).css({
-                opacity: 0,
-                zIndex: this.options.zIndex - 2
-            });
-        }
+        this.$slides.eq(slideIndex).css({
+            opacity: 0,
+            zIndex: this.options.zIndex - 2
+        });*/
     }
 
     // --------------------------
@@ -1279,15 +1137,15 @@ export class SlickService {
     // --------------------------
     cssAppender(el, styles) {
         Object.keys(styles).forEach((t) => {
-            const val = styles[t];
-            el.style[t] = val;
+            el.style[t] = styles[t];
         });
     }
 
-    slickFilter(filter) {
-        const _ = this;
-
-        if (filter !== null) {
+    /*
+    NEEDS WORK
+    */
+    filterSlides(filter) {
+        /*if (filter !== null) {
             this.$slidesCache = this.$slides;
 
             this.unload();
@@ -1297,43 +1155,47 @@ export class SlickService {
             this.$slidesCache.filter(filter).appendTo(this.$slideTrack);
 
             this.reinit();
-        }
-    }
-
-    focusHandler() {
-        const _ = this;
-
-        // If any child element receives focus within the slider we need to pause the autoplay
-        $(this.$slider)
-            .off('focus.slick blur.slick')
-            .on('focus.slick', '*', function (event) {
-                const $sf = $(this);
-
-                setTimeout(function () {
-                    if (this.options.pauseOnFocus) {
-                        if ($sf.is(':focus')) {
-                            this.focussed = true;
-                            this.autoPlay();
-                        }
-                    }
-                }, 0);
-            })
-            .on('blur.slick', '*', function (event) {
-                const $sf = $(this);
-
-                // When a blur occurs on any elements within the slider we become unfocused
-                if (this.options.pauseOnFocus) {
-                    this.focussed = false;
-                    this.autoPlay();
-                }
-            });
+        }*/
     }
 
     // --------------------------
     // Complete
     // --------------------------
-    slickCurrentSlide() {
+    focusHandler() {
         const _ = this;
+
+        const focus = function (event) {
+            var $sf = this;
+
+            setTimeout(function () {
+                if (_.options.pauseOnFocus) {
+                    if (_.isMatches($sf, ':focus')) {
+                        _.focussed = true;
+                        _.autoPlay();
+                    }
+                }
+            }, 0);
+        };
+
+        const blur = function (event) {
+            // When a blur occurs on any elements within the slider we become unfocused
+            if (_.options.pauseOnFocus) {
+                _.focussed = false;
+                _.autoPlay();
+            }
+        };
+
+        this.$slider.removeEventListener('focus', focus);
+        this.$slider.removeEventListener('blur', blur);
+
+        this.$slider.addEventListener('focus', focus);
+        this.$slider.addEventListener('blur', blur);
+    }
+
+    // --------------------------
+    // Complete
+    // --------------------------
+    getCurrent() {
         return this.currentSlide;
     }
 
@@ -1341,11 +1203,9 @@ export class SlickService {
     // Complete
     // --------------------------
     getDotCount() {
-        const _ = this;
-
-        let breakPoint = 0;
-        let counter = 0;
-        let pagerQty = 0;
+        var breakPoint = 0;
+        var counter = 0;
+        var pagerQty = 0;
 
         if (this.options.infinite === true) {
             if (this.slideCount <= this.options.slidesToShow) {
@@ -1378,16 +1238,20 @@ export class SlickService {
         return pagerQty - 1;
     }
 
+    // --------------------------
+    // Complete
+    // --------------------------
     getLeft(slideIndex) {
-        let targetLeft,
+        var _ = this,
+            targetLeft,
             verticalHeight,
             verticalOffset = 0,
             targetSlide,
             coef;
-        const thisSlideTrack = $(this.$slideTrack);
 
         this.slideOffset = 0;
-        verticalHeight = $(this.$slides).first().outerHeight(true);
+
+        verticalHeight = this.get_OuterHeight(this.$slides[0], true);
 
         if (this.options.infinite === true) {
             if (this.slideCount > this.options.slidesToShow) {
@@ -1449,41 +1313,43 @@ export class SlickService {
 
         if (this.options.variableWidth === true) {
             if (this.slideCount <= this.options.slidesToShow || this.options.infinite === false) {
-                targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex);
+                targetSlide = this.$slideTrack.children[slideIndex];
             } else {
-                targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex + this.options.slidesToShow);
+                targetSlide = this.$slideTrack.children[slideIndex + this.options.slidesToShow];
             }
 
             if (this.options.rtl === true) {
-                if (targetSlide[0]) {
+                // not using rtl yes - so this wont work yet
+                /* if (targetSlide[0]) {
                     targetLeft = (thisSlideTrack.width() - targetSlide[0].offsetLeft - targetSlide.width()) * -1;
                 } else {
                     targetLeft = 0;
-                }
+                }*/
             } else {
-                targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
+                targetLeft = targetSlide ? targetSlide.offsetLeft * -1 : 0;
             }
 
             if (this.options.centerMode === true) {
                 if (this.slideCount <= this.options.slidesToShow || this.options.infinite === false) {
-                    targetSlide = thisSlideTrack.children('.slick-slide').eq(slideIndex);
+                    targetSlide = this.$slideTrack.children[slideIndex];
                 } else {
-                    targetSlide = thisSlideTrack
-                        .children('.slick-slide')
-                        .eq(slideIndex + this.options.slidesToShow + 1);
+                    targetSlide = this.$slideTrack.children[slideIndex + this.options.slidesToShow + 1];
                 }
 
                 if (this.options.rtl === true) {
-                    if (targetSlide[0]) {
+                    // not using rtl yes - so this wont work yet
+                    /*if (targetSlide) {
                         targetLeft = (thisSlideTrack.width() - targetSlide[0].offsetLeft - targetSlide.width()) * -1;
                     } else {
                         targetLeft = 0;
-                    }
+                    }*/
                 } else {
-                    targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
+                    targetLeft = targetSlide ? targetSlide.offsetLeft * -1 : 0;
                 }
 
-                targetLeft += (this.$list.width() - targetSlide.outerWidth()) / 2;
+                let trueWidth = this.get_Width(this.$list, true);
+
+                targetLeft += (trueWidth - this.get_OuterWidth(targetSlide)) / 2;
             }
         }
 
@@ -1493,9 +1359,7 @@ export class SlickService {
     // --------------------------
     // Complete
     // --------------------------
-    slickGetOption(option) {
-        const _ = this;
-
+    getOption(option) {
         return this.options[option];
     }
 
@@ -1503,11 +1367,11 @@ export class SlickService {
     // Complete
     // --------------------------
     getNavigableIndexes() {
-        let breakPoint = 0,
+        var _ = this,
+            breakPoint = 0,
             counter = 0,
+            indexes = [],
             max;
-
-        const indexes = [];
 
         if (this.options.infinite === false) {
             max = this.slideCount;
@@ -1536,15 +1400,27 @@ export class SlickService {
         return this;
     }
 
+    // --------------------------
+    // Complete
+    // -- not using "swipeToSlide"
+    // --------------------------
     getSlideCount() {
-        let slidesTraversed, swipedSlide, swipeTarget, centerOffset;
+        var _ = this,
+            slidesTraversed,
+            swipedSlide,
+            swipeTarget,
+            centerOffset;
 
-        centerOffset = this.options.centerMode === true ? Math.floor(this.$list.width() / 2) : 0;
+        centerOffset = this.options.centerMode === true ? Math.floor(this.get_Width(this.$list, true) / 2) : 0;
         swipeTarget = this.swipeLeft * -1 + centerOffset;
 
         if (this.options.swipeToSlide === true) {
-            this.$slideTrack.find('.slick-slide').each(function (index, slide) {
-                let slideOuterWidth, slideOffset, slideRightBoundary;
+            // --------------------------
+            // Complete
+            // -- not using "swipeToSlide"
+            // ----------------------------
+            /*this.$slideTrack.find('.slick-slide').each(function (index, slide) {
+                var slideOuterWidth, slideOffset, slideRightBoundary;
                 slideOuterWidth = $(slide).outerWidth();
                 slideOffset = slide.offsetLeft;
                 if (this.options.centerMode !== true) {
@@ -1561,7 +1437,7 @@ export class SlickService {
 
             slidesTraversed = Math.abs($(swipedSlide).attr('data-slick-index') - this.currentSlide) || 1;
 
-            return slidesTraversed;
+            return slidesTraversed;*/
         } else {
             return this.options.slidesToScroll;
         }
@@ -1570,9 +1446,7 @@ export class SlickService {
     // --------------------------
     // Complete
     // --------------------------
-    slickGoTo(slide, dontAnimate) {
-        const _ = this;
-
+    goTo(slide, dontAnimate) {
         this.changeSlide(
             {
                 data: {
@@ -1589,12 +1463,8 @@ export class SlickService {
     // Complete
     // --------------------------
     init(creation = false) {
-        const _ = this;
-        //const thisSlider = $(this.$slider);
-
         const _isInit = this.$slider.classList.contains('slick-initialized');
         if (!_isInit) {
-            //$(thisSlider).addClass('slick-initialized');
             this.$slider.classList.add('slick-initialized');
 
             this.buildRows();
@@ -1603,21 +1473,20 @@ export class SlickService {
             this.startLoad();
             this.loadSlider();
             this.initializeEvents();
-            //this.updateArrows();
+            this.updateArrows();
             this.updateDots();
             this.checkResponsive(true);
             this.focusHandler();
         }
 
         if (creation) {
-            //thisSlider.trigger('init', [_]);
-            const event = this.createTrigger('init', [_]);
+            const event = this.createTrigger('init', [this]);
             this.$slider.dispatchEvent(event);
         }
 
-        if (this.options.accessibility === true) {
+        /*if (this.options.accessibility === true) {
             this.initADA();
-        }
+        }*/
 
         if (this.options.autoplay) {
             this.paused = false;
@@ -1625,11 +1494,15 @@ export class SlickService {
         }
     }
 
-    initADA() {
-        const that = this,
+    // --------------------------
+    // Complete
+    // Not using "accessibility"
+    // --------------------------
+    /*initADA() {
+        var _ = this,
             numDotGroups = Math.ceil(this.slideCount / this.options.slidesToShow),
             tabControlIndexes = this.getNavigableIndexes().filter(function (val) {
-                return val >= 0 && val < that.slideCount;
+                return val >= 0 && val < this.slideCount;
             });
 
         const thisSlides = $(this.$slides);
@@ -1649,16 +1522,16 @@ export class SlickService {
 
         if (thisDots !== null) {
             thisSlides.not(thisSideTrack.find('.slick-cloned')).each(function (i) {
-                const slideControlIndex = tabControlIndexes.indexOf(i);
+                var slideControlIndex = tabControlIndexes.indexOf(i);
 
                 $(this).attr({
                     role: 'tabpanel',
-                    id: 'slick-slide' + that.instanceUid + i,
+                    id: 'slick-slide' + this.instanceUid + i,
                     tabindex: -1
                 });
 
                 if (slideControlIndex !== -1) {
-                    const ariaButtonControl = 'slick-slide-control' + that.instanceUid + slideControlIndex;
+                    var ariaButtonControl = 'slick-slide-control' + this.instanceUid + slideControlIndex;
                     if ($('#' + ariaButtonControl).length) {
                         $(this).attr({
                             'aria-describedby': ariaButtonControl
@@ -1671,7 +1544,7 @@ export class SlickService {
                 .attr('role', 'tablist')
                 .find('li')
                 .each(function (i) {
-                    const mappedSlideIndex = tabControlIndexes[i];
+                    var mappedSlideIndex = tabControlIndexes[i];
 
                     $(this).attr({
                         role: 'presentation'
@@ -1682,8 +1555,8 @@ export class SlickService {
                         .first()
                         .attr({
                             role: 'tab',
-                            id: 'slick-slide-control' + that.instanceUid + i,
-                            'aria-controls': 'slick-slide' + that.instanceUid + mappedSlideIndex,
+                            id: 'slick-slide-control' + this.instanceUid + i,
+                            'aria-controls': 'slick-slide' + this.instanceUid + mappedSlideIndex,
                             'aria-label': i + 1 + ' of ' + numDotGroups,
                             'aria-selected': null,
                             tabindex: '-1'
@@ -1698,7 +1571,7 @@ export class SlickService {
                 .end();
         }
 
-        for (const i = this.currentSlide, max = i + this.options.slidesToShow; i < max; i++) {
+        for (var i = this.currentSlide, max = i + this.options.slidesToShow; i < max; i++) {
             if (this.options.focusOnChange) {
                 thisSlides.eq(i).attr({ tabindex: '0' });
             } else {
@@ -1707,52 +1580,57 @@ export class SlickService {
         }
 
         this.activateADA();
-    }
+    }*/
 
-    //----------
-    // Complete - not using Arrows
-    //----------
+    // --------------------------
+    // Complete
+    // --------------------------
     initArrowEvents() {
         const _ = this;
 
         if (this.options.arrows === true && this.slideCount > this.options.slidesToShow) {
-            this.$prevArrow.off('click.slick').on(
-                'click.slick',
-                {
-                    message: 'previous'
-                },
-                this.changeSlide
-            );
-            this.$nextArrow.off('click.slick').on(
-                'click.slick',
-                {
-                    message: 'next'
-                },
-                this.changeSlide
-            );
+            const arrowClickPrev = function (event) {
+                event.data = { message: 'previous' };
+                event.originalEvent = event;
+                _.changeSlide(event);
+            };
+
+            const arrowClickNext = function (event) {
+                event.data = { message: 'next' };
+                event.originalEvent = event;
+                _.changeSlide(event);
+            };
+
+            this.$prevArrow.removeEventListener('click', arrowClickPrev);
+            this.$prevArrow.addEventListener('click', arrowClickPrev);
+
+            this.$nextArrow.removeEventListener('click', arrowClickNext);
+            this.$nextArrow.addEventListener('click', arrowClickNext);
 
             if (this.options.accessibility === true) {
-                this.$prevArrow.on('keydown.slick', this.keyHandler);
-                this.$nextArrow.on('keydown.slick', this.keyHandler);
+                this.$prevArrow.addEventListener('keydown', this.keyHandler);
+                this.$nextArrow.addEventListener('keydown', this.keyHandler);
             }
         }
     }
 
+    // --------------------------
+    // Complete
+    // --------------------------
     initDotEvents() {
+        //const thisDots = $(this.$dots);
         const _ = this;
-        const thisDots = $(this.$dots);
 
         if (this.options.dots === true && this.slideCount > this.options.slidesToShow) {
-            $('li', thisDots).on(
-                'click.slick',
-                {
-                    message: 'index'
-                },
-                this.changeSlide
-            );
+            this.queryAll('li', this.$dots).forEach(function (elem) {
+                elem.addEventListener('click', function (event) {
+                    event.data = { message: 'index' };
+                    _.changeSlide(event);
+                });
+            });
 
             if (this.options.accessibility === true) {
-                thisDots.on('keydown.slick', this.keyHandler);
+                this.$dots.addEventListener('keydown', this.keyHandler);
             }
         }
 
@@ -1761,22 +1639,28 @@ export class SlickService {
             this.options.pauseOnDotsHover === true &&
             this.slideCount > this.options.slidesToShow
         ) {
-            $('li', thisDots)
-                .on('mouseenter.slick', $.proxy(this.interrupt, _, true))
-                .on('mouseleave.slick', $.proxy(this.interrupt, _, false));
+            this.queryAll('li', this.$dots).forEach(function (elem) {
+                elem.addEventListener('mouseenter', _.interrupt.bind(_), true);
+                elem.addEventListener('mouseleave', _.interrupt.bind(_), false);
+            });
         }
     }
 
+    // --------------------------
+    // Complete
+    // --------------------------
     initSlideEvents() {
-        const _ = this;
-        const thisList = $(this.$list);
+        //const thisList = $(this.$list);
 
         if (this.options.pauseOnHover) {
-            thisList.on('mouseenter.slick', $.proxy(this.interrupt, _, true));
-            thisList.on('mouseleave.slick', $.proxy(this.interrupt, _, false));
+            this.$list.addEventListener('mouseenter', this.interrupt.bind(this), true);
+            this.$list.addEventListener('mouseleave', this.interrupt.bind(this), false);
         }
     }
 
+    // --------------------------
+    // Complete
+    // --------------------------
     isMatches(el, selector) {
         return (
             el.matches ||
@@ -1788,64 +1672,50 @@ export class SlickService {
         ).call(el, selector);
     }
 
+    // --------------------------
+    // Complete
+    // --------------------------
     initializeEvents() {
-        const _ = this;
-        const thisList = $(this.$list);
-
-        //this.initArrowEvents();
+        this.initArrowEvents();
 
         this.initDotEvents();
         this.initSlideEvents();
 
-        thisList.on(
-            'touchstart.slick mousedown.slick',
-            {
-                action: 'start'
-            },
-            this.swipeHandler
-        );
-        thisList.on(
-            'touchmove.slick mousemove.slick',
-            {
-                action: 'move'
-            },
-            this.swipeHandler
-        );
-        thisList.on(
-            'touchend.slick mouseup.slick',
-            {
-                action: 'end'
-            },
-            this.swipeHandler
-        );
-        thisList.on(
-            'touchcancel.slick mouseleave.slick',
-            {
-                action: 'end'
-            },
-            this.swipeHandler
-        );
+        this.$list.addEventListener('touchstart', this.startSwipeHandler);
+        this.$list.addEventListener('mousedown', this.startSwipeHandler);
 
-        thisList.on('click.slick', this.clickHandler);
+        this.$list.addEventListener('touchmove', this.moveSwipeHandler);
+        this.$list.addEventListener('mousemove', this.moveSwipeHandler);
 
-        $(document).on(this.visibilityChange, $.proxy(this.visibility, _));
+        this.$list.addEventListener('touchend', this.endSwipeHandler);
+        this.$list.addEventListener('mouseup', this.endSwipeHandler);
+
+        this.$list.addEventListener('touchcancel', this.endSwipeHandler);
+        this.$list.addEventListener('mouseleave', this.endSwipeHandler);
+
+        this.$list.addEventListener('click', this.clickHandler);
+
+        document.addEventListener(this.visibilityChange, this.visibility.bind(this));
 
         if (this.options.accessibility === true) {
-            thisList.on('keydown.slick', this.keyHandler);
+            this.$list.addEventListener('keydown', this.keyHandler);
         }
 
-        if (this.options.focusOnSelect === true) {
-            $(this.$slideTrack).children().on('click.slick', this.selectHandler);
-        }
+        /*if (this.options.focusOnSelect === true) {
+            for (let item of Array.from(this.$slideTrack.children)) {
+                item.addEventListener('click', this.selectHandler);
+            }
+        }*/
 
-        $(window).on('orientationchange.slick.slick-' + this.instanceUid, $.proxy(this.orientationChange, _));
+        //leaving this out for now
+        //$(window).on('orientationchange.slick.slick-' + this.instanceUid, $.proxy(this.orientationChange, _));
 
-        $(window).on('resize.slick.slick-' + this.instanceUid, $.proxy(this.resize, _));
+        window.addEventListener('resize', this.resize.bind(this));
 
-        $('[draggable!=true]', this.$slideTrack).on('dragstart', this.preventDefault);
+        //TODO: find a way to do this using vanilla js
+        //$('[draggable!=true]', this.$slideTrack).on('dragstart', this.preventDefault);
 
-        $(window).on('load.slick.slick-' + this.instanceUid, this.setPosition);
-        $(this.setPosition);
+        window.addEventListener('load', this.setPosition);
     }
 
     onHandler(eventName, elementSelector, handler) {
@@ -1853,7 +1723,7 @@ export class SlickService {
             eventName,
             function (e) {
                 // loop parent nodes from the target to the delegation node
-                for (let target = e.target; target && target !== this; target = target.parentNode) {
+                for (var target = e.target; target && target !== this; target = target.parentNode) {
                     if (target.matches(elementSelector)) {
                         handler.call(target, e);
                         break;
@@ -1866,19 +1736,14 @@ export class SlickService {
 
     // --------------------------
     // Complete
-    // --- not using arrows
     // --------------------------
     initUI() {
-        const _ = this;
-
         if (this.options.arrows === true && this.slideCount > this.options.slidesToShow) {
-            // --- not using arrows
-            //this.$prevArrow.show();
-            //this.$nextArrow.show();
+            this.$prevArrow.style.display = '';
+            this.$nextArrow.style.display = '';
         }
 
         if (this.options.dots === true && this.slideCount > this.options.slidesToShow) {
-            //$(this.$dots).show();
             this.$dots.style.display = '';
         }
     }
@@ -1887,7 +1752,6 @@ export class SlickService {
     // Complete
     // --------------------------
     keyHandler(event) {
-        const _ = this;
         //Dont slide if the cursor is inside the form fields and arrow keys are pressed
         if (!event.target.tagName.match('TEXTAREA|INPUT|SELECT')) {
             if (event.keyCode === 37 && this.options.accessibility === true) {
@@ -1910,22 +1774,23 @@ export class SlickService {
     // Complete
     // - not using lazy load
     // --------------------------
-    lazyLoadIt() {
-        let loadRange, cloneRange, rangeStart, rangeEnd;
+    /*lazyLoad() {
+        var _ = this,
+            loadRange,
+            cloneRange,
+            rangeStart,
+            rangeEnd;
         const thisSlider = $(this.$slider);
 
         function loadImages(imagesScope) {
             $('img[data-lazy]', imagesScope).each(function () {
-                const image = $(this),
+                var image = $(this),
                     imageSource = $(this).attr('data-lazy'),
                     imageSrcSet = $(this).attr('data-srcset'),
                     imageSizes = $(this).attr('data-sizes') || this.$slider.attr('data-sizes'),
                     imageToLoad = document.createElement('img');
 
-                const that = this;
-                // @ts-ignore
-                imageToLoad.onload();
-                {
+                imageToLoad.onload() {
                     image.animate({ opacity: 0 }, 100, function () {
                         if (imageSrcSet) {
                             image.attr('srcset', imageSrcSet);
@@ -1938,16 +1803,16 @@ export class SlickService {
                         image.attr('src', imageSource).animate({ opacity: 1 }, 200, function () {
                             image.removeAttr('data-lazy data-srcset data-sizes').removeClass('slick-loading');
                         });
-                        that.$slider.trigger('lazyLoaded', [that, image, imageSource]);
+                        this.$slider.trigger('lazyLoaded', [_, image, imageSource]);
                     });
                 }
-                // @ts-ignore
-                imageToLoad.onerror();
-                {
+
+                imageToLoad.onerror() {
                     image.removeAttr('data-lazy').removeClass('slick-loading').addClass('slick-lazyload-error');
 
-                    that.$slider.trigger('lazyLoadError', [that, image, imageSource]);
+                    this.$slider.trigger('lazyLoadError', [_, image, imageSource]);
                 }
+
                 imageToLoad.src = imageSource;
             });
         }
@@ -1972,11 +1837,11 @@ export class SlickService {
         loadRange = thisSlider.find('.slick-slide').slice(rangeStart, rangeEnd);
 
         if (this.options.lazyLoad === 'anticipated') {
-            let prevSlide = rangeStart - 1,
-                nextSlide = rangeEnd;
-            const $slides = this.$slider.find('.slick-slide');
+            var prevSlide = rangeStart - 1,
+                nextSlide = rangeEnd,
+                $slides = this.$slider.find('.slick-slide');
 
-            for (const i = 0; i < this.options.slidesToScroll; i++) {
+            for (var i = 0; i < this.options.slidesToScroll; i++) {
                 if (prevSlide < 0) prevSlide = this.slideCount - 1;
                 loadRange = loadRange.add($slides.eq(prevSlide));
                 loadRange = loadRange.add($slides.eq(nextSlide));
@@ -1997,37 +1862,29 @@ export class SlickService {
             cloneRange = thisSlider.find('.slick-cloned').slice(this.options.slidesToShow * -1);
             loadImages(cloneRange);
         }
-    }
+    }*/
 
     // --------------------------
     // Complete
     // --------------------------
     loadSlider() {
-        const _ = this;
-
         this.setPosition();
 
-        /*this.$slideTrack.css({
-            opacity: 1
-        });*/
-        this.$slideTrack.style.opacity = 1;
+        this.$slideTrack.style.opacity = '1';
 
-        //$(this.$slider).removeClass('slick-loading');
         this.$slider.classList.remove('slick-loading');
 
         this.initUI();
 
         if (this.options.lazyLoad === 'progressive') {
-            this.progressiveLazyLoad();
+            /*this.progressiveLazyLoad();*/
         }
     }
 
     // --------------------------
     // Complete
     // --------------------------
-    slickNext() {
-        const _ = this;
-
+    next() {
         this.changeSlide({
             data: {
                 message: 'next'
@@ -2039,8 +1896,6 @@ export class SlickService {
     // Complete
     // --------------------------
     orientationChange() {
-        const _ = this;
-
         this.checkResponsive();
         this.setPosition();
     }
@@ -2048,9 +1903,7 @@ export class SlickService {
     // --------------------------
     // Complete
     // --------------------------
-    slickPause() {
-        const _ = this;
-
+    pause() {
         this.autoPlayClear();
         this.paused = true;
     }
@@ -2058,9 +1911,7 @@ export class SlickService {
     // --------------------------
     // Complete
     // --------------------------
-    slickPlay() {
-        const _ = this;
-
+    play() {
         this.autoPlay();
         this.options.autoplay = true;
         this.paused = false;
@@ -2069,11 +1920,8 @@ export class SlickService {
     }
 
     postSlide(index) {
-        const _ = this;
-
         if (!this.unslicked) {
-            //$(this.$slider).trigger('afterChange', [_, index]);
-            const event = this.createTrigger('afterChange', [_, index]);
+            const event = this.createTrigger('afterChange', [this, index]);
             this.$slider.dispatchEvent(event);
 
             this.animating = false;
@@ -2088,23 +1936,21 @@ export class SlickService {
                 this.autoPlay();
             }
 
-            if (this.options.accessibility === true) {
+            /*if (this.options.accessibility === true) {
                 this.initADA();
 
                 if (this.options.focusOnChange) {
-                    const $currentSlide = $(this.$slides.get(this.currentSlide));
+                    var $currentSlide = $(this.$slides.get(this.currentSlide));
                     $currentSlide.attr('tabindex', 0).focus();
                 }
-            }
+            }*/
         }
     }
 
     // --------------------------
     // Complete
     // --------------------------
-    slickPrev() {
-        const _ = this;
-
+    prev() {
         this.changeSlide({
             data: {
                 message: 'previous'
@@ -2123,13 +1969,16 @@ export class SlickService {
     // Complete
     // --- not using this
     // --------------------------
-    progressiveLazyLoad(tryCount = 1) {
+    /*progressiveLazyLoad(tryCount) {
         tryCount = tryCount || 1;
 
-        const that = this;
-        let image, imageSource, imageSrcSet, imageSizes, imageToLoad;
-
-        const $imgsToLoad = $('img[data-lazy]', this.$slider);
+        var _ = this,
+            $imgsToLoad = $('img[data-lazy]', this.$slider),
+            image,
+            imageSource,
+            imageSrcSet,
+            imageSizes,
+            imageToLoad;
 
         if ($imgsToLoad.length) {
             image = $imgsToLoad.first();
@@ -2138,8 +1987,7 @@ export class SlickService {
             imageSizes = image.attr('data-sizes') || this.$slider.attr('data-sizes');
             imageToLoad = document.createElement('img');
 
-            imageToLoad.onload();
-            {
+            imageToLoad.onload() {
                 if (imageSrcSet) {
                     image.attr('srcset', imageSrcSet);
 
@@ -2160,36 +2008,39 @@ export class SlickService {
                 this.$slider.trigger('lazyLoaded', [_, image, imageSource]);
                 this.progressiveLazyLoad();
             }
-            imageToLoad.onerror();
-            {
+
+            imageToLoad.onerror() {
                 if (tryCount < 3) {
-                    /**
+                    /!**
                      * try to load the image 3 times,
                      * leave a slight delay so we don't get
                      * servers blocking the request.
-                     */
+                     *!/
                     setTimeout(function () {
-                        that.progressiveLazyLoad(tryCount + 1);
+                        this.progressiveLazyLoad(tryCount + 1);
                     }, 500);
                 } else {
                     image.removeAttr('data-lazy').removeClass('slick-loading').addClass('slick-lazyload-error');
 
-                    this.$slider.trigger('lazyLoadError', [that, image, imageSource]);
+                    this.$slider.trigger('lazyLoadError', [_, image, imageSource]);
 
                     this.progressiveLazyLoad();
                 }
             }
+
             imageToLoad.src = imageSource;
         } else {
-            this.$slider.trigger('allImagesLoaded', [this]);
+            this.$slider.trigger('allImagesLoaded', [_]);
         }
-    }
+    }*/
 
     // ----------------------
     // Complete
     // ---------------------
     refresh(initializing) {
-        let currentSlide, lastVisibleIndex;
+        var _ = this,
+            currentSlide,
+            lastVisibleIndex;
 
         lastVisibleIndex = this.slideCount - this.options.slidesToShow;
 
@@ -2208,8 +2059,7 @@ export class SlickService {
 
         this.destroy(true);
 
-        //$.extend(_, this.initials, { currentSlide: currentSlide });
-        this.extendAll(this, this.initials, { currentSlide: currentSlide });
+        this.extendAll(_, this.initials, { currentSlide: currentSlide });
 
         this.init();
 
@@ -2229,15 +2079,16 @@ export class SlickService {
     // --------------------------
     // Complete
     // --------------------------
-    registerBreakpoints() {
-        let breakpoint, currentBreakpoint, l;
-
-        const responsiveSettings = this.options.responsive || null;
+    /*registerBreakpoints() {
+        var _ = this,
+            breakpoint,
+            currentBreakpoint,
+            l,
+            responsiveSettings = this.options.responsive || null;
 
         if ($.type(responsiveSettings) === 'array' && responsiveSettings.length) {
             this.respondTo = this.options.respondTo || 'window';
 
-            // tslint:disable-next-line:forin
             for (breakpoint in responsiveSettings) {
                 l = this.breakpoints.length - 1;
 
@@ -2262,20 +2113,19 @@ export class SlickService {
                 return this.options.mobileFirst ? a - b : b - a;
             });
         }
-    }
+    }*/
 
     // --------------------------
     // Complete
     // --------------------------
     reinit() {
-        const _ = this;
-
         /*this.$slides =
             thisSlideTrack
                 .children(this.options.slide)
                 .addClass('slick-slide');*/
         this.$slides = this.$slideTrack.children;
-        for (const item of this.$slides) {
+        // @ts-ignore
+        for (let item of this.$slides) {
             item.classList.add('slick-slide');
         }
 
@@ -2292,10 +2142,10 @@ export class SlickService {
         //this.registerBreakpoints();
 
         this.setProps();
-        this.setupInfinite();
-        //this.buildArrows();
-        //this.updateArrows();
-        //this.initArrowEvents();
+        // this.setupInfinite();
+        this.buildArrows();
+        this.updateArrows();
+        this.initArrowEvents();
         this.buildDots();
         this.updateDots();
         this.initDotEvents();
@@ -2306,7 +2156,7 @@ export class SlickService {
 
         if (this.options.focusOnSelect === true) {
             // Not using this yet
-            //$(thisSlideTrack).children().on('click.slick', this.selectHandler);
+            // $(thisSlideTrack).children().on('click.slick', this.selectHandler);
         }
 
         this.setSlideClasses(typeof this.currentSlide === 'number' ? this.currentSlide : 0);
@@ -2318,7 +2168,7 @@ export class SlickService {
         this.autoPlay();
 
         //$(this.$slider).trigger('reInit', [_]);
-        const event = this.createTrigger('reInit', [_]);
+        const event = this.createTrigger('reInit', [this]);
         this.$slider.dispatchEvent(event);
     }
 
@@ -2326,15 +2176,15 @@ export class SlickService {
     // Complete
     // ------------------------
     resize() {
-        const that = this;
+        //const _ = this;
 
-        if ($(window).width() !== this.windowWidth) {
+        if (window.innerWidth !== this.windowWidth) {
             clearTimeout(this.windowDelay);
-            this.windowDelay = window.setTimeout(function () {
-                that.windowWidth = $(window).width();
-                that.checkResponsive();
-                if (!that.unslicked) {
-                    that.setPosition();
+            this.windowDelay = setTimeout(() => {
+                this.windowWidth = window.innerWidth;
+                this.checkResponsive();
+                if (!this.unslicked) {
+                    this.setPosition();
                 }
             }, 50);
         }
@@ -2343,10 +2193,7 @@ export class SlickService {
     // --------------------------
     // Complete
     // --------------------------
-    removeSlide(index, removeBefore, removeAll) {
-        const _ = this;
-        //const thisSlideTrack = $(this.$slideTrack);
-
+    removeSlide(index, removeBefore = false, removeAll = false) {
         if (typeof index === 'boolean') {
             removeBefore = index;
             index = removeBefore === true ? 0 : this.slideCount - 1;
@@ -2361,29 +2208,25 @@ export class SlickService {
         this.unload();
 
         if (removeAll === true) {
-            //thisSlideTrack.children().remove();
-            for (const item of Array.from(this.$slideTrack.children)) {
-                // @ts-ignore
+            // @ts-ignore
+            for (let item of Array.from(this.$slideTrack.children)) {
                 item.parentNode.removeChild(item);
             }
         } else {
-            //thisSlideTrack.children(this.options.slide).eq(index).remove();
             const toRemove = this.$slideTrack.children[index];
             toRemove.parentNode.removeChild(toRemove);
         }
 
-        //this.$slides = thisSlideTrack.children(this.options.slide);        /
+        // @ts-ignore
         this.$slides = Array.from(this.$slideTrack.children);
 
-        //const makker = thisSlideTrack.children(this.options.slide);
-        //thisSlideTrack.children(this.options.slide).detach();
-        for (const item of Array.from(this.$slideTrack.children)) {
-            // @ts-ignore
+        // @ts-ignore
+        for (let item of Array.from(this.$slideTrack.children)) {
             item.parentNode.removeChild(item);
         }
 
-        //thisSlideTrack.append(this.$slides);
-        for (const item of this.$slides) {
+        // @ts-ignore
+        for (let item of this.$slides) {
             this.$slideTrack.appendChild(item);
         }
 
@@ -2396,7 +2239,8 @@ export class SlickService {
     // Complete
     // --------------------------
     setCSS(position) {
-        let positionProps = {},
+        var _ = this,
+            positionProps = {},
             x,
             y;
 
@@ -2406,34 +2250,15 @@ export class SlickService {
         x = this.positionProp === 'left' ? Math.ceil(position) + 'px' : '0px';
         y = this.positionProp === 'top' ? Math.ceil(position) + 'px' : '0px';
 
-        positionProps[this.positionProp] = position;
+        positionProps[this.animType] = 'translate3d(' + x + ', ' + y + ', 0px)';
 
-        if (this.transformsEnabled === false) {
-            //this.$slideTrack.css(positionProps);
-            this.cssAppender(this.$slideTrack, positionProps);
-        } else {
-            positionProps = {};
-            if (this.cssTransitions === false) {
-                positionProps[this.animType] = 'translate(' + x + ', ' + y + ')';
-                //this.$slideTrack.css(positionProps);
-                this.cssAppender(this.$slideTrack, positionProps);
-            } else {
-                positionProps[this.animType] = 'translate3d(' + x + ', ' + y + ', 0px)';
-                //this.$slideTrack.css(positionProps);
-                this.cssAppender(this.$slideTrack, positionProps);
-            }
-        }
+        this.cssAppender(this.$slideTrack, positionProps);
     }
 
     //------------------
     // Complete
     // ----------------
     setDimensions() {
-        const _ = this;
-        //const thisSlides = $(this.$slides);
-        //const thisSideTrack = $(this.$slideTrack);
-        //const thisList = $(this.$list);
-
         if (this.options.vertical === false) {
             if (this.options.centerMode === true) {
                 /*thisList.css({
@@ -2444,10 +2269,8 @@ export class SlickService {
                 });
             }
         } else {
-            //thisList.height(thisSlides.first().outerHeight(true) * this.options.slidesToShow);
             const outerHeight = this.get_OuterHeight(this.$slides[0], true) * this.options.slidesToShow;
             this.set_Height(this.$list, outerHeight);
-            //thisList.height(outerHeight);
 
             if (this.options.centerMode === true) {
                 /*thisList.css({
@@ -2459,9 +2282,12 @@ export class SlickService {
             }
         }
 
-        //this.listWidth = thisList.width();
-        this.listWidth = this.get_Width(this.$list);
-        //this.listHeight = thisList.height();
+        if (this.options.centerMode === true) {
+            this.listWidth = this.get_Width(this.$list, true);
+        } else {
+            this.listWidth = this.get_Width(this.$list);
+        }
+
         this.listHeight = this.get_Height(this.$list);
 
         if (this.options.vertical === false && this.options.variableWidth === false) {
@@ -2471,32 +2297,24 @@ export class SlickService {
                 this.slideWidth = this.options.slideWidth;
             }
 
-            //const slickSlideChildren = thisSideTrack.children('.slick-slide');
             const width = Math.ceil(this.slideWidth * this.$slideTrack.children.length);
 
-            //thisSideTrack.width(width);
             this.set_Width(this.$slideTrack, width);
         } else if (this.options.variableWidth === true) {
-            //thisSideTrack.width(5000 * this.slideCount);
-            this.set_Width(this.$slideTrack, 5000 * this.slideCount);
+            //this.set_Width(this.$slideTrack, 5000 * this.slideCount); <= seems a bit weird ?? 5000 ??
+            this.set_Width(this.$slideTrack, this.get_OuterHeight(this.$slides[0], true) * this.slideCount);
         } else {
             this.slideWidth = Math.ceil(this.listWidth);
 
-            //const slickSlideChildren = thisSideTrack.children('.slick-slide');
             const calc = Math.ceil(this.get_OuterHeight(this.$slides[0], true) * this.$slideTrack.children.length);
             this.set_Height(this.$slideTrack, calc);
-            //thisSideTrack.height(Math.ceil((thisSlides.first().outerHeight(true) * thisSideTrack.children('.slick-slide').length)));
         }
 
         const offset = this.get_OuterWidth(this.$slides[0], true) - this.get_OuterWidth(this.$slides[0]);
 
-        //let aa = thisSlides.first().outerWidth(true);
-        //let bb = thisSlides.first().width();
-        //const offsetOther = aa - bb;
         if (this.options.variableWidth === false) {
-            //const slickSlideChildren = thisSideTrack.children('.slick-slide');
-            //slickSlideChildren.width(this.slideWidth - offset);
-            for (const el of this.$slideTrack.children) {
+            // @ts-ignore
+            for (let el of this.$slideTrack.children) {
                 this.set_Width(el, this.slideWidth - offset);
             }
         }
@@ -2507,14 +2325,14 @@ export class SlickService {
     // --------------------------
     get_OuterHeight(el, withMargin) {
         if (withMargin) {
-            let height = el.offsetHeight;
-            const style = getComputedStyle(el);
+            var height = el.offsetHeight;
+            var style = getComputedStyle(el);
 
             // tslint:disable-next-line:radix
             height += parseInt(style.marginTop) + parseInt(style.marginBottom);
             return height;
         } else {
-            const num = el.offsetHeight;
+            let num = el.offsetHeight;
             if (num) {
                 return num;
             }
@@ -2528,14 +2346,14 @@ export class SlickService {
     // --------------------------
     get_OuterWidth(el, withMargin = false) {
         if (withMargin) {
-            let width = el.offsetWidth;
-            const style = getComputedStyle(el);
+            var width = el.offsetWidth;
+            var style = getComputedStyle(el);
 
             // tslint:disable-next-line:radix
             width += parseInt(style.marginLeft) + parseInt(style.marginRight);
             return width;
         } else {
-            const num = el.offsetWidth;
+            let num = el.offsetWidth;
             if (num) {
                 return num;
             }
@@ -2547,10 +2365,21 @@ export class SlickService {
     //-----------------------------------
     // Complete
     //-----------------------------------
-    get_Width(el) {
-        const num = parseFloat(getComputedStyle(el, null).width.replace('px', ''));
-        if (num) {
-            return num;
+    get_Width(el, removePadding = false) {
+        let comp = getComputedStyle(el, null);
+
+        if (removePadding) {
+            let num = parseFloat(comp.width.replace('px', ''));
+            let padLeft = parseFloat(comp.paddingLeft.replace('px', ''));
+            let padRight = parseFloat(comp.paddingRight.replace('px', ''));
+            if (num) {
+                return num - padLeft - padRight;
+            }
+        } else {
+            let num = parseFloat(comp.width.replace('px', ''));
+            if (num) {
+                return num;
+            }
         }
 
         return 0;
@@ -2560,7 +2389,7 @@ export class SlickService {
     // Complete
     //-----------------------------------
     get_Height(el) {
-        const num = parseFloat(getComputedStyle(el, null).height.replace('px', ''));
+        let num = parseFloat(getComputedStyle(el, null).height.replace('px', ''));
         if (num) {
             return num;
         }
@@ -2591,17 +2420,17 @@ export class SlickService {
     // ----- Not using "setFade"
     //-----------------------------------
     setFade() {
-        let that = this,
+        var _ = this,
             targetLeft;
 
-        this.$slides.each(function (index, element) {
-            targetLeft = that.slideWidth * index * -1;
-            if (that.options.rtl === true) {
+        /*this.$slides.each(function (index, element) {
+            targetLeft = this.slideWidth * index * -1;
+            if (this.options.rtl === true) {
                 $(element).css({
                     position: 'relative',
                     right: targetLeft,
                     top: 0,
-                    zIndex: that.options.zIndex - 2,
+                    zIndex: this.options.zIndex - 2,
                     opacity: 0
                 });
             } else {
@@ -2609,7 +2438,7 @@ export class SlickService {
                     position: 'relative',
                     left: targetLeft,
                     top: 0,
-                    zIndex: that.options.zIndex - 2,
+                    zIndex: this.options.zIndex - 2,
                     opacity: 0
                 });
             }
@@ -2618,7 +2447,7 @@ export class SlickService {
         this.$slides.eq(this.currentSlide).css({
             zIndex: this.options.zIndex - 1,
             opacity: 1
-        });
+        });*/
     }
 
     //-----------------------------------
@@ -2626,15 +2455,13 @@ export class SlickService {
     // ---- Not using "adaptiveHeight" yet
     //-----------------------------------
     setListHeight() {
-        const _ = this;
-
         if (
             this.options.slidesToShow === 1 &&
             this.options.adaptiveHeight === true &&
             this.options.vertical === false
         ) {
-            const targetHeight = this.$slides.eq(this.currentSlide).outerHeight(true);
-            //this.$list.css('height', targetHeight);
+            var targetHeight = this.get_OuterHeight(this.$slides[this.currentSlide], true);
+
             this.$list.style.height = targetHeight;
         }
     }
@@ -2642,7 +2469,7 @@ export class SlickService {
     // --------------------------
     // Complete
     // --------------------------
-    slickSetOption() {
+    setOption() {
         /**
          * accepts arguments in format of:
          *
@@ -2656,14 +2483,14 @@ export class SlickService {
          *     .slick("setOption", { 'option': value, ... }, refresh )
          */
 
-        let l,
-            item,
+        var _ = this,
+            l,
             option,
             value,
             refresh = false,
             type;
-        const that = this;
 
+        /*
         if ($.type(arguments[0]) === 'object') {
             option = arguments[0];
             refresh = arguments[1];
@@ -2684,10 +2511,10 @@ export class SlickService {
             this.options[option] = value;
         } else if (type === 'multiple') {
             $.each(option, function (opt, val) {
-                that.options[opt] = val;
+                this.options[opt] = val;
             });
         } else if (type === 'responsive') {
-            for (item in value) {
+            for (let item in value) {
                 if ($.type(this.options.responsive) !== 'array') {
                     this.options.responsive = [value[item]];
                 } else {
@@ -2705,7 +2532,7 @@ export class SlickService {
                     this.options.responsive.push(value[item]);
                 }
             }
-        }
+        }*/
 
         if (refresh) {
             this.unload();
@@ -2717,8 +2544,6 @@ export class SlickService {
     // Complete
     // ------------------------
     setPosition() {
-        const _ = this;
-
         this.setDimensions();
 
         this.setListHeight();
@@ -2729,26 +2554,24 @@ export class SlickService {
             this.setFade();
         }
 
+        //dont really want or need this trigger event
         //$(this.$slider).trigger('setPosition', [_]);
-        const event = this.createTrigger('setPosition', [_]);
-        this.$slider.dispatchEvent(event);
+        //const event = this.createTrigger('setPosition', [_]);
+        //this.$slider.dispatchEvent(event);
     }
 
     // --------------------------
     // Complete
     // --------------------------
     setProps() {
-        const _ = this,
+        var _ = this,
             bodyStyle = document.body.style as any;
-        //const thisSlider = $(this.$slider);
 
         this.positionProp = this.options.vertical === true ? 'top' : 'left';
 
         if (this.positionProp === 'top') {
-            //thisSlider.addClass('slick-vertical');
             this.$slider.classList.add('slick-vertical');
         } else {
-            //thisSlider.removeClass('slick-vertical');
             this.$slider.classList.remove('slick-vertical');
         }
 
@@ -2797,7 +2620,7 @@ export class SlickService {
             this.animType = 'msTransform';
             this.transformType = '-ms-transform';
             this.transitionType = 'msTransition';
-            if (bodyStyle.msTransform === undefined) this.animType = false;
+            if (!bodyStyle.msTransform) this.animType = false;
         }
         if (bodyStyle.transform !== undefined && this.animType !== false) {
             this.animType = 'transform';
@@ -2811,14 +2634,15 @@ export class SlickService {
     // Complete
     // ------------------
     setSlideClasses(index) {
-        let centerOffset, allSlides, indexOffset, remainder;
+        var _ = this,
+            centerOffset,
+            allSlides,
+            indexOffset,
+            remainder;
 
-        /*allSlides = $(this.$slider)
-            .find('.slick-slide')
-            .removeClass('slick-active slick-center slick-current')
-            .attr('aria-hidden', 'true');*/
+        // @ts-ignore
         allSlides = Array.from(this.$slider.querySelectorAll('.slick-slide'));
-        for (const item of allSlides) {
+        for (let item of allSlides) {
             item.classList.remove('slick-active');
             item.classList.remove('slick-center');
             item.classList.remove('slick-current');
@@ -2826,32 +2650,24 @@ export class SlickService {
             item.setAttribute('aria-hidden', 'true');
         }
 
-        /*thisSlides
-            .eq(index)
-            .addClass('slick-current');*/
         if (this.$slides[index]) {
             this.$slides[index].classList.add('slick-current');
         }
 
         if (this.options.centerMode === true) {
-            const evenCoef = this.options.slidesToShow % 2 === 0 ? 1 : 0;
+            var evenCoef = this.options.slidesToShow % 2 === 0 ? 1 : 0;
 
             centerOffset = Math.floor(this.options.slidesToShow / 2);
 
             if (this.options.infinite === true) {
                 if (index >= centerOffset && index <= this.slideCount - 1 - centerOffset) {
-                    /*thisSlides
-                        .slice(index - centerOffset + evenCoef, index + centerOffset + 1)
-                        .addClass('slick-active')
-                        .attr('aria-hidden', 'false');*/
+                    // @ts-ignore
                     const ss = Array.from(this.$slides).slice(
                         index - centerOffset + evenCoef,
                         index + centerOffset + 1
                     );
-                    for (const item of ss) {
-                        // @ts-ignore
+                    for (let item of ss) {
                         item.classList.add('slick-active');
-                        // @ts-ignore
                         item.setAttribute('aria-hidden', 'false');
                     }
                 } else {
@@ -2863,44 +2679,29 @@ export class SlickService {
                 }
 
                 if (index === 0) {
-                    /*allSlides
-                        .eq(this.options.slidesToShow + this.slideCount + 1)
-                        .addClass('slick-center');*/
                     allSlides[this.options.slidesToShow + this.slideCount + 1].classList.add('slick-center');
                 } else if (index === this.slideCount - 1) {
-                    /* allSlides
-                         .eq(this.options.slidesToShow)
-                         .addClass('slick-center');*/
                     allSlides[this.options.slidesToShow].classList.add('slick-center');
                 }
             }
 
-            /*thisSlides
-                .eq(index)
-                .addClass('slick-center');*/
             if (this.$slides[index]) {
                 this.$slides[index].classList.add('slick-center');
             }
         } else {
             if (index >= 0 && index <= this.slideCount - this.options.slidesToShow) {
-                /*thisSlides
-                    .slice(index, index + this.options.slidesToShow)
-                    .addClass('slick-active')
-                    .attr('aria-hidden', 'false');*/
-
                 // probably need to loop through the array here..??
+                // @ts-ignore
                 const ss = Array.from(this.$slides).slice(index, index + this.options.slidesToShow);
-                for (const item of ss) {
-                    // @ts-ignore
+                for (let item of ss) {
                     item.classList.add('slick-active');
-                    // @ts-ignore
                     item.setAttribute('aria-hidden', 'false');
                 }
             } else if (allSlides.length <= this.options.slidesToShow) {
                 /*allSlides
                     .addClass('slick-active')
                     .attr('aria-hidden', 'false');*/
-                for (const item of allSlides) {
+                for (let item of allSlides) {
                     item.classList.add('slick-active');
                     item.setAttribute('aria-hidden', 'false');
                 }
@@ -2912,29 +2713,40 @@ export class SlickService {
                     this.options.slidesToShow === this.options.slidesToScroll &&
                     this.slideCount - index < this.options.slidesToShow
                 ) {
-                    allSlides
-                        .slice(indexOffset - (this.options.slidesToShow - remainder), indexOffset + remainder)
-                        .addClass('slick-active')
-                        .attr('aria-hidden', 'false');
+                    const slicer = allSlides.slice(
+                        indexOffset - (this.options.slidesToShow - remainder),
+                        indexOffset + remainder
+                    );
+                    for (let item of slicer) {
+                        item.classList.add('slick-active');
+                        item.setAttribute('aria-hidden', 'false');
+                    }
                 } else {
-                    allSlides
-                        .slice(indexOffset, indexOffset + this.options.slidesToShow)
-                        .addClass('slick-active')
-                        .attr('aria-hidden', 'false');
+                    const slicer = allSlides.slice(indexOffset, indexOffset + this.options.slidesToShow);
+                    for (let item of slicer) {
+                        item.classList.add('slick-active');
+                        item.setAttribute('aria-hidden', 'false');
+                    }
                 }
             }
         }
 
         if (this.options.lazyLoad === 'ondemand' || this.options.lazyLoad === 'anticipated') {
+            // not doing this yet
             //this.lazyLoad();
         }
     }
 
     // ----------------
     // Leave for now
+    // - dont need infinite yet
+    // TODO: come back to this later
     // ----------------
-    setupInfinite() {
-        let i, slideIndex, infiniteCount;
+    /*setupInfinite() {
+        var _ = this,
+            i,
+            slideIndex,
+            infiniteCount;
 
         if (this.options.fade === true) {
             this.options.centerMode = false;
@@ -2976,29 +2788,24 @@ export class SlickService {
                     });
             }
         }
-    }
+    }*/
 
     // ------------------------
     // Complete
     // ------------------------
     interrupt(toggle) {
-        const _ = this;
-
         if (!toggle) {
             this.autoPlay();
         }
         this.interrupted = toggle;
     }
 
-    selectHandler(event) {
-        const _ = this;
-
-        const targetElement = $(event.target).is('.slick-slide')
+    /*selectHandler(event) {
+        var targetElement = $(event.target).is('.slick-slide')
             ? $(event.target)
             : $(event.target).parents('.slick-slide');
 
-        // tslint:disable-next-line:radix
-        let index = parseInt(targetElement.attr('data-slick-index'));
+        var index = parseInt(targetElement.attr('data-slick-index'));
 
         if (!index) index = 0;
 
@@ -3008,21 +2815,20 @@ export class SlickService {
         }
 
         this.slideHandler(index);
-    }
+    }*/
 
     // ---------------------------
     // Complete
     // -- not using "asNavFor"
     // ---------------------------
-    slideHandler(index, sync = false, dontAnimate = true) {
-        let targetSlide,
+    slideHandler(index, sync = false, dontAnimate = false) {
+        var targetSlide,
             animSlide,
             oldSlide,
             slideLeft,
             targetLeft = null,
+            _ = this,
             navTarget;
-
-        sync = sync || false;
 
         if (this.animating === true && this.options.waitForAnimate === true) {
             return;
@@ -3033,7 +2839,7 @@ export class SlickService {
         }
 
         if (sync === false) {
-            this.asNavFor(index);
+            // this.asNavFor(index);
         }
 
         targetSlide = index;
@@ -3050,7 +2856,7 @@ export class SlickService {
             if (this.options.fade === false) {
                 targetSlide = this.currentSlide;
                 if (dontAnimate !== true && this.slideCount > this.options.slidesToShow) {
-                    this.animateSlide(slideLeft, function () {
+                    this.animateSlide(slideLeft, () => {
                         this.postSlide(targetSlide);
                     });
                 } else {
@@ -3066,7 +2872,7 @@ export class SlickService {
             if (this.options.fade === false) {
                 targetSlide = this.currentSlide;
                 if (dontAnimate !== true && this.slideCount > this.options.slidesToShow) {
-                    this.animateSlide(slideLeft, function () {
+                    this.animateSlide(slideLeft, () => {
                         this.postSlide(targetSlide);
                     });
                 } else {
@@ -3098,8 +2904,7 @@ export class SlickService {
 
         this.animating = true;
 
-        //$(this.$slider).trigger('beforeChange', [_, this.currentSlide, animSlide]);
-        const event = this.createTrigger('beforeChange', [this, this.currentSlide, animSlide]);
+        const event = this.createTrigger('beforeChange', [_, this.currentSlide, animSlide]);
         this.$slider.dispatchEvent(event);
 
         oldSlide = this.currentSlide;
@@ -3117,14 +2922,13 @@ export class SlickService {
         }
 
         this.updateDots();
-        // not using this yet
-        //this.updateArrows();
+        this.updateArrows();
 
         if (this.options.fade === true) {
             if (dontAnimate !== true) {
                 this.fadeSlideOut(oldSlide);
 
-                this.fadeSlide(animSlide, function () {
+                this.fadeSlide(animSlide, () => {
                     this.postSlide(animSlide);
                 });
             } else {
@@ -3135,7 +2939,7 @@ export class SlickService {
         }
 
         if (dontAnimate !== true && this.slideCount > this.options.slidesToShow) {
-            this.animateSlide(targetLeft, function () {
+            this.animateSlide(targetLeft, () => {
                 this.postSlide(animSlide);
             });
         } else {
@@ -3145,23 +2949,17 @@ export class SlickService {
 
     // --------------------------
     // Complete
-    // -- not using arrows
     // ---------------------------
     startLoad() {
-        const _ = this;
-
         if (this.options.arrows === true && this.slideCount > this.options.slidesToShow) {
-            // -- not using arrows
-            //this.$prevArrow.hide();
-            //this.$nextArrow.hide();
+            this.$prevArrow.style.display = 'none';
+            this.$nextArrow.style.display = 'none';
         }
 
         if (this.options.dots === true && this.slideCount > this.options.slidesToShow) {
-            //$(this.$dots).hide();
             this.$dots.style.display = 'none';
         }
 
-        //$(this.$slider).addClass('slick-loading');
         this.$slider.classList.add('slick-loading');
     }
 
@@ -3169,7 +2967,11 @@ export class SlickService {
     // Complete
     // ------------------------
     swipeDirection() {
-        let xDist, yDist, r, swipeAngle;
+        var xDist,
+            yDist,
+            r,
+            swipeAngle,
+            _ = this;
 
         xDist = this.touchObject.startX - this.touchObject.curX;
         yDist = this.touchObject.startY - this.touchObject.curY;
@@ -3204,8 +3006,9 @@ export class SlickService {
     // Complete
     // ------------------------
     swipeEnd(event) {
-        let slideCount, direction;
-        //const thisSlider = $(this.$slider);
+        var _ = this,
+            slideCount,
+            direction;
 
         this.dragging = false;
         this.swiping = false;
@@ -3223,9 +3026,9 @@ export class SlickService {
         }
 
         if (this.touchObject.edgeHit === true) {
-            //thisSlider.trigger('edge', [_, this.swipeDirection()]);
-            const eventer = this.createTrigger('edge', [_, this.swipeDirection()]);
-            this.$slider.dispatchEvent(eventer);
+            // tslint:disable-next-line:no-shadowed-variable
+            const event = this.createTrigger('edge', [_, this.swipeDirection()]);
+            this.$slider.dispatchEvent(event);
         }
 
         if (this.touchObject.swipeLength >= this.touchObject.minSwipe) {
@@ -3257,8 +3060,8 @@ export class SlickService {
 
             if (direction !== 'vertical') {
                 this.slideHandler(slideCount);
-                this.touchObject = {};
-                //$(thisSlider).trigger('swipe', [_, direction]);
+                this.touchObject = { ...this.originalTouchObject };
+
                 // tslint:disable-next-line:no-shadowed-variable
                 const event = this.createTrigger('swipe', [_, direction]);
                 this.$slider.dispatchEvent(event);
@@ -3266,7 +3069,7 @@ export class SlickService {
         } else {
             if (this.touchObject.startX !== this.touchObject.curX) {
                 this.slideHandler(this.currentSlide);
-                this.touchObject = {};
+                this.touchObject = { ...this.originalTouchObject };
             }
         }
     }
@@ -3275,23 +3078,39 @@ export class SlickService {
     // Complete
     // ------------------------
     createTrigger(eventName, data) {
+        let event;
         if (window.CustomEvent && typeof window.CustomEvent === 'function') {
-            const event = new CustomEvent(eventName, { detail: data });
+            event = new CustomEvent(eventName, { detail: data });
         } else {
-            const event = document.createEvent('CustomEvent');
+            event = document.createEvent('CustomEvent');
             event.initCustomEvent(eventName, true, true, data);
         }
 
         return event;
     }
 
+    startSwipeHandler(event) {
+        event.data = { action: 'start' };
+        event.originalEvent = event;
+        this.swipeHandler(event);
+    }
+
+    moveSwipeHandler(event) {
+        event.data = { action: 'move' };
+        event.originalEvent = event;
+        this.swipeHandler(event);
+    }
+
+    endSwipeHandler(event) {
+        event.data = { action: 'end' };
+        event.originalEvent = event;
+        this.swipeHandler(event);
+    }
+
     // ------------------------
     // Complete
     // ------------------------
     swipeHandler(event) {
-        const _ = this;
-
-        // @ts-ignore
         if (this.options.swipe === false || ('ontouchend' in document && this.options.swipe === false)) {
             return;
         } else if (this.options.draggable === false && event.type.indexOf('mouse') !== -1) {
@@ -3326,9 +3145,14 @@ export class SlickService {
     // Complete
     // ------------------------
     swipeMove(event) {
-        let curLeft, swipeDirection, swipeLength, positionOffset, touches, verticalSwipeLength;
-
-        const edgeWasHit = false;
+        var _ = this,
+            edgeWasHit = false,
+            curLeft,
+            swipeDirection,
+            swipeLength,
+            positionOffset,
+            touches,
+            verticalSwipeLength;
 
         touches = event.originalEvent !== undefined ? event.originalEvent.touches : null;
 
@@ -3408,12 +3232,13 @@ export class SlickService {
     // Complete
     // ------------------------
     swipeStart(event) {
-        let touches;
+        var _ = this,
+            touches;
 
         this.interrupted = true;
 
         if (this.touchObject.fingerCount !== 1 || this.slideCount <= this.options.slidesToShow) {
-            this.touchObject = {};
+            this.touchObject = { ...this.originalTouchObject };
             return false;
         }
 
@@ -3427,8 +3252,11 @@ export class SlickService {
         this.dragging = true;
     }
 
-    slickUnfilter() {
-        const _ = this;
+    // ------------------------
+    // Complete
+    // -- not filtering
+    // ------------------------
+    /* unfilterSlides() {
         const thisSlideTrack = $(this.$slideTrack);
 
         if (this.$slidesCache !== null) {
@@ -3440,81 +3268,105 @@ export class SlickService {
 
             this.reinit();
         }
-    }
+    }*/
 
+    // ------------------------
+    // Complete
+    // ------------------------
     unload() {
         const _ = this;
-
-        $('.slick-cloned', this.$slider).remove();
+        this.queryAll('.slick-cloned', this.$slider).forEach(function (elem) {
+            _.removeNodeUtil(elem);
+        });
 
         if (this.$dots) {
-            //this.$dots.remove();
-            this.$dots.parentNode.removeChild(this.$dots);
+            this.removeNodeUtil(this.$dots);
         }
 
         if (this.$prevArrow && this.htmlExpr.test(this.options.prevArrow)) {
-            //this.$prevArrow.remove();
-            this.$prevArrow.parentNode.removeChild(this.$prevArrow);
+            this.removeNodeUtil(this.$prevArrow);
         }
 
         if (this.$nextArrow && this.htmlExpr.test(this.options.nextArrow)) {
-            this.$nextArrow.parentNode.removeChild(this.$nextArrow);
+            this.removeNodeUtil(this.$nextArrow);
         }
 
-        /*$(this.$slides)
-            .removeClass('slick-slide slick-active slick-visible slick-current')
-            .attr('aria-hidden', 'true')
-            .css('width', '');*/
-        for (const item of this.$slides) {
-            this.removeClasses(item, ['slick-slide', 'slick-active', 'slick-visible', 'slick-current']);
-
+        // @ts-ignore
+        for (let item of this.$slides) {
+            //this.removeClasses(item, ['slick-slide', 'slick-active', 'slick-visible', 'slick-current']);
+            item.classList.remove('slick-slide', 'slick-active', 'slick-visible', 'slick-current');
             item.setAttribute('aria-hidden', 'true');
             item.style.width = '';
-        }
-    }
-
-    removeClasses(el, classArray) {
-        for (const cl of classArray) {
-            el.classList.remove(cl);
         }
     }
 
     // ------------------------
     // Complete
     // ------------------------
-    unslick(fromBreakpoint) {
-        const _ = this;
+    removeNodeUtil(el) {
+        var nodeRemoved = el;
+        if (el.parentNode) {
+            //Prevent error if node is all ready disconnected from the dom.
+            nodeRemoved = el.parentNode.removeChild(el);
+        }
+        return nodeRemoved;
+    }
+
+    // ------------------------
+    // Complete
+    // ------------------------
+    queryAll(expr, container) {
+        return Array.prototype.slice.call(container.querySelectorAll(expr));
+    }
+
+    // ------------------------
+    // Complete
+    // ------------------------
+    unslick(fromBreakpoint = null) {
         //this.$slider.trigger('unslick', [_, fromBreakpoint]);
-        const event = this.createTrigger('unslick', [_, fromBreakpoint]);
+        const event = this.createTrigger('unslick', [this, fromBreakpoint]);
         this.$slider.dispatchEvent(event);
 
         this.destroy();
     }
 
-    // ------------------------
-    // Not using "updateArrows"
-    // ------------------------
+    // --------------------------
+    // Complete
+    // --------------------------
     updateArrows() {
-        let centerOffset;
+        var _ = this,
+            centerOffset;
 
         centerOffset = Math.floor(this.options.slidesToShow / 2);
 
         if (this.options.arrows === true && this.slideCount > this.options.slidesToShow && !this.options.infinite) {
-            this.$prevArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
-            this.$nextArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
+            this.$prevArrow.classList.remove('slick-disabled');
+            this.$nextArrow.classList.remove('slick-disabled');
+
+            this.$prevArrow.setAttribute('aria-disabled', 'false');
+            this.$nextArrow.setAttribute('aria-disabled', 'false');
 
             if (this.currentSlide === 0) {
-                this.$prevArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
-                this.$nextArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
+                this.$prevArrow.classList.add('slick-disabled');
+                this.$nextArrow.classList.remove('slick-disabled');
+
+                this.$prevArrow.setAttribute('aria-disabled', 'true');
+                this.$nextArrow.setAttribute('aria-disabled', 'false');
             } else if (
                 this.currentSlide >= this.slideCount - this.options.slidesToShow &&
                 this.options.centerMode === false
             ) {
-                this.$nextArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
-                this.$prevArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
+                this.$nextArrow.classList.add('slick-disabled');
+                this.$prevArrow.classList.remove('slick-disabled');
+
+                this.$nextArrow.setAttribute('aria-disabled', 'true');
+                this.$prevArrow.setAttribute('aria-disabled', 'false');
             } else if (this.currentSlide >= this.slideCount - 1 && this.options.centerMode === true) {
-                this.$nextArrow.addClass('slick-disabled').attr('aria-disabled', 'true');
-                this.$prevArrow.removeClass('slick-disabled').attr('aria-disabled', 'false');
+                this.$nextArrow.classList.add('slick-disabled');
+                this.$prevArrow.classList.remove('slick-disabled');
+
+                this.$nextArrow.setAttribute('aria-disabled', 'true');
+                this.$prevArrow.setAttribute('aria-disabled', 'false');
             }
         }
     }
@@ -3523,23 +3375,14 @@ export class SlickService {
     // Complete
     // ------------------------
     updateDots() {
-        const _ = this;
         //const thisDots = $(this.$dots);
 
         if (this.$dots !== null) {
-            /*thisDots
-                .find('li')
-                .removeClass('slick-active')
-                .end();*/
             const list = this.$dots.querySelectorAll('li');
-            for (const li of list) {
+            for (let li of list) {
                 li.classList.remove('slick-active');
             }
 
-            /*thisDots
-                .find('li')
-                .eq(Math.floor(this.currentSlide / this.options.slidesToScroll))
-                .addClass('slick-active');*/
             const index = Math.floor(this.currentSlide / this.options.slidesToScroll);
             const activeLi = this.$dots.querySelectorAll('li')[index];
             activeLi.classList.add('slick-active');
@@ -3550,8 +3393,6 @@ export class SlickService {
     // Complete
     // ------------------------
     visibility() {
-        const _ = this;
-
         if (this.options.autoplay) {
             if (document[this.hidden]) {
                 this.interrupted = true;

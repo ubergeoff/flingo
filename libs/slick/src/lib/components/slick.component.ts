@@ -14,8 +14,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { SlickItemDirective } from '../directives/slick-item.directive';
-
-declare var Slick: any;
+import { Slicker } from '@rooi/slicker';
 
 /**
  * Slick component
@@ -114,7 +113,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
         this._addedSlides = [];
         this._removedSlides = [];
 
-        this.slick = new Slick(this.el.nativeElement, this.config);
+        this.slick = new Slicker(this.el.nativeElement, this.config);
         this.initialized = true;
 
         this.slick.$slider.addEventListener('afterChange', (a, b, c) => {
