@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GridComponent } from './grid/grid.component';
+import { GridComponent } from './grid/components/grid.component';
 
 @NgModule({
     imports: [CommonModule],

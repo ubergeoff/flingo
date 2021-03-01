@@ -28,7 +28,7 @@
                             "node_modules/slick-carousel/slick/slick-theme.scss",
                             "node_modules/gridjs/dist/theme/mermaid.css"
                         ],
-                        "scripts": ["apps/flingo/src/vendor/slick/slick.js", "node_modules/muuri/dist/muuri.min.js"]
+                        "scripts": ["node_modules/muuri/dist/muuri.min.js"]
                     },
                     "configurations": {
                         "production": {
