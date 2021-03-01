@@ -43,7 +43,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
     @Output() destroy: EventEmitter<{ event: any; slick: any }> = new EventEmitter();
     @Output() init: EventEmitter<{ event: any; slick: any }> = new EventEmitter();
 
-    public slick: any;
+    public slick: Slicker;
 
     // access from parent component can be a problem with change detection timing. Please use afterChange output
     private currentIndex = 0;
@@ -137,9 +137,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
 
     public unslick() {
         if (this.slick) {
-            /*this.zone.runOutsideAngular(() => {*/
             this.slick.unslick();
-            /*});*/
             this.slick = undefined;
         }
         this.initialized = false;
