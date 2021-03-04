@@ -5,7 +5,7 @@ import { GridModule } from '@rooi/grid';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
-describe('GridComponent', () => {
+describe('GridDemoComponent', () => {
     let component: GridDemoComponent;
     let fixture: ComponentFixture<GridDemoComponent>;
 
