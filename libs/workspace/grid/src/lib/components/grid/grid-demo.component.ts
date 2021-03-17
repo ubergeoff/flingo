@@ -1,11 +1,12 @@
-import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewContainerRef } from '@angular/core';
-import { OneDArray } from 'gridjs/dist/src/types';
+import { Component, ComponentFactoryResolver, ComponentRef, OnInit, Type, ViewContainerRef } from '@angular/core';
+import { OneDArray, TColumn } from 'gridjs/dist/src/types';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { ActionButtonComponent } from '../action-button/action-button.component';
+import { ActionButtonComponent } from '../controls/action-button/action-button.component';
 import { createDivContainer } from '@rooi/grid';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
     selector: 'rooi-grid-demo',
@@ -14,15 +15,27 @@ import { createDivContainer } from '@rooi/grid';
 })
 export class GridDemoComponent implements OnInit {
     columns: OneDArray<any> = [
+        {
+            name: 'CheckBox',
+            sort: false,
+            width: '5px',
+            formatter: (cellData) => {
+                return createDivContainer((div) => {
+                    div.appendChild(this.createCheckBox(cellData).location.nativeElement);
+                });
+            }
+        },
         'Name',
         'Email',
         'Phone Number',
         {
-            name: 'Trend',
+            name: 'Button',
             sort: false,
-            width: '100px',
+            width: '30px',
             formatter: (cellData) => {
-                return createDivContainer((div) => this.addButton(div, cellData));
+                return createDivContainer((div) => {
+                    div.appendChild(this.createButton(cellData).location.nativeElement);
+                });
             }
         }
     ];
@@ -40,24 +53,31 @@ export class GridDemoComponent implements OnInit {
         this.data$ = this.dataSubject.pipe(debounceTime(1000));
 
         this.dataSubject.next([
-            ['John', 'john@example.com', '(353) 01 222 3333', 22],
-            ['Mark', 'mark@gmail.com', '(01) 22 888 4444', 33]
+            [true, 'John', 'john@example.com', '(353) 01 222 3333', 22],
+            [false, 'Mark', 'mark@gmail.com', '(01) 22 888 4444', 33]
         ]);
     }
 
-    openModal(row) {
-        //alert(`Editing "${row.cells[0].data}" "${row.cells[1].data}"`);
-        this.dialog.open(DialogComponent);
+    openModal(rowData) {
+        this.dialog.open(DialogComponent, { data: rowData });
     }
 
-    private createComponent(type: any): ComponentRef<any> {
+    createComponent<T>(type: Type<T>): ComponentRef<T> {
         const componentFactory = this.componentFactory.resolveComponentFactory(type);
-        return this.viewContainerRef.createComponent(componentFactory);
+        return this.viewContainerRef.createComponent<T>(componentFactory);
     }
 
-    private addButton(div, cellData) {
-        const button = this.createComponent(ActionButtonComponent);
-        (button.instance as ActionButtonComponent).eventFunction = () => this.openModal(cellData);
-        div.appendChild(button.location.nativeElement);
+    createButton(cellData) {
+        const button = this.createComponent<ActionButtonComponent>(ActionButtonComponent);
+        button.instance.eventFunction = () => this.openModal(cellData);
+
+        return button;
+    }
+
+    createCheckBox(cellData) {
+        const checkBox = this.createComponent<MatCheckbox>(MatCheckbox);
+        checkBox.instance.checked = cellData;
+
+        return checkBox;
     }
 }
