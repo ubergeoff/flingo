@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'rooi-new-button',
@@ -6,11 +6,15 @@ import { Component, Input, OnInit, Output } from '@angular/core';
     styleUrls: ['./action-button.component.css']
 })
 export class ActionButtonComponent implements OnInit {
-    constructor() {}
+    constructor(private element: ElementRef) {}
 
     @Input() eventFunction;
 
     ngOnInit(): void {}
+
+    get nativeElement() {
+        return this.element.nativeElement;
+    }
 
     doAction() {
         this.eventFunction();

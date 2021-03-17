@@ -7,10 +7,21 @@ import { GridModule } from '@rooi/grid';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatButtonModule } from '@angular/material/button';
-import { ActionButtonComponent } from './components/action-button/action-button.component';
+import { ActionButtonComponent } from './components/controls/action-button/action-button.component';
+import { CheckboxComponent } from './components/controls/checkbox/checkbox.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { GridService } from './services/grid.service';
 
 @NgModule({
-    imports: [CommonModule, RouterModule.forChild(GridRoutes), GridModule, MatDialogModule, MatButtonModule],
-    declarations: [GridDemoComponent, DialogComponent, ActionButtonComponent]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(GridRoutes),
+        GridModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatCheckboxModule
+    ],
+    declarations: [GridDemoComponent, DialogComponent, ActionButtonComponent, CheckboxComponent],
+    providers: [GridService]
 })
 export class WorkspaceGridModule {}
