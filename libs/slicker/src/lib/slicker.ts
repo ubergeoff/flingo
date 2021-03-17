@@ -8,7 +8,7 @@
 
  Version:          0.1.0
  Original Author:  Ken Wheeler
- Uber Slick By:    UberGeoff
+ Slicker TS By:    UberGeoff
  Website:          http://kenwheeler.github.io
     Docs:          http://kenwheeler.github.io/slick
     Repo:          http://github.com/kenwheeler/slick

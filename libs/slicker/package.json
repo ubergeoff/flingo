@@ -1,0 +1,7 @@
+{
+    "name": "@rooi/slicker",
+    "version": "0.0.2",
+    "peerDependencies": {
+        "slick-carousel": "^1.8.1"
+    }
+}

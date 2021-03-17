@@ -31,11 +31,13 @@
     "bump:slick:major": "cd libs/slick && npm version major --force",
     "bump:slick:minor": "cd libs/slick && npm version minor --force",
     "bump:slick:patch": "cd libs/slick && npm version patch --force",
-    "build:muuri": "ng build muuri --configuration=production && cd dist/libs/muuri && npm pack",
-    "build:slick": "ng build slick --configuration=production && cd dist/libs/slick && npm pack",
+    "build:muuri": "ng build muuri --configuration=production && cd dist/libs/muuri",
+    "build:slick": "ng build slick --configuration=production && cd dist/libs/slick",
+    "build:slicker": "ng build slicker --configuration=production && cd dist/libs/slicker",
     "build:flingo": "ng build flingo --configuration=production",
-    "publish:muuri": "npm publish --access public ./dist/libs/muuri/rooi-muuri-0.x.x.tgz",
-    "publish:slick": "npm publish --access public ./dist/libs/slick/rooi-slick-0.x.x.tgz"
+    "publish:muuri": "npm publish --access public ./dist/libs/muuri",
+    "publish:slick": "npm publish --access public ./dist/libs/slick",
+    "publish:slicker": "npm publish --access public ./dist/libs/slicker"
   },
   "private": true,
   "dependencies": {

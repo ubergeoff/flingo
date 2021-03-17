@@ -1,0 +1,12 @@
+{
+    "extends": "../../tslint.json",
+    "rules": {
+        "directive-selector": [true, "attribute", "rooi", "camelCase"],
+        "component-selector": [true, "element", "rooi", "kebab-case"],
+        "no-var-keyword": false,
+        "prefer-const": false
+    },
+    "linterOptions": {
+        "exclude": ["!**/*"]
+    }
+}
