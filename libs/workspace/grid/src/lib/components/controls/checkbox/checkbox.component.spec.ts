@@ -1,19 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CheckboxComponent } from './checkbox.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { ActionButtonComponent } from './action-button.component';
-
-describe('NewButtonComponent', () => {
-    let component: ActionButtonComponent;
-    let fixture: ComponentFixture<ActionButtonComponent>;
+describe('CheckboxComponent', () => {
+    let component: CheckboxComponent;
+    let fixture: ComponentFixture<CheckboxComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ActionButtonComponent]
+            imports: [MatCheckboxModule],
+            declarations: [CheckboxComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ActionButtonComponent);
+        fixture = TestBed.createComponent(CheckboxComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
