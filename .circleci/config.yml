@@ -17,8 +17,7 @@ jobs:
       # Restore local dependencies from cache
       - restore_cache:
           keys:
-            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
-            - v1-deps-{{ .Branch }}
+            - v1-deps-{{ checksum "package.json" }}
             - v1-deps
       # Install project dependencies
       - run:
@@ -26,7 +25,7 @@ jobs:
           command: npm install
       # Cache local dependencies if they don't exist
       - save_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          key: v1-deps-{{ checksum "package.json" }}
           paths:
             - ~/.npm
             - ~/.cache
