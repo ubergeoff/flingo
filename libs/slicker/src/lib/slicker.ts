@@ -563,6 +563,8 @@ export class Slicker {
             index++;
         }
 
+        //this.$slides = this.$slider.querySelectorAll(':not(.slick-cloned)');
+
         this.slideCount = this.$slides.length;
 
         this.$slider.classList.add('slick-slider');
@@ -592,7 +594,7 @@ export class Slicker {
         //$('img[data-lazy]', thisSlider).not('[src]').addClass('slick-loading');
         // ---------------------
 
-        // this.setupInfinite();
+        this.setupInfinite();
 
         this.buildArrows();
 
@@ -1100,7 +1102,7 @@ export class Slicker {
 
     // --------------------------
     // Complete
-    // -- not using Fade
+    // -- not using Fade yet
     // --------------------------
     fadeSlide(slideIndex, callback) {
         /*this.applyTransition(slideIndex);
@@ -2142,7 +2144,7 @@ export class Slicker {
         //this.registerBreakpoints();
 
         this.setProps();
-        // this.setupInfinite();
+        this.setupInfinite();
         this.buildArrows();
         this.updateArrows();
         this.initArrowEvents();
@@ -2662,7 +2664,8 @@ export class Slicker {
             if (this.options.infinite === true) {
                 if (index >= centerOffset && index <= this.slideCount - 1 - centerOffset) {
                     // @ts-ignore
-                    const ss = Array.from(this.$slides).slice(
+                    const ss = allSlides.slice(
+                        //const ss = Array.from(this.$slides).slice(
                         index - centerOffset + evenCoef,
                         index + centerOffset + 1
                     );
@@ -2672,10 +2675,18 @@ export class Slicker {
                     }
                 } else {
                     indexOffset = this.options.slidesToShow + index;
-                    allSlides
-                        .slice(indexOffset - centerOffset + 1 + evenCoef, indexOffset + centerOffset + 2)
-                        .addClass('slick-active')
-                        .attr('aria-hidden', 'false');
+                    const ss = allSlides.slice(
+                        // const ss = Array.from(this.$slides).slice(
+                        indexOffset - centerOffset + 1 + evenCoef,
+                        indexOffset + centerOffset + 2
+                    );
+
+                    for (let item of ss) {
+                        item.classList.add('slick-active');
+                        item.setAttribute('aria-hidden', 'false');
+                    }
+                    /*.addClass('slick-active')
+                        .attr('aria-hidden', 'false');*/
                 }
 
                 if (index === 0) {
@@ -2737,16 +2748,11 @@ export class Slicker {
         }
     }
 
-    // ----------------
-    // Leave for now
-    // - dont need infinite yet
-    // TODO: come back to this later
-    // ----------------
-    /*setupInfinite() {
-        var _ = this,
-            i,
-            slideIndex,
-            infiniteCount;
+    // ------------------------
+    // Complete
+    // ------------------------
+    setupInfinite() {
+        let i, slideIndex, infiniteCount;
 
         if (this.options.fade === true) {
             this.options.centerMode = false;
@@ -2762,33 +2768,43 @@ export class Slicker {
                     infiniteCount = this.options.slidesToShow;
                 }
 
+                const slideCopy = Array.from(this.$slides);
+
                 for (i = this.slideCount; i > this.slideCount - infiniteCount; i -= 1) {
                     slideIndex = i - 1;
-                    $(this.$slides[slideIndex])
-                        .clone(true)
-                        .attr('id', '')
-                        .attr('data-slick-index', slideIndex - this.slideCount)
-                        .prependTo(this.$slideTrack)
-                        .addClass('slick-cloned');
+                    const el = this.$slides[slideIndex];
+
+                    const clone = el.cloneNode(true) as HTMLElement;
+                    clone.setAttribute('id', '');
+                    clone.setAttribute('data-slick-index', (slideIndex - this.slideCount).toString());
+                    clone.classList.add('slick-cloned');
+
+                    this.$slideTrack.insertBefore(clone, this.$slideTrack.firstChild);
                 }
                 for (i = 0; i < infiniteCount + this.slideCount; i += 1) {
                     slideIndex = i;
-                    $(this.$slides[slideIndex])
-                        .clone(true)
-                        .attr('id', '')
-                        .attr('data-slick-index', slideIndex + this.slideCount)
-                        .appendTo(this.$slideTrack)
-                        .addClass('slick-cloned');
+                    const el = slideCopy[slideIndex];
+
+                    if (el) {
+                        const clone = el.cloneNode(true) as HTMLElement;
+                        clone.setAttribute('id', '');
+                        clone.setAttribute('data-slick-index', (slideIndex + this.slideCount).toString());
+                        clone.classList.add('slick-cloned');
+
+                        this.$slideTrack.appendChild(clone);
+                    }
                 }
-                this.$slideTrack
+
+                // do i still need to do this..??
+                /* this.$slideTrack
                     .find('.slick-cloned')
                     .find('[id]')
                     .each(function () {
                         $(this).attr('id', '');
-                    });
+                    });*/
             }
         }
-    }*/
+    }
 
     // ------------------------
     // Complete
@@ -3377,7 +3393,7 @@ export class Slicker {
     updateDots() {
         //const thisDots = $(this.$dots);
 
-        if (this.$dots !== null) {
+        if (this.$dots) {
             const list = this.$dots.querySelectorAll('li');
             for (let li of list) {
                 li.classList.remove('slick-active');

@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { SlickModule } from '@rooi/slick';
 import { MatButtonModule } from '@angular/material/button';
+import { InfiniteCenterSlickComponent } from './components/infinite-center-slick/infinite-center-slick.component';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { MatButtonModule } from '@angular/material/button';
         CenterSlickComponent,
         FullScreenSlickComponent,
         ShowThreeSlickComponent,
-        VariableWidthSlickComponent
+        VariableWidthSlickComponent,
+        InfiniteCenterSlickComponent
     ]
 })
 export class WorkspaceSlickModule {}

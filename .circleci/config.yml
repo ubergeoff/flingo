@@ -18,6 +18,7 @@ jobs:
       - restore_cache:
           keys:
             - v1-deps-{{ checksum "package-lock.json" }}
+            - v1-deps
       # Install project dependencies
       - run:
           name: Install local dependencies

@@ -4,6 +4,7 @@ import { VariableWidthSlickComponent } from './components/variabe-width-slick/va
 import { FullScreenSlickComponent } from './components/full-screen-slick/full-screen-slick.component';
 import { CenterSlickComponent } from './components/center-slick/center-slick.component';
 import { ShowThreeSlickComponent } from './components/show-three-slick/show-three-slick.component';
+import { InfiniteCenterSlickComponent } from './components/infinite-center-slick/infinite-center-slick.component';
 
 export const SlickRoutes: Routes = [
     {
@@ -47,6 +48,14 @@ export const SlickRoutes: Routes = [
                 data: {
                     title: 'Carousel: Show three',
                     urls: [{ title: 'Slick', url: '/slider5' }, { title: 'Carousel' }]
+                }
+            },
+            {
+                path: 'slick6',
+                component: InfiniteCenterSlickComponent,
+                data: {
+                    title: 'Carousel: Infinite',
+                    urls: [{ title: 'Slick', url: '/slider6' }, { title: 'Carousel' }]
                 }
             }
         ]
