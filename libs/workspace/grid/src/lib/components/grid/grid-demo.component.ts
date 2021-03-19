@@ -1,5 +1,4 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnInit, Type, ViewContainerRef } from '@angular/core';
-import { OneDArray, TColumn } from 'gridjs/dist/src/types';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -14,7 +13,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
     styleUrls: ['./grid-demo.component.scss']
 })
 export class GridDemoComponent implements OnInit {
-    columns: OneDArray<any> = [
+    columns: Array<any> = [
         {
             name: 'CheckBox',
             sort: false,
