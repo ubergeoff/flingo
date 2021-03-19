@@ -2662,6 +2662,19 @@ export class Slicker {
             centerOffset = Math.floor(this.options.slidesToShow / 2);
 
             if (this.options.infinite === true) {
+                //do cloned slides "selected" manipulation
+                if (this.slideCount - 1 === index) {
+                    let x = Array.from(this.$slides).find((t) => {
+                        return t.classList.contains('slick-clone-start');
+                    });
+                    x.classList.add('slick-current');
+                } else if (index === 0) {
+                    let x = Array.from(this.$slides).find((t) => {
+                        return t.classList.contains('slick-clone-end');
+                    });
+                    x.classList.add('slick-current');
+                }
+
                 if (index >= centerOffset && index <= this.slideCount - 1 - centerOffset) {
                     // @ts-ignore
                     const ss = allSlides.slice(
@@ -2685,8 +2698,6 @@ export class Slicker {
                         item.classList.add('slick-active');
                         item.setAttribute('aria-hidden', 'false');
                     }
-                    /*.addClass('slick-active')
-                        .attr('aria-hidden', 'false');*/
                 }
 
                 if (index === 0) {
@@ -2769,18 +2780,26 @@ export class Slicker {
                 }
 
                 const slideCopy = Array.from(this.$slides);
+                let first = true;
 
                 for (i = this.slideCount; i > this.slideCount - infiniteCount; i -= 1) {
                     slideIndex = i - 1;
-                    const el = this.$slides[slideIndex];
+                    const el = slideCopy[slideIndex];
 
                     const clone = el.cloneNode(true) as HTMLElement;
                     clone.setAttribute('id', '');
                     clone.setAttribute('data-slick-index', (slideIndex - this.slideCount).toString());
                     clone.classList.add('slick-cloned');
 
+                    if (first) {
+                        first = false;
+                        clone.classList.add('slick-clone-start');
+                    }
+
                     this.$slideTrack.insertBefore(clone, this.$slideTrack.firstChild);
                 }
+
+                first = true;
                 for (i = 0; i < infiniteCount + this.slideCount; i += 1) {
                     slideIndex = i;
                     const el = slideCopy[slideIndex];
@@ -2790,6 +2809,11 @@ export class Slicker {
                         clone.setAttribute('id', '');
                         clone.setAttribute('data-slick-index', (slideIndex + this.slideCount).toString());
                         clone.classList.add('slick-cloned');
+
+                        if (first) {
+                            first = false;
+                            clone.classList.add('slick-clone-end');
+                        }
 
                         this.$slideTrack.appendChild(clone);
                     }

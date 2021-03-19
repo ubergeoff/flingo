@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Grid, h, PluginPosition } from 'gridjs';
-import { OneDArray, TColumn, TData } from 'gridjs/dist/src/types';
+import { Grid } from 'gridjs';
 
 @Component({
     selector: 'rooi-grid',
@@ -8,12 +7,12 @@ import { OneDArray, TColumn, TData } from 'gridjs/dist/src/types';
     styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit, OnChanges {
-    @Input() columns: OneDArray<TColumn>;
-    @Input() data: TData[];
+    @Input() columns: Array<any>;
+    @Input() data: any[];
     @Input() search = false;
 
     private grid: Grid;
-    private resolver: (data: TData[]) => void;
+    private resolver: (data: any[]) => void;
 
     isLoading = true;
 
