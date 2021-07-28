@@ -55,6 +55,13 @@ const MENUITEMS = [
         children: [{ state: 'dashboard1', name: 'Gridjs', type: 'link' }]
     },
     {
+        state: 'spinners',
+        name: 'Spinners',
+        type: 'sub',
+        icon: 'grain',
+        children: [{ state: 'dashboard1', name: 'Spinner', type: 'link' }]
+    },
+    {
         state: 'slick',
         name: 'Slick',
         type: 'sub',

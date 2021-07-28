@@ -25,7 +25,8 @@
             "@rooi/workspace/shared": ["libs/workspace/shared/src/index.ts"],
             "@rooi/workspace/donate": ["libs/workspace/donate/src/index.ts"],
             "@rooi/workspace/source": ["libs/workspace/source/src/index.ts"],
-            "@rooi/slicker": ["libs/slicker/src/index.ts"]
+            "@rooi/slicker": ["libs/slicker/src/index.ts"],
+            "@rooi/spinner": ["libs/spinner/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

@@ -33,6 +33,13 @@ export const AppRoutes: Routes = [
                     )
             },
             {
+                path: 'spinners',
+                loadChildren: () =>
+                    import('../../../../libs/workspace/spinners/src/lib/spinners.module').then(
+                        (m) => m.WorkspaceSpinnersModule
+                    )
+            },
+            {
                 path: 'source',
                 loadChildren: () =>
                     import('../../../../libs/workspace/source/src/lib/workspace-source.module').then(

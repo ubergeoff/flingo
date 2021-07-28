@@ -56,7 +56,7 @@
         "@angular/platform-browser-dynamic": "^10.0.8",
         "@angular/router": "^10.0.8",
         "@nrwl/angular": "10.0.13",
-        "@rooi/slicker": "0.0.3",
+        "@ngneat/content-loader": "^6.1.0",
         "gridjs": "^3.4.0",
         "jquery": "^3.5.1",
         "muuri": "^0.9.0",
