@@ -1,0 +1,17 @@
+<div class="center-spinner">
+    <mat-spinner mode="indeterminate" [diameter]="45" [color]="'warn'"></mat-spinner>
+    <mat-spinner
+        *ngIf="canStartSpinning1"
+        class="bigger"
+        mode="indeterminate"
+        [diameter]="55"
+        [color]="'primary'"
+    ></mat-spinner>
+    <mat-spinner
+        *ngIf="canStartSpinning2"
+        class="bigger"
+        mode="indeterminate"
+        [diameter]="65"
+        [color]="'accent'"
+    ></mat-spinner>
+</div>
