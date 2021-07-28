@@ -12,7 +12,7 @@ export class SpinnerComponent implements OnInit {
     canStartSpinning2 = false;
     canShow = true;
     colour: ThemePalette = 'primary';
-    private counterHandle: number;
+    private counterHandle;
 
     constructor() {}
 
