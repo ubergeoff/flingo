@@ -58,6 +58,9 @@
         },
         "slicker": {
             "tags": []
+        },
+        "spinner": {
+            "tags": []
         }
     }
 }

@@ -456,6 +456,47 @@
                 }
             },
             "schematics": {}
+        },
+        "spinner": {
+            "projectType": "library",
+            "root": "libs/spinner",
+            "sourceRoot": "libs/spinner/src",
+            "prefix": "rooi",
+            "architect": {
+                "build": {
+                    "builder": "@nrwl/angular:package",
+                    "options": {
+                        "tsConfig": "libs/spinner/tsconfig.lib.json",
+                        "project": "libs/spinner/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "libs/spinner/tsconfig.lib.prod.json"
+                        }
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": ["libs/spinner/tsconfig.lib.json", "libs/spinner/tsconfig.spec.json"],
+                        "exclude": ["**/node_modules/**", "!libs/spinner/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/spinner/jest.config.js",
+                        "tsConfig": "libs/spinner/tsconfig.spec.json",
+                        "passWithNoTests": true,
+                        "setupFile": "libs/spinner/src/test-setup.ts"
+                    }
+                }
+            },
+            "schematics": {
+                "@nrwl/angular:component": {
+                    "style": "scss"
+                }
+            }
         }
     },
     "cli": {

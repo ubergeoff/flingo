@@ -1,0 +1,15 @@
+.grid-container {
+    margin: 20px;
+}
+
+.item {
+    width: 280px;
+    height: 200px;
+    margin: 10px;
+}
+
+.all-spinners {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
