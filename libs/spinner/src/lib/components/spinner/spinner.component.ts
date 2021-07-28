@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { Subscription, timer } from 'rxjs';
-5;
+
 @Component({
     selector: 'rooi-spinner',
     templateUrl: './spinner.component.html',
