@@ -8,11 +8,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { RouterModule } from '@angular/router';
 import { AppRoutes } from './app.routing';
-import {
-    PERFECT_SCROLLBAR_CONFIG,
-    PerfectScrollbarConfigInterface,
-    PerfectScrollbarModule
-} from 'ngx-perfect-scrollbar';
 import { FullComponent } from './layouts/full/full.component';
 import { SharedModule } from './shared/shared.module';
 import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
@@ -23,18 +18,12 @@ import { SpinnerComponent } from './shared/spinner.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-    suppressScrollX: true,
-    wheelSpeed: 2,
-    wheelPropagation: true
-};
+import { SpinnerModule } from '@rooi/spinner';
 
 @NgModule({
     declarations: [AppComponent, AppBreadcrumbComponent, FullComponent, AppSidebarComponent, SpinnerComponent],
     imports: [
         BrowserModule,
-        PerfectScrollbarModule,
         BrowserAnimationsModule,
         MatMenuModule,
         MatIconModule,
@@ -46,13 +35,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         FlexLayoutModule,
         MatToolbarModule,
         MatListModule,
-        MatProgressBarModule
-    ],
-    providers: [
-        {
-            provide: PERFECT_SCROLLBAR_CONFIG,
-            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-        }
+        MatProgressBarModule,
+        SpinnerModule
     ],
     bootstrap: [AppComponent]
 })

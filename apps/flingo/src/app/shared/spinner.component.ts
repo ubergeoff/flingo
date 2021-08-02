@@ -4,10 +4,9 @@ import { DOCUMENT } from '@angular/common';
 
 @Component({
     selector: 'app-spinner',
-    template: `<div class="preloader" *ngIf="isSpinnerVisible">
-        <div class="spinner">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
+    template: `<div class="preloader-x" *ngIf="isSpinnerVisible">
+        <div class="spinner-x">
+            <rooi-bubble-spinner></rooi-bubble-spinner>
         </div>
     </div>`,
     encapsulation: ViewEncapsulation.None
