@@ -22,7 +22,7 @@ jobs:
       # Install project dependencies
       - run:
           name: Install local dependencies
-          command: npm ci
+          command: npm install
       # Cache local dependencies if they don't exist
       - save_cache:
           key: v1-deps-{{ checksum "package-lock.json" }}
@@ -49,7 +49,7 @@ jobs:
       # Install project dependencies
       - run:
           name: Install testing dependencies
-          command: npm ci
+          command: npm install
 
       # Lint the source code
       - run:
