@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 import { MenuItems } from '../../../shared/menu-items/menu-items';
@@ -9,7 +8,6 @@ import { MenuItems } from '../../../shared/menu-items/menu-items';
     styleUrls: []
 })
 export class AppSidebarComponent implements OnDestroy {
-    public config: PerfectScrollbarConfigInterface = {};
     mobileQuery: MediaQueryList;
 
     private _mobileQueryListener: () => void;

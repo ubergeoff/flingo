@@ -2,8 +2,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { MenuItems } from '../../shared/menu-items/menu-items';
-
-import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { ProgressService } from '@rooi/workspace/shared';
 import { Observable } from 'rxjs';
 
@@ -28,7 +26,6 @@ export class FullComponent implements OnDestroy {
     status = false;
     isLoading$: Observable<boolean>;
     showSearch = false;
-    config: PerfectScrollbarConfigInterface = {};
 
     private _mobileQueryListener: () => void;
 
