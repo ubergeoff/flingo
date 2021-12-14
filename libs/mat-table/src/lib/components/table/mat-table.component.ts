@@ -93,27 +93,13 @@ export class MatTableComponent implements OnInit, OnDestroy {
                     if (this.showPagination && this.paginator) {
                         this.dataSource.paginator = this.paginator;
 
-                        // setTimeout(() => {
                         const numOfPages = this.paginator.getNumberOfPages();
 
                         this.pageCountArray = this.getPageCountArray(numOfPages);
 
                         this.changeDetectorRef.detectChanges();
-                        // });
                     }
                 });
-
-                // if (this.showPagination && this.paginator) {
-                //     this.dataSource.paginator = this.paginator;
-                //
-                //     // setTimeout(() => {
-                //         const numOfPages = this.paginator.getNumberOfPages();
-                //
-                //         this.pageCountArray = this.getPageCountArray(numOfPages);
-                //
-                //         this.changeDetectorRef.detectChanges();
-                //     // });
-                // }
             })
         );
 
