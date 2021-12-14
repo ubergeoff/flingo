@@ -1,0 +1,12 @@
+<div class="mat-table-cell icon">
+    <mat-icon class="primary medium">open_in_new_off</mat-icon>
+</div>
+<div class="mat-table-cell request-number">
+    {{ listItem.referenceNumber }}
+</div>
+<div class="mat-table-cell request-type">{{ listItem.requestType }}</div>
+<div class="mat-table-cell request-status">{{ listItem.requestStatus }}</div>
+<div class="mat-table-cell request-info">{{ listItem.requestInfo }}</div>
+<div class="mat-table-cell request-created-by">{{ listItem.requestInputter }}</div>
+<div class="mat-table-cell request-created-on">{{ listItem.requestCreated | date: 'yyyy-MM-dd HH:mm' }}</div>
+<div class="mat-table-cell request-external-ref">{{ listItem.linkedReferenceNumber }}</div>

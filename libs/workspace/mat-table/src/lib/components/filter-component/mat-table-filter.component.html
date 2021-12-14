@@ -1,0 +1,7 @@
+<div class="filter-container">
+    <div *ngFor="let checkBox of checkBoxes" class="filter-checkboxes">
+        <mat-checkbox (change)="filter()" [value]="checkBox.text" [(ngModel)]="checkBox.checked">{{
+            checkBox.text
+        }}</mat-checkbox>
+    </div>
+</div>

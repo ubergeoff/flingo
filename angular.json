@@ -497,9 +497,39 @@
                     "style": "scss"
                 }
             }
+        },
+        "mat-table": {
+            "projectType": "library",
+            "root": "libs/mat-table",
+            "sourceRoot": "libs/mat-table/src",
+            "prefix": "rooi",
+            "architect": {
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": ["libs/mat-table/tsconfig.lib.json", "libs/mat-table/tsconfig.spec.json"],
+                        "exclude": ["**/node_modules/**", "!libs/mat-table/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/mat-table/jest.config.js",
+                        "tsConfig": "libs/mat-table/tsconfig.spec.json",
+                        "passWithNoTests": true,
+                        "setupFile": "libs/mat-table/src/test-setup.ts"
+                    }
+                }
+            },
+            "schematics": {
+                "@nrwl/angular:component": {
+                    "style": "scss"
+                }
+            }
         }
     },
     "cli": {
+        "analytics": false,
         "defaultCollection": "@nrwl/angular"
     },
     "schematics": {

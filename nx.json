@@ -61,6 +61,9 @@
         },
         "spinner": {
             "tags": []
+        },
+        "mat-table": {
+            "tags": []
         }
     }
 }

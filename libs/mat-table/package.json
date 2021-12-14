@@ -1,0 +1,19 @@
+{
+    "name": "@rooi/mat-table",
+    "version": "0.0.1",
+    "author": {
+        "name": "Gerrit Burger",
+        "email": "gerrit.burger777@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ubergeoff/flingo.git"
+    },
+    "peerDependencies": {
+        "@angular/common": "^10.0.11",
+        "@angular/core": "^10.0.11"
+    },
+    "dependencies": {
+        "tslib": "^2.0.0"
+    }
+}

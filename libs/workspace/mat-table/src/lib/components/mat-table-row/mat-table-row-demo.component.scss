@@ -1,0 +1,36 @@
+.icon {
+    max-width: 50px;
+    cursor: pointer;
+}
+
+.request-number {
+    max-width: 120px;
+    color: var(--PRIMARY-COLOR);
+    text-decoration: underline;
+    text-decoration-color: var(--PRIMARY-COLOR);
+    cursor: pointer;
+}
+
+.type {
+    max-width: 180px;
+}
+
+.status {
+    max-width: 120px;
+}
+
+.info {
+    max-width: 250px;
+}
+
+.created-by {
+    max-width: 120px;
+}
+
+.created-on {
+    max-width: 170px;
+}
+
+.external-ref {
+    max-width: 100px;
+}
