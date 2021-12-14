@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 @Directive({
-    selector: '[matTableFilter]'
+    selector: '[rooiMatTableFilter]'
 })
 export class MatTableFilterDirective implements OnInit {
     @Input() component: any;

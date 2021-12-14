@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnInit, ViewContainerRef } from '@angular/core';
 
 @Directive({
-    selector: '[matTableRow]'
+    selector: '[rooiMatTableRow]'
 })
 export class MatTableRowDirective implements OnInit {
     @Input() component: any;

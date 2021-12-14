@@ -27,6 +27,10 @@
             mat-icon {
                 cursor: pointer;
                 color: #757575;
+
+                &:not(:last-child) {
+                    padding-right: 30px;
+                }
             }
         }
 
@@ -100,12 +104,23 @@
 
     .skip-to-page {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         margin-right: 8px;
+        font-family: Poppins;
+        line-height: 1.125;
+        font-weight: 400;
+        font-size: inherit;
+        height: 56px;
+
+        &-select {
+            position: relative;
+            top: 2px;
+            font-size: 12px;
+        }
 
         .label {
+            color: rgba(0, 0, 0, 0.54);
             margin: 0 4px;
-            font-size: 8px;
         }
 
         mat-form-field {
@@ -116,6 +131,21 @@
 }
 
 :host ::ng-deep {
+    .pagination-container {
+        .skip-to-page {
+            .mat-form-field {
+                &-infix {
+                    border-top: none;
+                }
+
+                &-wrapper {
+                    position: relative;
+                    top: 5px;
+                }
+            }
+        }
+    }
+
     .mat-paginator-container {
         background-color: white;
     }

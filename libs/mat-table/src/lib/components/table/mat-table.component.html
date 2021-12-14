@@ -51,7 +51,7 @@
 
         <div [@expandRowAnimation]="filterIsOpen ? 'expanded' : 'collapsed'" class="filter-component-container">
             <div
-                matTableFilter
+                rooiMatTableFilter
                 [component]="filterComponent"
                 [tableData]="tableData$"
                 (filteredData)="filterTableData($event)"
@@ -90,7 +90,7 @@
 
             <ng-container matColumnDef="MatTableColumns">
                 <mat-cell *matCellDef="let cell">
-                    <ng-container matTableRow [component]="rowComponent" [listItem]="cell"></ng-container>
+                    <ng-container rooiMatTableRow [component]="rowComponent" [listItem]="cell"></ng-container>
                 </mat-cell>
             </ng-container>
         </ng-container>
@@ -167,7 +167,7 @@
 
         <ng-container matColumnDef="expandedRow" *ngIf="!!expandedRowComponent">
             <mat-cell *matCellDef="let cell">
-                <ng-container matTableRow [component]="expandedRowComponent" [listItem]="cell"></ng-container>
+                <ng-container rooiMatTableRow [component]="expandedRowComponent" [listItem]="cell"></ng-container>
             </mat-cell>
         </ng-container>
 
@@ -176,7 +176,7 @@
 
             <ng-container matColumnDef="footer">
                 <mat-footer-cell *matFooterCellDef>
-                    <ng-container matTableRow [component]="footerComponent"></ng-container>
+                    <ng-container rooiMatTableRow [component]="footerComponent"></ng-container>
                 </mat-footer-cell>
             </ng-container>
         </ng-container>

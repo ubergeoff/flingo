@@ -66,7 +66,7 @@ const allRequests = [
 ];
 
 @Component({
-    selector: 'rooi-grid-demo',
+    selector: 'rooi-mat-table-demo',
     templateUrl: './mat-table-demo.component.html',
     styleUrls: ['./mat-table-demo.component.scss']
 })
