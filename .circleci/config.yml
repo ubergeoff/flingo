@@ -35,7 +35,7 @@ jobs:
   test:
     working_directory: ~/flingo
     docker:
-      - image: circleci/node:latest-browsers
+      - image: circleci/node:17.0.1
 
     steps:
       # Checkout the code from the branch into the working_directory
