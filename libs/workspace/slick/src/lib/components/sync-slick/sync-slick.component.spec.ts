@@ -5,21 +5,21 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { CenterSlickComponent } from './center-slick.component';
+import { SyncSlickComponent } from './sync-slick.component';
 
 describe('CenterSlickComponent', () => {
-    let component: CenterSlickComponent;
-    let fixture: ComponentFixture<CenterSlickComponent>;
+    let component: SyncSlickComponent;
+    let fixture: ComponentFixture<SyncSlickComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SlickModule, MatButtonModule, MatCardModule, MatIconModule, MatMenuModule, MatIconModule],
-            declarations: [CenterSlickComponent]
+            declarations: [SyncSlickComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CenterSlickComponent);
+        fixture = TestBed.createComponent(SyncSlickComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -45,14 +45,8 @@ export class SyncSlickComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        console.log('asNAV:', this.NavSlicker.slick);
-        console.log('ForNAV:', this.ForSlicker.slick);
-
-        this.ForSlicker.slick.options.asNavFor = this.NavSlicker.slick;
-        this.NavSlicker.slick.options.asNavFor = this.ForSlicker.slick;
-
-        /*this.slideConfig2.asNavFor = this.NavSlicker.slick;
-        this.slideConfig1.asNavFor = this.NavSlicker.slick;*/
+        //console.log('asNAV:', this.NavSlicker.slick);
+        //console.log('ForNAV:', this.ForSlicker.slick);
     }
 
     isMobile() {
