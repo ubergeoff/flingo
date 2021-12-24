@@ -5,7 +5,7 @@ jobs:
   build:
     working_directory: ~/flingo
     docker:
-      - image: circleci/node:12.22.7-bullseye-browsers-legacy
+      - image: circleci/node:16.13.1-browsers
 
     steps:
       # Checkout the code from the branch into the working_directory
