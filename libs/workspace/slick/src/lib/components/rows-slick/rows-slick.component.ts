@@ -2,15 +2,14 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { CardService } from '@rooi/workspace/shared';
-import { SlickerConfig } from '@rooi/slicker';
 
 @Component({
-    selector: 'rooi-variable-width-slick',
-    templateUrl: './variabe-width-slick.component.html',
-    styleUrls: ['./variabe-width-slick.component.scss'],
+    selector: 'rooi-rows-slick',
+    templateUrl: './rows-slick.component.html',
+    styleUrls: ['./rows-slick.component.scss'],
     providers: [CardService]
 })
-export class VariableWidthSlickComponent implements OnInit {
+export class RowsSlickComponent implements OnInit {
     allCards$: Observable<any>;
 
     @ViewChild('container') container: ElementRef;
@@ -20,12 +19,13 @@ export class VariableWidthSlickComponent implements OnInit {
     private cards = new BehaviorSubject<any>([]);
     width: any;
 
-    slideConfig: SlickerConfig = {
+    slideConfig = {
         slidesToScroll: 1,
         variableWidth: true,
         centerMode: true,
         dots: true,
-        infinite: true
+        infinite: false,
+        rows: 2
     };
 
     constructor(private platform: Platform, private cardService: CardService) {
@@ -37,12 +37,12 @@ export class VariableWidthSlickComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.cardService.createCard('Card 1', null, 250);
-        this.cardService.createCard('Card 2', null, 360);
-        this.cardService.createCard('Card 3', null, 230);
-        this.cardService.createCard('Card 4', null, 450);
-        this.cardService.createCard('Card 5', null, 250);
-        this.cardService.createCard('Card 6', null, 500);
+        this.cardService.createCard('Card 1');
+        this.cardService.createCard('Card 2');
+        this.cardService.createCard('Card 3');
+        this.cardService.createCard('Card 4');
+        this.cardService.createCard('Card 5');
+        this.cardService.createCard('Card 6');
 
         this.counter = this.cardService.allCards().length + 1;
 
@@ -61,9 +61,5 @@ export class VariableWidthSlickComponent implements OnInit {
 
     addCard() {
         this.createCard('Card ' + this.counter++);
-    }
-
-    generateRandomFloatInRange(min, max) {
-        return Math.random() * (max - min + 1) + min;
     }
 }

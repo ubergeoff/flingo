@@ -1,34 +1,58 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { CardService } from '@rooi/workspace/shared';
+import { SlickerConfig } from '@rooi/slicker';
+import { SlickCarouselComponent } from '@rooi/slick';
 
 @Component({
-    selector: 'rooi-show-three-slick',
-    templateUrl: './show-three-slick.component.html',
-    styleUrls: ['./show-three-slick.component.scss'],
+    selector: 'rooi-rows-slick',
+    templateUrl: './sync-slick.component.html',
+    styleUrls: ['./sync-slick.component.scss'],
     providers: [CardService]
 })
-export class ShowThreeSlickComponent implements OnInit {
+export class SyncSlickComponent implements OnInit, AfterViewInit {
     allCards$: Observable<any>;
 
     @ViewChild('container') container: ElementRef;
+
+    @ViewChild(SlickCarouselComponent) ForSlicker;
+    @ViewChild(SlickCarouselComponent) NavSlicker;
 
     private counter = 1;
     array = [];
     private cards = new BehaviorSubject<any>([]);
     width: any;
 
-    slideConfig = {
-        slidesToScroll: 3,
+    slideConfig1: SlickerConfig = {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        asNavFor: null
+    };
+
+    slideConfig2: SlickerConfig = {
         slidesToShow: 3,
-        variableWidth: false,
+        slidesToScroll: 1,
+        asNavFor: null,
         dots: true,
-        infinite: true
+        centerMode: true,
+        focusOnSelect: true
     };
 
     constructor(private platform: Platform, private cardService: CardService) {
         this.allCards$ = this.cards.asObservable();
+    }
+
+    ngAfterViewInit(): void {
+        console.log('asNAV:', this.NavSlicker.slick);
+        console.log('ForNAV:', this.ForSlicker.slick);
+
+        this.ForSlicker.slick.options.asNavFor = this.NavSlicker.slick;
+        this.NavSlicker.slick.options.asNavFor = this.ForSlicker.slick;
+
+        /*this.slideConfig2.asNavFor = this.NavSlicker.slick;
+        this.slideConfig1.asNavFor = this.NavSlicker.slick;*/
     }
 
     isMobile() {

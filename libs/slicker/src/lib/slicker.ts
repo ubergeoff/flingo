@@ -17,10 +17,13 @@
 
 
  */
+
+import { SlickerConfig } from './slicker-config';
+
 export class Slicker {
     instanceUid = 0;
 
-    defaults = {
+    defaults: SlickerConfig = {
         accessibility: false,
         adaptiveHeight: false,
         appendArrows: null,
@@ -128,7 +131,7 @@ export class Slicker {
     visibilityChange = 'visibilitychange';
     windowWidth = 0;
     windowTimer = null;
-    options: any;
+    options: SlickerConfig;
 
     // A simple way to check for HTML strings
     // Strict HTML recognition (must start with <)
@@ -228,6 +231,7 @@ export class Slicker {
         this.instanceUid = this.instanceUid++;
 
         //this.registerBreakpoints();
+
         this.init(true);
     }
 
@@ -671,21 +675,21 @@ export class Slicker {
                     const row = document.createElement('div');
                     for (c = 0; c < this.options.slidesPerRow; c++) {
                         const target = a * slidesPerSection + (b * this.options.slidesPerRow + c);
+                        const rowTarget = originalSlides[target];
 
-                        if (originalSlides[target]) {
+                        if (rowTarget) {
+                            let cssWidth = '';
                             if (this.options.variableWidth === false && this.options.slideWidth !== 0) {
-                                this.cssAppender(row, {
-                                    width: this.options.slideWidth + 'px',
-                                    display: 'inline-block'
-                                });
+                                cssWidth = this.options.slideWidth + 'px';
                             } else {
-                                this.cssAppender(row, {
-                                    width: 100 / this.options.slidesPerRow + '%',
-                                    display: 'inline-block'
-                                });
+                                cssWidth = 100 / this.options.slidesPerRow + '%';
                             }
 
-                            row.appendChild(originalSlides[target]);
+                            this.cssAppender(rowTarget, {
+                                width: cssWidth,
+                                display: 'inline-block'
+                            });
+                            row.appendChild(rowTarget);
                         }
                     }
                     slide.appendChild(row);
@@ -727,7 +731,8 @@ export class Slicker {
             respondToWidth = Math.min(windowWidth, sliderWidth);
         }
 
-        if (this.options.responsive && this.options.responsive.length && this.options.responsive !== null) {
+        // @ts-ignore
+        if (this.options?.responsive?.length) {
             targetBreakpoint = null;
 
             for (breakpoint in this.breakpoints) {
@@ -1479,6 +1484,9 @@ export class Slicker {
             this.updateDots();
             this.checkResponsive(true);
             this.focusHandler();
+
+            // some weird bug - need to set position again
+            this.setPosition();
         }
 
         if (creation) {
@@ -2303,8 +2311,8 @@ export class Slicker {
 
             this.set_Width(this.$slideTrack, width);
         } else if (this.options.variableWidth === true) {
-            //this.set_Width(this.$slideTrack, 5000 * this.slideCount); <= seems a bit weird ?? 5000 ??
-            this.set_Width(this.$slideTrack, this.get_OuterHeight(this.$slides[0], true) * this.slideCount);
+            this.set_Width(this.$slideTrack, 5000 * this.slideCount); // <= seems a bit weird ?? 5000 ??
+            //this.set_Width(this.$slideTrack, this.get_OuterHeight(this.$slides[0], true) * this.slideCount);
         } else {
             this.slideWidth = Math.ceil(this.listWidth);
 
@@ -2560,6 +2568,9 @@ export class Slicker {
         //$(this.$slider).trigger('setPosition', [_]);
         //const event = this.createTrigger('setPosition', [_]);
         //this.$slider.dispatchEvent(event);
+
+        /*const event = this.createTrigger('setPosition', [this]);
+        this.$slider.dispatchEvent(event);*/
     }
 
     // --------------------------
@@ -3151,6 +3162,7 @@ export class Slicker {
     // Complete
     // ------------------------
     swipeHandler(event) {
+        // @ts-ignore
         if (this.options.swipe === false || ('ontouchend' in document && this.options.swipe === false)) {
             return;
         } else if (this.options.draggable === false && event.type.indexOf('mouse') !== -1) {
