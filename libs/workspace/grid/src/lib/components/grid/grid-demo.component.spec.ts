@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { GridDemoComponent } from './grid-demo.component';
 import { GridModule } from '@rooi/grid';
@@ -9,7 +9,7 @@ describe('GridDemoComponent', () => {
     let component: GridDemoComponent;
     let fixture: ComponentFixture<GridDemoComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [GridModule, MatDialogModule, MatButtonModule],
             declarations: [GridDemoComponent]

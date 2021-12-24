@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SlickModule } from '@rooi/slick';
 import { MatCardModule } from '@angular/material/card';
@@ -12,7 +12,7 @@ describe('VariableWidthSlickComponent', () => {
     let component: VariableWidthSlickComponent;
     let fixture: ComponentFixture<VariableWidthSlickComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [SlickModule, MatButtonModule, MatCardModule, MatIconModule, MatMenuModule, MatIconModule],
             declarations: [VariableWidthSlickComponent]

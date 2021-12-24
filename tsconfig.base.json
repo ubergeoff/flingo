@@ -16,17 +16,17 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
+            "@rooi/grid": ["libs/grid/src/index.ts"],
             "@rooi/muuri": ["libs/muuri/src/index.ts"],
             "@rooi/slick": ["libs/slick/src/index.ts"],
-            "@rooi/grid": ["libs/grid/src/index.ts"],
+            "@rooi/slicker": ["libs/slicker/src/index.ts"],
+            "@rooi/spinner": ["libs/spinner/src/index.ts"],
+            "@rooi/workspace/donate": ["libs/workspace/donate/src/index.ts"],
             "@rooi/workspace/grid": ["libs/workspace/grid/src/index.ts"],
             "@rooi/workspace/murri": ["libs/workspace/murri/src/index.ts"],
-            "@rooi/workspace/slick": ["libs/workspace/slick/src/index.ts"],
             "@rooi/workspace/shared": ["libs/workspace/shared/src/index.ts"],
-            "@rooi/workspace/donate": ["libs/workspace/donate/src/index.ts"],
-            "@rooi/workspace/source": ["libs/workspace/source/src/index.ts"],
-            "@rooi/slicker": ["libs/slicker/src/index.ts"],
-            "@rooi/spinner": ["libs/spinner/src/index.ts"]
+            "@rooi/workspace/slick": ["libs/workspace/slick/src/index.ts"],
+            "@rooi/workspace/source": ["libs/workspace/source/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

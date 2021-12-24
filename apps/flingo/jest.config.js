@@ -1,21 +1,20 @@
 module.exports = {
-  name: 'flingo',
-  preset: '../../jest.config.js',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {
-    'ts-jest': {
-      tsConfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-      astTransformers: [
-        'jest-preset-angular/build/InlineFilesTransformer',
-        'jest-preset-angular/build/StripStylesTransformer',
-      ],
+    preset: '../../jest.preset.js',
+    setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+    globals: {
+        'ts-jest': {
+            stringifyContentPathRegex: '\\.(html|svg)$',
+
+            tsconfig: '<rootDir>/tsconfig.spec.json'
+        }
     },
-  },
-  coverageDirectory: '../../coverage/apps/flingo',
-  snapshotSerializers: [
-    'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
-    'jest-preset-angular/build/AngularSnapshotSerializer.js',
-    'jest-preset-angular/build/HTMLCommentSerializer.js',
-  ],
+    coverageDirectory: '../../coverage/apps/flingo',
+
+    displayName: 'flingo',
+    snapshotSerializers: [
+        'jest-preset-angular/build/serializers/no-ng-attributes',
+        'jest-preset-angular/build/serializers/ng-snapshot',
+        'jest-preset-angular/build/serializers/html-comment'
+    ],
+    transform: { '^.+\\.(ts|js|html)$': 'jest-preset-angular' }
 };
