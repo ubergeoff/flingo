@@ -5,6 +5,8 @@ import { FullScreenSlickComponent } from './components/full-screen-slick/full-sc
 import { CenterSlickComponent } from './components/center-slick/center-slick.component';
 import { ShowThreeSlickComponent } from './components/show-three-slick/show-three-slick.component';
 import { InfiniteCenterSlickComponent } from './components/infinite-center-slick/infinite-center-slick.component';
+import { RowsSlickComponent } from './components/rows-slick/rows-slick.component';
+import { SyncSlickComponent } from './components/sync-slick/sync-slick.component';
 
 export const SlickRoutes: Routes = [
     {
@@ -57,7 +59,23 @@ export const SlickRoutes: Routes = [
                     title: 'Carousel: Infinite',
                     urls: [{ title: 'Slick', url: '/slider6' }, { title: 'Carousel' }]
                 }
+            },
+            {
+                path: 'slick7',
+                component: RowsSlickComponent,
+                data: {
+                    title: 'Multiple Rows',
+                    urls: [{ title: 'Slick', url: '/slider7' }, { title: 'Carousel' }]
+                }
             }
+            /*{
+                path: 'slick8',
+                component: SyncSlickComponent,
+                data: {
+                    title: 'Slider Syncing',
+                    urls: [{ title: 'Slick', url: '/slider8' }, { title: 'Carousel' }]
+                }
+            }*/
         ]
     }
 ];

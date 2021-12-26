@@ -4,6 +4,7 @@ Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: scss
 */
+@use '~@angular/material' as mat;
 /**
  * Table Of Content
  *
@@ -39,7 +40,7 @@ File: scss
 
 .blue {
     @import 'styles/colors/blue';
-    @include angular-material-theme($blue-app-theme);
+    @include mat.all-component-themes($blue-app-theme);
 }
 
 // Green Theme
@@ -53,10 +54,10 @@ File: scss
 
 .dark {
     @import 'styles/colors/dark';
-    @include angular-material-theme($dark-theme);
+    @include mat.all-component-themes($dark-theme);
 }
 
-$custom-typography: mat-typography-config(
+$custom-typography: mat.define-typography-config(
     $font-family: 'Poppins'
 );
-@include mat-core($custom-typography);
+@include mat.core($custom-typography);

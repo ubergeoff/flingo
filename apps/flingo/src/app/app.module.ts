@@ -30,7 +30,7 @@ import { SpinnerModule } from '@rooi/spinner';
         MatButtonModule,
         LayoutModule,
         SharedModule,
-        RouterModule.forRoot(AppRoutes),
+        RouterModule.forRoot(AppRoutes, { relativeLinkResolution: 'legacy' }),
         MatSidenavModule,
         FlexLayoutModule,
         MatToolbarModule,

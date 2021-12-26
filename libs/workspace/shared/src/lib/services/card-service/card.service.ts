@@ -6,11 +6,12 @@ import { ICard } from '../../interfaces/card.interface';
 export class CardService {
     private array: ICard[] = [];
 
-    createCard(title, image = null) {
+    createCard(title, image = null, size = 150) {
         this.array.push({
             id: uuid(),
             title: title,
-            image: image
+            image: image,
+            size: size
         });
     }
 

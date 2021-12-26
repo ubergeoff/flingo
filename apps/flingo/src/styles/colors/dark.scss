@@ -4,12 +4,13 @@ Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: scss
 */
+@use '~@angular/material' as mat;
 
 
-$dark-primary: mat-palette($mat-blue);
-$dark-accent:  mat-palette($mat-indigo, A200, A100, A400);
-$dark-warn: mat-palette($mat-pink);
-$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+$dark-primary: mat.define-palette(mat.$blue-palette);
+$dark-accent:  mat.define-palette(mat.$indigo-palette, A200, A100, A400);
+$dark-warn: mat.define-palette(mat.$pink-palette);
+$dark-theme: mat.define-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 $themecolor:#F44336;
 $themecolor-alt: #E53935;

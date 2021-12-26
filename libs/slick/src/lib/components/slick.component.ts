@@ -1,7 +1,6 @@
 import { isPlatformServer } from '@angular/common';
 import {
     AfterViewChecked,
-    AfterViewInit,
     Component,
     ElementRef,
     EventEmitter,
@@ -24,7 +23,7 @@ import { Slicker } from '@rooi/slicker';
     exportAs: 'slick-carousel',
     template: '<ng-content></ng-content>'
 })
-export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewInit, AfterViewChecked {
+export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewChecked {
     @Input() config: any;
     @Output() afterChange: EventEmitter<{
         event: any;
@@ -63,10 +62,6 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
      */
     ngOnDestroy() {
         this.unslick();
-    }
-
-    ngAfterViewInit(): void {
-        this.ngAfterViewChecked();
     }
 
     /**

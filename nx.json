@@ -1,66 +1,128 @@
 {
-    "npmScope": "rooi",
-    "affected": {
-        "defaultBase": "master"
+  "npmScope": "rooi",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
     },
-    "implicitDependencies": {
-        "angular.json": "*",
-        "package.json": {
-            "dependencies": "*",
-            "devDependencies": "*"
-        },
-        "tsconfig.base.json": "*",
-        "tslint.json": "*",
-        "nx.json": "*"
-    },
-    "tasksRunnerOptions": {
-        "default": {
-            "runner": "@nrwl/workspace/tasks-runners/default",
-            "options": {
-                "cacheableOperations": ["build", "lint", "test", "e2e"]
-            }
-        }
-    },
-    "projects": {
-        "flingo": {
-            "tags": []
-        },
-        "flingo-e2e": {
-            "tags": [],
-            "implicitDependencies": ["flingo"]
-        },
-        "muuri": {
-            "tags": []
-        },
-        "slick": {
-            "tags": []
-        },
-        "grid": {
-            "tags": []
-        },
-        "workspace-grid": {
-            "tags": []
-        },
-        "workspace-murri": {
-            "tags": []
-        },
-        "workspace-slick": {
-            "tags": []
-        },
-        "workspace-shared": {
-            "tags": []
-        },
-        "workspace-donate": {
-            "tags": []
-        },
-        "workspace-source": {
-            "tags": []
-        },
-        "slicker": {
-            "tags": []
-        },
-        "spinner": {
-            "tags": []
-        }
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
+      }
     }
+  },
+  "projects": {
+    "flingo": {
+      "tags": []
+    },
+    "flingo-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "flingo"
+      ]
+    },
+    "grid": {
+      "tags": []
+    },
+    "muuri": {
+      "tags": []
+    },
+    "slick": {
+      "tags": []
+    },
+    "slicker": {
+      "tags": []
+    },
+    "spinner": {
+      "tags": []
+    },
+    "workspace-donate": {
+      "tags": []
+    },
+    "workspace-grid": {
+      "tags": []
+    },
+    "workspace-murri": {
+      "tags": []
+    },
+    "workspace-shared": {
+      "tags": []
+    },
+    "workspace-slick": {
+      "tags": []
+    },
+    "workspace-source": {
+      "tags": []
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "muuri",
+  "generators": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  }
 }

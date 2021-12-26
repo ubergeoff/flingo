@@ -4,6 +4,7 @@ Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: scss
 */
+@use '~@angular/material' as mat;
 // font family, also paste this import into styles.css file.
 
 /*@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');*/
@@ -11,19 +12,18 @@ File: scss
 $bodyfont: 'Poppins', sans-serif;
 $headingfont: 'Poppins', sans-serif;
 
-@import '~@angular/material/theming';
 
 /*Material Theme Colors*/
 
-$primary: mat-palette($mat-blue, 600);
-$accent: mat-palette($mat-indigo, 500);
-$warn: mat-palette($mat-pink, 500);
-$theme: mat-light-theme($primary, $accent, $warn);
+$primary: mat.define-palette(mat.$blue-palette, 600);
+$accent: mat.define-palette(mat.$indigo-palette, 500);
+$warn: mat.define-palette(mat.$pink-palette, 500);
+$theme: mat.define-light-theme($primary, $accent, $warn);
 $background: map-get($theme, background);
 $foreground: map-get($theme, foreground);
 
 // Default Theme
-@include angular-material-theme($theme);
+@include mat.all-component-themes($theme);
 
 // Dark Theme
 

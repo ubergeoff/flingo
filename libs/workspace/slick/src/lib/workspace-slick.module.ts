@@ -13,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { SlickModule } from '@rooi/slick';
 import { MatButtonModule } from '@angular/material/button';
 import { InfiniteCenterSlickComponent } from './components/infinite-center-slick/infinite-center-slick.component';
+import { RowsSlickComponent } from './components/rows-slick/rows-slick.component';
+import { SyncSlickComponent } from './components/sync-slick/sync-slick.component';
 
 @NgModule({
     imports: [
@@ -30,7 +32,9 @@ import { InfiniteCenterSlickComponent } from './components/infinite-center-slick
         FullScreenSlickComponent,
         ShowThreeSlickComponent,
         VariableWidthSlickComponent,
-        InfiniteCenterSlickComponent
+        InfiniteCenterSlickComponent,
+        RowsSlickComponent,
+        SyncSlickComponent
     ]
 })
 export class WorkspaceSlickModule {}
