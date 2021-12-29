@@ -5,23 +5,24 @@
         <span>{{ message | async }}</span>
     </div>
     <div
-        class="grid"
-        roiTileGrid
-        [dragHandle]="'mat-card-header'"
-        [dragEnabled]="true"
-        [threshold]="25"
-        [fillGaps]="true"
-        (dragEnd)="dragEnd($event)"
+            class="grid"
+            roiTileGrid
+            [dragHandle]="'mat-card-header'"
+            [dragEnabled]="true"
+            [threshold]="25"
+            [fillGaps]="true"
+            (dragEnd)="dragEnd($event)"
     >
         <div
-            roiTileGridItem
-            class="item"
-            *ngFor="let card of allCards$ | async; trackBy: trackByCardId"
-            id="{{ card.id }}"
+                roiTileGridItem
+                class="item"
+                *ngFor="let card of allCards$ | async; trackBy: trackByCardId"
+                id="{{ card.id }}"
         >
             <div class="nice-wars">
-                <img src="{{ card.image }}" />
+                <img src="{{ card.image }}"/>
             </div>
+            <span class="span-drag">Drag me..!</span>
         </div>
     </div>
 </div>

@@ -13,6 +13,15 @@ File: scss
  Main container
 *******************/
 
+pre code {
+    background-color: #eee;
+    border: 1px solid #999;
+    display: block;
+    padding: 20px;
+    font-family: monospace, monospace;
+    color: #1E88E5;
+}
+
 .page-breadcrumb {
     background: $white;
 }
