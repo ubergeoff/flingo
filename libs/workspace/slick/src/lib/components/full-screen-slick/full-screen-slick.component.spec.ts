@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FullScreenSlickComponent } from './full-screen-slick.component';
 import { SlickModule } from '@rooi/slick';
@@ -12,7 +12,7 @@ describe('FullScreenSlickComponent', () => {
     let component: FullScreenSlickComponent;
     let fixture: ComponentFixture<FullScreenSlickComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [SlickModule, MatButtonModule, MatCardModule, MatIconModule, MatMenuModule, MatIconModule],
             declarations: [FullScreenSlickComponent]

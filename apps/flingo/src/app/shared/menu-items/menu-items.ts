@@ -77,9 +77,11 @@ const MENUITEMS = [
             { state: 'slick1', name: 'Fixed Width', type: 'link' },
             { state: 'slick3', name: 'Variable width', type: 'link' },
             { state: 'slick2', name: 'Full screen', type: 'link' },
-            { state: 'slick4', name: 'Center', type: 'link' },
-            { state: 'slick5', name: 'Show three', type: 'link' },
-            { state: 'slick6', name: 'Infinite', type: 'link' }
+            { state: 'slick4', name: 'Center Mode', type: 'link' },
+            { state: 'slick5', name: 'Multiple Items', type: 'link' },
+            { state: 'slick6', name: 'Infinite', type: 'link' },
+            { state: 'slick7', name: 'Multi-Row', type: 'link' }
+            /*    { state: 'slick8', name: 'Slider Syncing', type: 'link' }*/
         ]
     },
     {

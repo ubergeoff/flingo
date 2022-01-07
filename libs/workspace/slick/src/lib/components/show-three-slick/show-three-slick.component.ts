@@ -24,7 +24,7 @@ export class ShowThreeSlickComponent implements OnInit {
         slidesToShow: 3,
         variableWidth: false,
         dots: true,
-        infinite: false
+        infinite: true
     };
 
     constructor(private platform: Platform, private cardService: CardService) {

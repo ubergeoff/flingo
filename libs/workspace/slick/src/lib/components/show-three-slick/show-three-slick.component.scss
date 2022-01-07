@@ -27,9 +27,12 @@
     height: 250px;
 }
 
+.spacing {
+    padding-right: 10px;
+}
+
 .mat-card {
     cursor: grab;
-    /*margin-bottom: 15px;
-    margin-right: 15px;*/
-    margin: 10px;
+    margin-right: 15px;
+    margin-bottom: 15px;
 }
