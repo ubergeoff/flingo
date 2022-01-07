@@ -1,629 +1,632 @@
 {
-    "version": 1,
-    "projects": {
-        "flingo": {
-            "projectType": "application",
-            "schematics": {
-                "@nrwl/angular:component": {
-                    "style": "scss"
-                }
-            },
-            "root": "apps/flingo",
-            "sourceRoot": "apps/flingo/src",
-            "prefix": "flingo",
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
-                    "options": {
-                        "outputPath": "dist/apps/flingo",
-                        "index": "apps/flingo/src/index.html",
-                        "main": "apps/flingo/src/main.ts",
-                        "polyfills": "apps/flingo/src/polyfills.ts",
-                        "tsConfig": "apps/flingo/tsconfig.app.json",
-                        "assets": [
-                            "apps/flingo/src/favicon.ico",
-                            "apps/flingo/src/assets"
-                        ],
-                        "styles": [
-                            "apps/flingo/src/styles.scss",
-                            "node_modules/slick-carousel/slick/slick.scss",
-                            "node_modules/slick-carousel/slick/slick-theme.scss",
-                            "node_modules/gridjs/dist/theme/mermaid.css"
-                        ],
-                        "scripts": [
-                            "node_modules/muuri/dist/muuri.min.js"
-                        ],
-                        "vendorChunk": true,
-                        "extractLicenses": false,
-                        "buildOptimizer": false,
-                        "sourceMap": true,
-                        "optimization": false,
-                        "namedChunks": true
-                    },
-                    "configurations": {
-                        "production": {
-                            "fileReplacements": [
-                                {
-                                    "replace": "apps/flingo/src/environments/environment.ts",
-                                    "with": "apps/flingo/src/environments/environment.prod.ts"
-                                }
-                            ],
-                            "index": "apps/flingo/src/environments/index.html",
-                            "optimization": true,
-                            "outputHashing": "bundles",
-                            "sourceMap": false,
-                            "namedChunks": false,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true,
-                            "budgets": [
-                                {
-                                    "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
-                                },
-                                {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb",
-                                    "maximumError": "10kb"
-                                }
-                            ]
-                        }
-                    },
-                    "outputs": [
-                        "{options.outputPath}"
-                    ],
-                    "defaultConfiguration": ""
-                },
-                "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
-                    "options": {
-                        "browserTarget": "flingo:build"
-                    },
-                    "configurations": {
-                        "production": {
-                            "browserTarget": "flingo:build:production"
-                        }
-                    }
-                },
-                "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "browserTarget": "flingo:build"
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "apps/flingo/tsconfig.app.json",
-                            "apps/flingo/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!apps/flingo/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "apps/flingo/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/apps/flingo"
-                    ]
-                }
-            }
-        },
-        "flingo-e2e": {
-            "root": "apps/flingo-e2e",
-            "sourceRoot": "apps/flingo-e2e/src",
-            "projectType": "application",
-            "architect": {
-                "e2e": {
-                    "builder": "@nrwl/cypress:cypress",
-                    "options": {
-                        "cypressConfig": "apps/flingo-e2e/cypress.json",
-                        "tsConfig": "apps/flingo-e2e/tsconfig.e2e.json",
-                        "devServerTarget": "flingo:serve"
-                    },
-                    "configurations": {
-                        "production": {
-                            "devServerTarget": "flingo:serve:production"
-                        }
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "apps/flingo-e2e/tsconfig.e2e.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!apps/flingo-e2e/**/*"
-                        ]
-                    }
-                }
-            }
-        },
-        "grid": {
-            "projectType": "library",
-            "root": "libs/grid",
-            "sourceRoot": "libs/grid/src",
-            "prefix": "rooi",
-            "architect": {
-                "build": {
-                    "builder": "@nrwl/angular:package",
-                    "options": {
-                        "tsConfig": "libs/grid/tsconfig.lib.json",
-                        "project": "libs/grid/ng-package.json",
-                        "buildableProjectDepsInPackageJsonType": "dependencies"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "libs/grid/tsconfig.lib.prod.json"
-                        }
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/grid/tsconfig.lib.json",
-                            "libs/grid/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/grid/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/grid/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/grid"
-                    ]
-                }
-            },
-            "schematics": {
-                "@nrwl/angular:component": {
-                    "style": "scss"
-                }
-            }
-        },
-        "muuri": {
-            "projectType": "library",
-            "root": "libs/muuri",
-            "sourceRoot": "libs/muuri/src",
-            "prefix": "rooi",
-            "architect": {
-                "build": {
-                    "builder": "@nrwl/angular:package",
-                    "options": {
-                        "tsConfig": "libs/muuri/tsconfig.lib.json",
-                        "project": "libs/muuri/ng-package.json",
-                        "buildableProjectDepsInPackageJsonType": "dependencies"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "libs/muuri/tsconfig.lib.prod.json"
-                        }
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/muuri/tsconfig.lib.json",
-                            "libs/muuri/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/muuri/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/muuri/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/muuri"
-                    ]
-                }
-            },
-            "schematics": {
-                "@nrwl/angular:component": {
-                    "style": "scss"
-                }
-            }
-        },
-        "slick": {
-            "projectType": "library",
-            "root": "libs/slick",
-            "sourceRoot": "libs/slick/src",
-            "prefix": "rooi",
-            "architect": {
-                "build": {
-                    "builder": "@nrwl/angular:package",
-                    "options": {
-                        "tsConfig": "libs/slick/tsconfig.lib.json",
-                        "project": "libs/slick/ng-package.json",
-                        "buildableProjectDepsInPackageJsonType": "dependencies"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "libs/slick/tsconfig.lib.prod.json"
-                        }
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/slick/tsconfig.lib.json",
-                            "libs/slick/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/slick/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/slick/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/slick"
-                    ]
-                }
-            },
-            "schematics": {
-                "@nrwl/angular:component": {
-                    "style": "scss"
-                }
-            }
-        },
-        "mat-table": {
-            "projectType": "library",
-            "root": "libs/mat-table",
-            "sourceRoot": "libs/mat-table/src",
-            "prefix": "rooi",
-            "architect": {
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/mat-table/tsconfig.lib.json",
-                            "libs/mat-table/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/mat-table/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/mat-table/jest.config.js",
-                        "tsConfig": "libs/mat-table/tsconfig.spec.json",
-                        "passWithNoTests": true,
-                        "setupFile": "libs/mat-table/src/test-setup.ts"
-                    }
-                }
-            },
-            "schematics": {
-                "@nrwl/angular:component": {
-                    "style": "scss"
-                }
-            }
-        },
-        "slicker": {
-            "projectType": "library",
-            "root": "libs/slicker",
-            "sourceRoot": "libs/slicker/src",
-            "prefix": "rooi",
-            "architect": {
-                "build": {
-                    "builder": "@nrwl/angular:package",
-                    "options": {
-                        "tsConfig": "libs/slicker/tsconfig.lib.json",
-                        "project": "libs/slicker/ng-package.json",
-                        "buildableProjectDepsInPackageJsonType": "dependencies"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "libs/slicker/tsconfig.lib.prod.json"
-                        }
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/slicker/tsconfig.lib.json",
-                            "libs/slicker/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/slicker/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/slicker/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/slicker"
-                    ]
-                }
-            },
-            "schematics": {}
-        },
-        "spinner": {
-            "projectType": "library",
-            "root": "libs/spinner",
-            "sourceRoot": "libs/spinner/src",
-            "prefix": "rooi",
-            "architect": {
-                "build": {
-                    "builder": "@nrwl/angular:package",
-                    "options": {
-                        "tsConfig": "libs/spinner/tsconfig.lib.json",
-                        "project": "libs/spinner/ng-package.json",
-                        "buildableProjectDepsInPackageJsonType": "dependencies"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "libs/spinner/tsconfig.lib.prod.json"
-                        }
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/spinner/tsconfig.lib.json",
-                            "libs/spinner/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/spinner/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/spinner/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/spinner"
-                    ]
-                }
-            },
-            "schematics": {
-                "@nrwl/angular:component": {
-                    "style": "scss"
-                }
-            }
-        },
-        "workspace-donate": {
-            "projectType": "library",
-            "root": "libs/workspace/donate",
-            "sourceRoot": "libs/workspace/donate/src",
-            "prefix": "rooi",
-            "architect": {
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/workspace/donate/tsconfig.lib.json",
-                            "libs/workspace/donate/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/workspace/donate/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/workspace/donate/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/workspace/donate"
-                    ]
-                }
-            },
-            "schematics": {
-                "@nrwl/angular:component": {
-                    "style": "scss"
-                }
-            }
-        },
-        "workspace-grid": {
-            "projectType": "library",
-            "root": "libs/workspace/grid",
-            "sourceRoot": "libs/workspace/grid/src",
-            "prefix": "rooi",
-            "architect": {
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/workspace/grid/tsconfig.lib.json",
-                            "libs/workspace/grid/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/workspace/grid/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/workspace/grid/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/workspace/grid"
-                    ]
-                }
-            },
-            "schematics": {}
-        },
-        "workspace-murri": {
-            "projectType": "library",
-            "root": "libs/workspace/murri",
-            "sourceRoot": "libs/workspace/murri/src",
-            "prefix": "rooi",
-            "architect": {
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/workspace/murri/tsconfig.lib.json",
-                            "libs/workspace/murri/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/workspace/murri/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/workspace/murri/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/workspace/murri"
-                    ]
-                }
-            },
-            "schematics": {}
-        },
-        "workspace-shared": {
-            "projectType": "library",
-            "root": "libs/workspace/shared",
-            "sourceRoot": "libs/workspace/shared/src",
-            "prefix": "rooi",
-            "architect": {
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/workspace/shared/tsconfig.lib.json",
-                            "libs/workspace/shared/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/workspace/shared/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/workspace/shared/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/workspace/shared"
-                    ]
-                }
-            },
-            "schematics": {}
-        },
-        "workspace-slick": {
-            "projectType": "library",
-            "root": "libs/workspace/slick",
-            "sourceRoot": "libs/workspace/slick/src",
-            "prefix": "rooi",
-            "architect": {
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/workspace/slick/tsconfig.lib.json",
-                            "libs/workspace/slick/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/workspace/slick/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/workspace/slick/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/workspace/slick"
-                    ]
-                }
-            },
-            "schematics": {}
-        },
-        "workspace-source": {
-            "projectType": "library",
-            "root": "libs/workspace/source",
-            "sourceRoot": "libs/workspace/source/src",
-            "prefix": "rooi",
-            "architect": {
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "libs/workspace/source/tsconfig.lib.json",
-                            "libs/workspace/source/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "!libs/workspace/source/**/*"
-                        ]
-                    }
-                },
-                "test": {
-                    "builder": "@nrwl/jest:jest",
-                    "options": {
-                        "jestConfig": "libs/workspace/source/jest.config.js",
-                        "passWithNoTests": true
-                    },
-                    "outputs": [
-                        "coverage/libs/workspace/source"
-                    ]
-                }
-            },
-            "schematics": {
-                "@nrwl/angular:component": {
-                    "style": "scss"
-                }
-            }
+  "version": 1,
+  "projects": {
+    "flingo": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
+      },
+      "root": "apps/flingo",
+      "sourceRoot": "apps/flingo/src",
+      "prefix": "flingo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/flingo",
+            "index": "apps/flingo/src/index.html",
+            "main": "apps/flingo/src/main.ts",
+            "polyfills": "apps/flingo/src/polyfills.ts",
+            "tsConfig": "apps/flingo/tsconfig.app.json",
+            "assets": [
+              "apps/flingo/src/favicon.ico",
+              "apps/flingo/src/assets"
+            ],
+            "styles": [
+              "apps/flingo/src/styles.scss",
+              "node_modules/slick-carousel/slick/slick.scss",
+              "node_modules/slick-carousel/slick/slick-theme.scss",
+              "node_modules/gridjs/dist/theme/mermaid.css"
+            ],
+            "scripts": [
+              "node_modules/muuri/dist/muuri.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/flingo/src/environments/environment.ts",
+                  "with": "apps/flingo/src/environments/environment.prod.ts"
+                }
+              ],
+              "index": "apps/flingo/src/environments/index.html",
+              "optimization": true,
+              "outputHashing": "bundles",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "flingo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "flingo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "flingo:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/flingo/tsconfig.app.json",
+              "apps/flingo/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/flingo/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/flingo/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/apps/flingo"
+          ]
+        }
+      }
+    },
+    "flingo-e2e": {
+      "root": "apps/flingo-e2e",
+      "sourceRoot": "apps/flingo-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/flingo-e2e/cypress.json",
+            "tsConfig": "apps/flingo-e2e/tsconfig.e2e.json",
+            "devServerTarget": "flingo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "flingo:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/flingo-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/flingo-e2e/**/*"
+            ]
+          }
+        }
+      }
+    },
+    "grid": {
+      "projectType": "library",
+      "root": "libs/grid",
+      "sourceRoot": "libs/grid/src",
+      "prefix": "rooi",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/grid/tsconfig.lib.json",
+            "project": "libs/grid/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/grid/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/grid/tsconfig.lib.json",
+              "libs/grid/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/grid/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/grid/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/grid"
+          ]
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "muuri": {
+      "projectType": "library",
+      "root": "libs/muuri",
+      "sourceRoot": "libs/muuri/src",
+      "prefix": "rooi",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/muuri/tsconfig.lib.json",
+            "project": "libs/muuri/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/muuri/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/muuri/tsconfig.lib.json",
+              "libs/muuri/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/muuri/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/muuri/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/muuri"
+          ]
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "slick": {
+      "projectType": "library",
+      "root": "libs/slick",
+      "sourceRoot": "libs/slick/src",
+      "prefix": "rooi",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/slick/tsconfig.lib.json",
+            "project": "libs/slick/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/slick/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/slick/tsconfig.lib.json",
+              "libs/slick/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/slick/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/slick/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/slick"
+          ]
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "mat-table": {
+      "projectType": "library",
+      "root": "libs/mat-table",
+      "sourceRoot": "libs/mat-table/src",
+      "prefix": "rooi",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/mat-table/tsconfig.lib.json",
+              "libs/mat-table/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/mat-table/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/mat-table/jest.config.js",
+            "tsConfig": "libs/mat-table/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/mat-table/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "slicker": {
+      "projectType": "library",
+      "root": "libs/slicker",
+      "sourceRoot": "libs/slicker/src",
+      "prefix": "rooi",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/slicker/tsconfig.lib.json",
+            "project": "libs/slicker/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/slicker/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/slicker/tsconfig.lib.json",
+              "libs/slicker/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/slicker/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/slicker/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/slicker"
+          ]
+        }
+      },
+      "schematics": {}
+    },
+    "spinner": {
+      "projectType": "library",
+      "root": "libs/spinner",
+      "sourceRoot": "libs/spinner/src",
+      "prefix": "rooi",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/spinner/tsconfig.lib.json",
+            "project": "libs/spinner/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/spinner/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/spinner/tsconfig.lib.json",
+              "libs/spinner/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/spinner/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/spinner/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/spinner"
+          ]
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "workspace-donate": {
+      "projectType": "library",
+      "root": "libs/workspace/donate",
+      "sourceRoot": "libs/workspace/donate/src",
+      "prefix": "rooi",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/workspace/donate/tsconfig.lib.json",
+              "libs/workspace/donate/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/workspace/donate/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/workspace/donate/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/workspace/donate"
+          ]
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "workspace-grid": {
+      "projectType": "library",
+      "root": "libs/workspace/grid",
+      "sourceRoot": "libs/workspace/grid/src",
+      "prefix": "rooi",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/workspace/grid/tsconfig.lib.json",
+              "libs/workspace/grid/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/workspace/grid/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/workspace/grid/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/workspace/grid"
+          ]
+        }
+      },
+      "schematics": {}
+    },
+    "workspace-murri": {
+      "projectType": "library",
+      "root": "libs/workspace/murri",
+      "sourceRoot": "libs/workspace/murri/src",
+      "prefix": "rooi",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/workspace/murri/tsconfig.lib.json",
+              "libs/workspace/murri/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/workspace/murri/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/workspace/murri/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/workspace/murri"
+          ]
+        }
+      },
+      "schematics": {}
+    },
+    "workspace-shared": {
+      "projectType": "library",
+      "root": "libs/workspace/shared",
+      "sourceRoot": "libs/workspace/shared/src",
+      "prefix": "rooi",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/workspace/shared/tsconfig.lib.json",
+              "libs/workspace/shared/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/workspace/shared/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/workspace/shared/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/workspace/shared"
+          ]
+        }
+      },
+      "schematics": {}
+    },
+    "workspace-slick": {
+      "projectType": "library",
+      "root": "libs/workspace/slick",
+      "sourceRoot": "libs/workspace/slick/src",
+      "prefix": "rooi",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/workspace/slick/tsconfig.lib.json",
+              "libs/workspace/slick/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/workspace/slick/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/workspace/slick/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/workspace/slick"
+          ]
+        }
+      },
+      "schematics": {}
+    },
+    "workspace-source": {
+      "projectType": "library",
+      "root": "libs/workspace/source",
+      "sourceRoot": "libs/workspace/source/src",
+      "prefix": "rooi",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/workspace/source/tsconfig.lib.json",
+              "libs/workspace/source/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/workspace/source/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/workspace/source/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/workspace/source"
+          ]
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
+  },
+  "cli": {
+    "analytics": false
+  }
 }
