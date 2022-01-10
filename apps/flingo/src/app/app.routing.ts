@@ -26,6 +26,13 @@ export const AppRoutes: Routes = [
                     )
             },
             {
+                path: 'table',
+                loadChildren: () =>
+                    import('../../../../libs/workspace/mat-table/src/lib/workspace-mat-table.module').then(
+                        (m) => m.WorkspaceMatTableModule
+                    )
+            },
+            {
                 path: 'slick',
                 loadChildren: () =>
                     import('../../../../libs/workspace/slick/src/lib/workspace-slick.module').then(

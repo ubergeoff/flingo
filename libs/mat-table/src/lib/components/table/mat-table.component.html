@@ -1,0 +1,202 @@
+<div class="mat-table-container mat-elevation-z3" [ngStyle]="{ height: tableHeight, overflow: tableOverflow }">
+    <div class="mat-table-filter-container" [ngClass]="{ flexDirectionColumn: !!filterComponent }">
+        <div class="search-and-buttons-container">
+            <div
+                class="mat-table-search-container"
+                *ngIf="enableSearch || !!filterComponent"
+                [formGroup]="searchInputFormGroup"
+            >
+                <mat-form-field class="mat-table-search-form-field" appearance="fill">
+                    <input
+                        matInput
+                        type="text"
+                        [placeholder]="placeHolderText"
+                        formControlName="searchInput"
+                        (input)="applyFilter($event.target.value)"
+                    />
+                    <button
+                        *ngIf="searchInputFormGroup.get('searchInput').value"
+                        matSuffix
+                        mat-icon-button
+                        aria-label="Clear"
+                        (click)="clearSearchInput()"
+                    >
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="!!filterComponent; else actionHeader" class="filter-container">
+                <div>
+                    <div class="filter-buttons-container">
+                        <div class="filter-button" (click)="filterIsOpen = !filterIsOpen">
+                            <mat-icon [@rotatedState]="filterIsOpen">expand_more</mat-icon><span>Filter</span>
+                        </div>
+                        <div class="actions-header" *ngIf="showActions">
+                            <mat-icon *ngIf="showPrint" (click)="printAction()">print</mat-icon>
+                            <mat-icon *ngIf="showDownload" (click)="downloadAction()">download</mat-icon>
+                            <mat-icon *ngIf="showEmail" (click)="emailAction()">mail</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #actionHeader>
+                <div class="actions-header" *ngIf="showActions">
+                    <mat-icon *ngIf="showPrint" (click)="printAction()">print</mat-icon>
+                    <mat-icon *ngIf="showDownload" (click)="downloadAction()">download</mat-icon>
+                    <mat-icon *ngIf="showEmail" (click)="emailAction()">mail</mat-icon>
+                </div>
+            </ng-template>
+        </div>
+
+        <div [@expandRowAnimation]="filterIsOpen ? 'expanded' : 'collapsed'" class="filter-component-container">
+            <div
+                rooiMatTableFilter
+                [component]="filterComponent"
+                [tableData]="tableData$"
+                (filteredData)="filterTableData($event)"
+            ></div>
+        </div>
+    </div>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+    <mat-table
+        [dataSource]="dataSource"
+        multiTemplateDataRows
+        matSort
+        [matSortActive]="defaultSort.name"
+        [matSortDirection]="defaultSort.direction"
+    >
+        <ng-container *ngIf="!!rowComponent; else defaultColumns">
+            <ng-container *ngFor="let column of tableConfig.columnConfig">
+                <ng-container [matColumnDef]="column.columnKey">
+                    <ng-container *ngIf="!!column.sortDirection; else noSort">
+                        <mat-header-cell
+                            [class]="!!column.columnClass ? column.columnClass : ''"
+                            *matHeaderCellDef
+                            mat-sort-header
+                        >
+                            {{ column.columnHeader }}
+                        </mat-header-cell>
+                    </ng-container>
+                    <ng-template #noSort>
+                        <mat-header-cell [class]="!!column.columnClass ? column.columnClass : ''" *matHeaderCellDef>
+                            {{ column.columnHeader }}
+                        </mat-header-cell>
+                    </ng-template>
+                </ng-container>
+            </ng-container>
+
+            <ng-container matColumnDef="MatTableColumns">
+                <mat-cell *matCellDef="let cell">
+                    <ng-container rooiMatTableRow [component]="rowComponent" [listItem]="cell"></ng-container>
+                </mat-cell>
+            </ng-container>
+        </ng-container>
+        <ng-template #defaultColumns>
+            <ng-container *ngFor="let column of tableConfig.columnConfig">
+                <ng-container
+                    [matColumnDef]="column.columnKey"
+                    [sticky]="column.stickyStart"
+                    [stickyEnd]="column.stickyEnd"
+                >
+                    <ng-container *ngIf="!!column.sortDirection; else noSort">
+                        <mat-header-cell
+                            [class]="!!column.columnClass ? column.columnClass : ''"
+                            *matHeaderCellDef
+                            mat-sort-header
+                        >
+                            {{ column.columnHeader }}
+                        </mat-header-cell>
+                    </ng-container>
+                    <ng-template #noSort>
+                        <mat-header-cell [class]="!!column.columnClass ? column.columnClass : ''" *matHeaderCellDef>
+                            {{ column.columnHeader }}
+                        </mat-header-cell>
+                    </ng-template>
+
+                    <mat-cell [class]="!!column.columnClass ? column.columnClass : ''" *matCellDef="let cell">
+                        <div (click)="performCellAction(column, cell[column.columnKey])">
+                            <ng-container *ngIf="!!column.pipe; else noPipe">
+                                {{ getPipedValue(cell[column.columnKey], column) }}
+                            </ng-container>
+                            <ng-template #noPipe>
+                                {{ cell[column.columnKey] }}
+                            </ng-template>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+            </ng-container>
+        </ng-template>
+
+        <mat-header-row *matHeaderRowDef="tableConfig.headers.displayedColumns; sticky: stickyHeader"></mat-header-row>
+
+        <ng-container *ngIf="!!rowComponent || !!expandedRowComponent; else defaultRowComponent">
+            <ng-container *ngIf="!!rowComponent">
+                <mat-row
+                    *matRowDef="let row; columns: ['MatTableColumns']"
+                    class="mat-table-row"
+                    (click)="row === expandedElement ? (expandedElement = undefined) : (expandedElement = row)"
+                ></mat-row>
+            </ng-container>
+            <ng-container *ngIf="!rowComponent && !!expandedRowComponent">
+                <mat-row
+                    class="mat-table-row"
+                    *matRowDef="let row; columns: tableConfig.headers.displayedColumns"
+                    (click)="row === expandedElement ? (expandedElement = undefined) : (expandedElement = row)"
+                ></mat-row>
+            </ng-container>
+
+            <ng-container *ngIf="!!expandedRowComponent">
+                <mat-row
+                    *matRowDef="let row; columns: ['expandedRow']"
+                    class="mat-table-expanded-row"
+                    [@expandRowAnimation]="row === expandedElement ? 'expanded' : 'collapsed'"
+                    style="overflow: hidden;"
+                ></mat-row>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #defaultRowComponent>
+            <mat-row
+                class="mat-table-row"
+                *matRowDef="let row; columns: tableConfig.headers.displayedColumns"
+            ></mat-row>
+        </ng-template>
+
+        <ng-container matColumnDef="expandedRow" *ngIf="!!expandedRowComponent">
+            <mat-cell *matCellDef="let cell">
+                <ng-container rooiMatTableRow [component]="expandedRowComponent" [listItem]="cell"></ng-container>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container *ngIf="!!footerComponent">
+            <mat-footer-row *matFooterRowDef="['footer']; sticky: stickyFooter"></mat-footer-row>
+
+            <ng-container matColumnDef="footer">
+                <mat-footer-cell *matFooterCellDef>
+                    <ng-container rooiMatTableRow [component]="footerComponent"></ng-container>
+                </mat-footer-cell>
+            </ng-container>
+        </ng-container>
+    </mat-table>
+
+    <div *ngIf="showPagination" class="pagination-container">
+        <div *ngIf="showSkipToPage" class="skip-to-page">
+            <div class="label">
+                <mat-label>Skip to page : </mat-label>
+            </div>
+            <mat-form-field [formGroup]="skipToPageFormGroup">
+                <mat-select formControlName="pageIndex" class="skip-to-page-select">
+                    <mat-option *ngFor="let page of pageCountArray" [value]="page">{{ page }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <mat-paginator
+            [pageSizeOptions]="pageSizeOptions"
+            [showFirstLastButtons]="showFirstLastButtons"
+            (page)="handlePageChange($event)"
+        ></mat-paginator>
+    </div>
+</div>

@@ -25,6 +25,7 @@
             "@rooi/workspace/grid": ["libs/workspace/grid/src/index.ts"],
             "@rooi/workspace/murri": ["libs/workspace/murri/src/index.ts"],
             "@rooi/workspace/shared": ["libs/workspace/shared/src/index.ts"],
+            "@rooi/mat-table": ["libs/mat-table/src/index.ts"],
             "@rooi/workspace/slick": ["libs/workspace/slick/src/index.ts"],
             "@rooi/workspace/source": ["libs/workspace/source/src/index.ts"]
         }

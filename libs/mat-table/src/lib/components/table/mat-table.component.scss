@@ -1,0 +1,224 @@
+.mat-table {
+    &-container {
+        overflow: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .search-and-buttons-container {
+            width: 100%;
+            display: flex;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        }
+
+        .flexDirectionColumn {
+            flex-direction: column;
+        }
+
+        .actions-header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+            background-color: white;
+
+            mat-icon {
+                cursor: pointer;
+                color: #757575;
+
+                &:not(:last-child) {
+                    padding-right: 30px;
+                }
+            }
+        }
+
+        table {
+            width: 100%;
+        }
+
+        mat-progress-bar {
+            top: 56px;
+        }
+
+        .mat-header-row {
+            background: #f6f6f6;
+            height: 52px;
+        }
+
+        .mat-header-cell {
+            color: rgb(0, 0, 0);
+        }
+
+        .filter-component-container {
+            overflow: hidden;
+            width: 100%;
+        }
+    }
+
+    &-filter-container {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .filter-container {
+            background-color: white;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 10px;
+        }
+
+        .filter-buttons-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .filter {
+            &-button {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                & span {
+                    padding-left: 5px;
+                }
+            }
+        }
+    }
+
+    &-search-container {
+        width: 100%;
+    }
+
+    &-expanded-row {
+        min-height: 0;
+    }
+}
+
+.pagination-container {
+    background-color: white;
+    display: flex;
+    justify-content: flex-end;
+
+    .skip-to-page {
+        display: flex;
+        align-items: center;
+        margin-right: 8px;
+        font-family: Poppins;
+        line-height: 1.125;
+        font-weight: 400;
+        font-size: inherit;
+        height: 56px;
+
+        &-select {
+            position: relative;
+            top: 2px;
+            font-size: 12px;
+        }
+
+        .label {
+            color: rgba(0, 0, 0, 0.54);
+            margin: 0 4px;
+        }
+
+        mat-form-field {
+            width: 54px;
+            margin: 2px 4px 0 4px;
+        }
+    }
+}
+
+:host ::ng-deep {
+    .pagination-container {
+        .skip-to-page {
+            .mat-form-field {
+                &-infix {
+                    border-top: none;
+                }
+
+                &-wrapper {
+                    position: relative;
+                    top: 5px;
+                }
+            }
+        }
+    }
+
+    .mat-paginator-container {
+        background-color: white;
+    }
+
+    .mat-sort-header {
+        &-content {
+            color: black !important;
+        }
+
+        &-stem {
+            color: #757575 !important;
+        }
+
+        &-pointer {
+            &-left {
+                color: #757575 !important;
+            }
+
+            &-middle {
+                color: #757575 !important;
+            }
+
+            &-right {
+                color: #757575 !important;
+            }
+        }
+    }
+
+    .mat-table {
+        &-search-container {
+            .mat-form-field {
+                &-wrapper {
+                    padding: 0;
+                }
+
+                &-flex {
+                    background-color: white;
+                    padding: 0 0 0 20px;
+                    align-items: center;
+                }
+
+                &-underline {
+                    display: none;
+                }
+            }
+
+            input {
+                caret-color: black;
+            }
+        }
+
+        &-filter-container {
+            .mat-expansion {
+                &-panel-header {
+                    display: flex !important;
+                }
+
+                &-indicator {
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+
+    .mat-table {
+        &-inner-row {
+            width: 100%;
+            display: flex;
+        }
+
+        &-cell {
+            display: flex;
+            flex: 1;
+        }
+    }
+}
