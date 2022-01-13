@@ -230,7 +230,7 @@ export class Slicker {
 
         this.instanceUid = this.instanceUid++;
 
-        //this.registerBreakpoints();
+        this.registerBreakpoints();
 
         this.init(true);
     }
