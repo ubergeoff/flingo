@@ -1124,3 +1124,11 @@ ul.list-style-none {
 .page-breadcrumb .breadcrumb .breadcrumb-item a {
     display: initial;
 }
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background: $themecolor-alt;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background: rgb($themecolor-alt, 0.54);
+}

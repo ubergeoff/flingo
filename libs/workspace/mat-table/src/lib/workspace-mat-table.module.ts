@@ -8,6 +8,9 @@ import { MatTableRoutes } from './workspace-mat-table.routing';
 import { MatTableRowDemoModule } from './components/mat-table-row/mat-table-row-demo.module';
 import { MatTableExpansionRowDemoModule } from './components/mat-table-expantion-row/mat-table-expansion-row-demo.module';
 import { MatTableFilterModule } from './components/filter-component/mat-table-filter.module';
+import { MatTableSearchComponent } from './components/mat-table-search/mat-table-search.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
@@ -17,8 +20,10 @@ import { MatTableFilterModule } from './components/filter-component/mat-table-fi
         MatTableFilterModule,
         MatTableExpansionRowDemoModule,
         MatTableRowDemoModule,
-        RooiMatTableModule
+        RooiMatTableModule,
+        MatSlideToggleModule,
+        FormsModule
     ],
-    declarations: [MatTableDemoComponent]
+    declarations: [MatTableDemoComponent, MatTableSearchComponent]
 })
 export class WorkspaceMatTableModule {}
