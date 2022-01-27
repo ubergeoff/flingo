@@ -1,0 +1,41 @@
+<mat-card class="config-container" id="container">
+    <div class="config-header">
+        <div class="config-header-text">
+            <h4>{{ title }} configuration</h4>
+        </div>
+        <div class="config-header-actions" *ngIf="!!configComponent">
+            <button mat-icon-button (click)="showCode = !showCode">
+                <mat-icon class="code">code</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="config-contents">
+        <ng-container *ngIf="!!configComponent">
+            <div
+                class="config-sliders"
+                rooiComponentConfig
+                [component]="configComponent"
+                [config]="componentConfiguration"
+            ></div>
+        </ng-container>
+
+        <mat-tab-group *ngIf="showCode || !configComponent">
+            <mat-tab label="HTML" *ngIf="htmlCode">
+                <pre>
+                    <code>{{ htmlCode }}</code>
+                </pre>
+            </mat-tab>
+            <mat-tab label="TS" *ngIf="tsCode">
+                <pre>
+                    <code>{{ tsCode }}</code>
+                </pre>
+            </mat-tab>
+            <mat-tab label="CSS" *ngIf="cssCode">
+                <pre>
+                    <code>{{ cssCode }}</code>
+                </pre>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</mat-card>

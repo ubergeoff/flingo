@@ -1,0 +1,36 @@
+<div class="config-container">
+    <h5>Searching</h5>
+    <mat-slide-toggle [(ngModel)]="componentConfiguration.enableSearch">Enable Search</mat-slide-toggle>
+
+    <h5>Actions</h5>
+    <div class="config-actions-container">
+        <mat-slide-toggle [(ngModel)]="componentConfiguration.enablePrint">Enable Print</mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="componentConfiguration.enableDownload">Enable Download</mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="componentConfiguration.enableEmail">Enable Email</mat-slide-toggle>
+    </div>
+
+    <h5>Pagination</h5>
+    <div class="config-pagination-container">
+        <div class="config-pagination-sliders">
+            <mat-slide-toggle [(ngModel)]="componentConfiguration.enablePagination">Enable Pagination</mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="componentConfiguration.enableSkipToPage"
+                >Enable Skip to Page</mat-slide-toggle
+            >
+            <mat-slide-toggle [(ngModel)]="componentConfiguration.showFirstLastButtons"
+                >Show First and Last buttons</mat-slide-toggle
+            >
+        </div>
+
+        <div class="config-pagination-configuration">
+            <span>Page Size Options: </span>
+            <mat-form-field class="pagination-select-list">
+                <mat-label>Select page size option</mat-label>
+                <mat-select matNativeControl [(value)]="componentConfiguration.pageSizeOption">
+                    <mat-option value="Small">Small</mat-option>
+                    <mat-option value="Medium">Medium</mat-option>
+                    <mat-option value="Large">Large</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

@@ -44,7 +44,7 @@ export class MatTableComponent implements OnInit, OnDestroy {
     @Input() showPagination?: boolean;
     @Input() showSkipToPage?: boolean;
     @Input() pageSizeOptions = [5, 10, 20];
-    @Input() pageSize = 10;
+    @Input() pageSize;
     @Input() showFirstLastButtons?: boolean;
 
     @Input() showDownload?: boolean;
@@ -72,6 +72,14 @@ export class MatTableComponent implements OnInit, OnDestroy {
         private staffWebTableService: MatTableService
     ) {
         this.buildSearchInputFormGroup();
+
+        if (this.showPagination) {
+            if (this.pageSize) {
+                this.staffWebTableService.setPageSize(this.pageSize);
+            } else {
+                this.staffWebTableService.setPageSize(this.pageSizeOptions[0]);
+            }
+        }
     }
 
     ngOnInit() {

@@ -1,0 +1,27 @@
+.config {
+    &-container {
+        margin-top: 20px;
+        padding: 20px !important;
+    }
+
+    &-header {
+        height: 45px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        &-text {
+            display: flex;
+            align-items: center;
+        }
+
+        &-actions {
+            display: flex;
+            align-items: center;
+
+            .config {
+                font-size: 18px;
+            }
+        }
+    }
+}

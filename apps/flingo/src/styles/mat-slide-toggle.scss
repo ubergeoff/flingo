@@ -1,0 +1,11 @@
+.mat-slide-toggle.mat-checked {
+    .mat-slide-toggle {
+        &-thumb {
+            background: $themecolor-alt;
+        }
+
+        &-bar {
+            background: rgba($themecolor-alt, 0.54);
+        }
+    }
+}
