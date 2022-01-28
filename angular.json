@@ -170,17 +170,17 @@
                 }
             }
         },
-        "libs-component-configuration": {
+        "component-configuration": {
             "projectType": "library",
-            "root": "libs/libs/component-configuration",
-            "sourceRoot": "libs/libs/component-configuration/src",
+            "root": "libs/component-configuration",
+            "sourceRoot": "libs/component-configuration/src",
             "prefix": "rooi",
             "architect": {
                 "test": {
                     "builder": "@nrwl/jest:jest",
-                    "outputs": ["coverage/libs/libs/component-configuration"],
+                    "outputs": ["coverage/libs/component-configuration"],
                     "options": {
-                        "jestConfig": "libs/libs/component-configuration/jest.config.js",
+                        "jestConfig": "libs/component-configuration/jest.config.js",
                         "passWithNoTests": true
                     }
                 },
@@ -188,8 +188,8 @@
                     "builder": "@nrwl/linter:eslint",
                     "options": {
                         "lintFilePatterns": [
-                            "libs/libs/component-configuration/src/**/*.ts",
-                            "libs/libs/component-configuration/src/**/*.html"
+                            "libs/component-configuration/src/**/*.ts",
+                            "libs/component-configuration/src/**/*.html"
                         ]
                     }
                 }
@@ -462,6 +462,33 @@
                         "passWithNoTests": true
                     },
                     "outputs": ["coverage/libs/workspace/murri"]
+                }
+            },
+            "schematics": {}
+        },
+        "workspace-mat-table": {
+            "projectType": "library",
+            "root": "libs/workspace/mat-table",
+            "sourceRoot": "libs/workspace/mat-table/src",
+            "prefix": "rooi",
+            "architect": {
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "libs/workspace/mat-table/tsconfig.lib.json",
+                            "libs/workspace/mat-table/tsconfig.spec.json"
+                        ],
+                        "exclude": ["**/node_modules/**", "!libs/workspace/mat-table/**/*"]
+                    }
+                },
+                "test": {
+                    "builder": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/workspace/mat-table/jest.config.js",
+                        "passWithNoTests": true
+                    },
+                    "outputs": ["coverage/libs/workspace/mat-table"]
                 }
             },
             "schematics": {}
