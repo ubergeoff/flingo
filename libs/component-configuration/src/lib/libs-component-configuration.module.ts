@@ -12,4 +12,4 @@ import { MatTabsModule } from '@angular/material/tabs';
     declarations: [ComponentConfigurationComponent, ComponentConfigurationDirective],
     exports: [ComponentConfigurationComponent, ComponentConfigurationDirective]
 })
-export class LibsComponentConfigurationModule {}
+export class ComponentConfigurationModule {}

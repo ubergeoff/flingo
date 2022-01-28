@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
-import { TableConfiguration } from '../../../../../../mat-table/src/lib/models/mat-table.model';
-import { MatTableSortDirection } from '../../../../../../mat-table/src/lib/enums/mat-table.enum';
+import { TableConfiguration } from '@rooi/mat-table';
+import { MatTableSortDirection } from '@rooi/mat-table';
 import { DatePipe } from '@angular/common';
 import { MatTableRowDemoComponent } from '../mat-table-row/mat-table-row-demo.component';
 import { MatTableExpansionRowDemoComponent } from '../mat-table-expantion-row/mat-table-expansion-row-demo.component';
 import { MatTableFilterComponent } from '../filter-component/mat-table-filter.component';
 import { MatTableConfigComponent } from '../mat-table-config-component/mat-table-config.component';
 import { MatTableDemoService } from '../../services/mat-table-demo.service';
-import { HttpClient } from '@angular/common/http';
 
 const allRequests = [
     {
