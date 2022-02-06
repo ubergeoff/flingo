@@ -1,6 +1,6 @@
 module.exports = {
     displayName: 'libs-component-configuration',
-    preset: '../../../jest.preset.js',
+    preset: '../../jest.preset.js',
     setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
     globals: {
         'ts-jest': {
