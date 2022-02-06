@@ -17,12 +17,7 @@
         "default": {
             "runner": "@nrwl/workspace/tasks-runners/default",
             "options": {
-                "cacheableOperations": [
-                    "build",
-                    "lint",
-                    "test",
-                    "e2e"
-                ]
+                "cacheableOperations": ["build", "lint", "test", "e2e"]
             }
         }
     },
@@ -32,11 +27,15 @@
         },
         "flingo-e2e": {
             "tags": [],
-            "implicitDependencies": [
-                "flingo"
-            ]
+            "implicitDependencies": ["flingo"]
         },
         "grid": {
+            "tags": []
+        },
+        "component-configuration": {
+            "tags": []
+        },
+        "mat-table": {
             "tags": []
         },
         "muuri": {
@@ -60,6 +59,9 @@
         "workspace-murri": {
             "tags": []
         },
+        "workspace-mat-table": {
+            "tags": []
+        },
         "workspace-shared": {
             "tags": []
         },
@@ -67,9 +69,6 @@
             "tags": []
         },
         "workspace-source": {
-            "tags": []
-        },
-        "mat-table": {
             "tags": []
         }
     },

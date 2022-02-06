@@ -1124,3 +1124,10 @@ ul.list-style-none {
 .page-breadcrumb .breadcrumb .breadcrumb-item a {
     display: initial;
 }
+
+pre {
+    code {
+        background: none;
+        color: $dark;
+    }
+}

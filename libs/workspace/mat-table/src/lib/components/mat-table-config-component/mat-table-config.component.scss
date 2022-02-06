@@ -1,0 +1,34 @@
+.config {
+    &-container {
+        .mat-slide-toggle {
+            margin-right: 10px;
+        }
+
+        h5 {
+            margin: 0 0 10px 0;
+
+            &:not(:first-of-type) {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    &-actions-container {
+        display: flex;
+    }
+
+    &-pagination-configuration {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        height: 60px;
+
+        span {
+            width: 200px;
+        }
+
+        .pagination-select-list {
+            width: 300px;
+        }
+    }
+}

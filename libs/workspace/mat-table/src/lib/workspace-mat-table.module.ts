@@ -8,6 +8,10 @@ import { MatTableRoutes } from './workspace-mat-table.routing';
 import { MatTableRowDemoModule } from './components/mat-table-row/mat-table-row-demo.module';
 import { MatTableExpansionRowDemoModule } from './components/mat-table-expantion-row/mat-table-expansion-row-demo.module';
 import { MatTableFilterModule } from './components/filter-component/mat-table-filter.module';
+import { MatTableConfigModule } from './components/mat-table-config-component/mat-table-config.module';
+import { MatTableDemoService } from './services/mat-table-demo.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ComponentConfigurationModule } from '@rooi/libs/component-configuration';
 
 @NgModule({
     imports: [
@@ -15,10 +19,14 @@ import { MatTableFilterModule } from './components/filter-component/mat-table-fi
         CommonModule,
         MatDialogModule,
         MatTableFilterModule,
+        MatTableConfigModule,
         MatTableExpansionRowDemoModule,
         MatTableRowDemoModule,
-        RooiMatTableModule
+        RooiMatTableModule,
+        ComponentConfigurationModule,
+        HttpClientModule
     ],
-    declarations: [MatTableDemoComponent]
+    declarations: [MatTableDemoComponent],
+    providers: [MatTableDemoService]
 })
 export class WorkspaceMatTableModule {}

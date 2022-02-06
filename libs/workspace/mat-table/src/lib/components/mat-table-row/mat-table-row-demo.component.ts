@@ -1,7 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 
 @Component({
-    selector: 'app-request-result-table-row',
+    selector: 'rooi-mat-table-row',
     templateUrl: 'mat-table-row-demo.component.html',
     styleUrls: ['mat-table-row-demo.component.scss']
 })

@@ -7,7 +7,6 @@ interface CheckBox {
 }
 
 @Component({
-    selector: 'app-request-result-table-row',
     templateUrl: 'mat-table-filter.component.html',
     styleUrls: ['mat-table-filter.component.scss']
 })

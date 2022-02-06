@@ -1,16 +1,30 @@
 <div class="mat-table-container">
     <div class="mat-table-head">
-        <h1 class="mat-h1">Dashboard</h1>
+        <h1 class="mat-h1">Material Table Full Example</h1>
     </div>
     <rooi-mat-table
         [tableData$]="data$"
         [tableConfig]="config"
         [filterComponent]="filterComponent"
         [expandedRowComponent]="expandedRowComponent"
-        [showDownload]="true"
-        [showPrint]="true"
-        [showEmail]="true"
-        [showSkipToPage]="true"
-        [showPagination]="true"
+        [enableSearch]="componentConfig.enableSearch"
+        [showDownload]="componentConfig.enableDownload"
+        (download)="download()"
+        [showPrint]="componentConfig.enablePrint"
+        (print)="print()"
+        [showEmail]="componentConfig.enableEmail"
+        (email)="email()"
+        [showPagination]="componentConfig.enablePagination"
+        [showSkipToPage]="componentConfig.enableSkipToPage"
+        [showFirstLastButtons]="componentConfig.showFirstLastButtons"
+        [pageSizeOptions]="getPageSizeArray(componentConfig.pageSizeOption)"
     ></rooi-mat-table>
+
+    <rooi-component-config
+        title="Material Table"
+        [configComponent]="configComponent"
+        [componentConfiguration]="componentConfig"
+        [htmlCode]="htmlCode"
+        [tsCode]="tsCode"
+    ></rooi-component-config>
 </div>

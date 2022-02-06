@@ -1,11 +1,7 @@
 <div class="mat-table-container mat-elevation-z3" [ngStyle]="{ height: tableHeight, overflow: tableOverflow }">
     <div class="mat-table-filter-container" [ngClass]="{ flexDirectionColumn: !!filterComponent }">
         <div class="search-and-buttons-container">
-            <div
-                class="mat-table-search-container"
-                *ngIf="enableSearch || !!filterComponent"
-                [formGroup]="searchInputFormGroup"
-            >
+            <div class="mat-table-search-container" *ngIf="enableSearch" [formGroup]="searchInputFormGroup">
                 <mat-form-field class="mat-table-search-form-field" appearance="fill">
                     <input
                         matInput
@@ -153,7 +149,7 @@
                     *matRowDef="let row; columns: ['expandedRow']"
                     class="mat-table-expanded-row"
                     [@expandRowAnimation]="row === expandedElement ? 'expanded' : 'collapsed'"
-                    style="overflow: hidden;"
+                    style="overflow: hidden"
                 ></mat-row>
             </ng-container>
         </ng-container>
