@@ -151,6 +151,7 @@ export class Slicker {
     private slideOffset: number;
     private slideWidth: number;
     private transformsEnabled: boolean;
+    private extraWindowDelay: any;
     private windowDelay: any;
     private unslicked: boolean;
     private touchObject = {
@@ -628,7 +629,6 @@ export class Slicker {
     // Complete
     // ------------------------
     wrapAll(nodes, wrapper) {
-
         /*if (nodes.length === 0 || !nodes[0]) {
             return wrapper;
         }*/
@@ -762,10 +762,6 @@ export class Slicker {
                         if (this.breakpointSettings[targetBreakpoint] === 'unslick') {
                             this.unslick(targetBreakpoint);
                         } else {
-                            /*this.options = $.extend({}, this.originalSettings,
-                                this.breakpointSettings[
-                                    targetBreakpoint]);*/
-
                             this.options = this.extendAll(
                                 {},
                                 this.originalSettings,
@@ -1488,8 +1484,13 @@ export class Slicker {
             this.checkResponsive(true);
             this.focusHandler();
 
-            // some weird bug - need to set position again
-            //this.setPosition();
+            // some weird bug - when switching navigation
+            // need to set position again
+
+            clearTimeout(this.extraWindowDelay);
+            this.extraWindowDelay = setTimeout(() => {
+                this.setPosition();
+            }, 5);
         }
 
         if (creation) {
@@ -2104,8 +2105,6 @@ export class Slicker {
             for (breakpoint of responsiveSettings) {
                 l = this.breakpoints.length - 1;
 
-                //if (responsiveSettings.hasOwnProperty(breakpoint)) {
-                //currentBreakpoint = responsiveSettings[breakpoint].breakpoint;
                 currentBreakpoint = breakpoint.breakpoint;
 
                 // loop through the breakpoints and cut out any existing
