@@ -24,7 +24,16 @@ export class FullScreenSlickComponent implements OnInit {
         slidesToScroll: 1,
         variableWidth: false,
         dots: true,
-        infinite: false
+        infinite: false,
+        responsive: [
+            {
+                breakpoint: 900,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     };
 
     constructor(private platform: Platform, private cardService: CardService) {
