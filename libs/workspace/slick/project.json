@@ -1,0 +1,17 @@
+{
+    "projectType": "library",
+    "sourceRoot": "libs/workspace/slick/src",
+    "prefix": "rooi",
+    "targets": {
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "options": {
+                "jestConfig": "libs/workspace/slick/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "outputs": ["coverage/libs/workspace/slick"]
+        }
+    },
+    "generators": {},
+    "tags": []
+}

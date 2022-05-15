@@ -1,0 +1,21 @@
+{
+    "projectType": "library",
+    "sourceRoot": "libs/workspace/donate/src",
+    "prefix": "rooi",
+    "targets": {
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "options": {
+                "jestConfig": "libs/workspace/donate/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "outputs": ["coverage/libs/workspace/donate"]
+        }
+    },
+    "generators": {
+        "@nrwl/angular:component": {
+            "style": "scss"
+        }
+    },
+    "tags": []
+}

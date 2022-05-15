@@ -1,0 +1,107 @@
+{
+    "projectType": "application",
+    "generators": {
+        "@nrwl/angular:component": {
+            "style": "scss"
+        }
+    },
+    "sourceRoot": "apps/flingo/src",
+    "prefix": "flingo",
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:browser",
+            "options": {
+                "outputPath": "dist/apps/flingo",
+                "index": "apps/flingo/src/index.html",
+                "main": "apps/flingo/src/main.ts",
+                "polyfills": "apps/flingo/src/polyfills.ts",
+                "tsConfig": "apps/flingo/tsconfig.app.json",
+                "assets": ["apps/flingo/src/favicon.ico", "apps/flingo/src/assets"],
+                "styles": [
+                    "apps/flingo/src/styles.scss",
+                    "node_modules/slick-carousel/slick/slick.scss",
+                    "node_modules/slick-carousel/slick/slick-theme.scss",
+                    "node_modules/gridjs/dist/theme/mermaid.css"
+                ],
+                "scripts": ["node_modules/muuri/dist/muuri.min.js"],
+                "vendorChunk": true,
+                "extractLicenses": false,
+                "buildOptimizer": false,
+                "sourceMap": true,
+                "optimization": false,
+                "namedChunks": true
+            },
+            "configurations": {
+                "production": {
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/flingo/src/environments/environment.ts",
+                            "with": "apps/flingo/src/environments/environment.prod.ts"
+                        }
+                    ],
+                    "index": "apps/flingo/src/environments/index.html",
+                    "optimization": true,
+                    "outputHashing": "bundles",
+                    "sourceMap": false,
+                    "namedChunks": false,
+                    "extractLicenses": true,
+                    "vendorChunk": false,
+                    "buildOptimizer": true,
+                    "aot": true,
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "2mb",
+                            "maximumError": "5mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "6kb",
+                            "maximumError": "10kb"
+                        }
+                    ]
+                },
+                "dev": {
+                    "optimization": false,
+                    "sourceMap": true,
+                    "namedChunks": true,
+                    "extractLicenses": false,
+                    "vendorChunk": false,
+                    "buildOptimizer": false,
+                    "aot": false
+                }
+            },
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": ""
+        },
+        "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "options": {
+                "browserTarget": "flingo:build"
+            },
+            "configurations": {
+                "production": {
+                    "browserTarget": "flingo:build:production"
+                },
+                "dev": {
+                    "browserTarget": "flingo:build:dev"
+                }
+            }
+        },
+        "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+                "browserTarget": "flingo:build"
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "options": {
+                "jestConfig": "apps/flingo/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "outputs": ["coverage/apps/flingo"]
+        }
+    },
+    "tags": []
+}

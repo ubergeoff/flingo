@@ -4,19 +4,18 @@ Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: scss
 */
-@use '~@angular/material' as mat;
-
+@use '@angular/material' as mat;
 
 $green-app-primary: mat.define-palette(mat.$teal-palette);
 $green-app-accent: mat.define-palette(mat.$indigo-palette, A200, A100, A400);
 $green-app-warn: mat.define-palette(mat.$pink-palette);
 // Create the theme object (a Sass map containing all of the palettes).
 $green-app-theme: mat.define-light-theme($green-app-primary, $green-app-accent, $green-app-warn);
-$themecolor:#009688;
+$themecolor: #009688;
 $themecolor-alt: #009688;
-$white:#fff;
+$white: #fff;
 #snav {
-    .mat-nav-list .mat-list-item { 
+    .mat-nav-list .mat-list-item {
         .mat-list-item-content {
             &:hover {
                 > a {
