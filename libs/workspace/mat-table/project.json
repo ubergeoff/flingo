@@ -10,6 +10,12 @@
                 "passWithNoTests": true
             },
             "outputs": ["coverage/libs/workspace/mat-table"]
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": ["libs/workspace/mat-table/**/*.ts", "libs/workspace/mat-table/**/*.html"]
+            }
         }
     },
     "generators": {},

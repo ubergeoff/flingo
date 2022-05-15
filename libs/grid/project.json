@@ -23,6 +23,12 @@
                 "passWithNoTests": true
             },
             "outputs": ["coverage/libs/grid"]
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": ["libs/grid/**/*.ts", "libs/grid/**/*.html"]
+            }
         }
     },
     "generators": {

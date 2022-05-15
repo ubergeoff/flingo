@@ -10,6 +10,12 @@
                 "tsConfig": "libs/mat-table/tsconfig.spec.json",
                 "passWithNoTests": true
             }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": ["libs/mat-table/**/*.ts", "libs/mat-table/**/*.html"]
+            }
         }
     },
     "generators": {

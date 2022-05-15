@@ -111,7 +111,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewCh
         this.slick = new Slicker(this.el.nativeElement, this.config);
         this.initialized = true;
 
-        this.slick.$slider.addEventListener('afterChange', (a, b, c) => {
+        /* this.slick.$slider.addEventListener('afterChange', (a, b, c) => {
             if (a) {
             }
         });
@@ -119,7 +119,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewCh
         this.slick.$slider.addEventListener('init', (a, b, c) => {
             if (a) {
             }
-        });
+        });*/
     }
 
     addSlide(slickItem: SlickItemDirective) {

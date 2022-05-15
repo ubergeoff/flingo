@@ -13,7 +13,7 @@ import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { IMoveData } from '../../lib/interfaces/move-data.interface';
 
-declare var Muuri: any;
+declare let Muuri: any;
 
 @Directive({
     selector: '[roiTileGrid]'
