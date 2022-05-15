@@ -7,7 +7,7 @@ export interface ColumnConfiguration {
     columnKey: string;
     columnHeader: string;
     columnClass?: string;
-    cellAction?: Function;
+    cellAction?: any;
     pipe?: PipeConfig;
     sortDirection?: string;
     stickyStart?: boolean;

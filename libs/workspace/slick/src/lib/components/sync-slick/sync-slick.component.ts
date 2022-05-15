@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { CardService } from '@rooi/workspace/shared';
@@ -11,7 +11,7 @@ import { SlickCarouselComponent } from '@rooi/slick';
     styleUrls: ['./sync-slick.component.scss'],
     providers: [CardService]
 })
-export class SyncSlickComponent implements OnInit, AfterViewInit {
+export class SyncSlickComponent implements OnInit {
     allCards$: Observable<any>;
 
     @ViewChild('container') container: ElementRef;
@@ -42,11 +42,6 @@ export class SyncSlickComponent implements OnInit, AfterViewInit {
 
     constructor(private platform: Platform, private cardService: CardService) {
         this.allCards$ = this.cards.asObservable();
-    }
-
-    ngAfterViewInit(): void {
-        //console.log('asNAV:', this.NavSlicker.slick);
-        //console.log('ForNAV:', this.ForSlicker.slick);
     }
 
     isMobile() {

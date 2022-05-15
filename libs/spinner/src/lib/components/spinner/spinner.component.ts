@@ -14,8 +14,6 @@ export class SpinnerComponent implements OnInit {
     colour: ThemePalette = 'primary';
     private counterHandle;
 
-    constructor() {}
-
     ngOnInit(): void {
         let count = 0;
         this.counterHandle = setInterval(() => {

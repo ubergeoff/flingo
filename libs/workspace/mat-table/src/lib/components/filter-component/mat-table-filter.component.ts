@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit, Output, EventEmitter } from '@angular/core';
-import { isObservable, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 interface CheckBox {
     text: string;
@@ -7,7 +7,7 @@ interface CheckBox {
 }
 
 @Component({
-    selector: 'app-request-result-table-row',
+    selector: 'roi-request-result-table-row',
     templateUrl: 'mat-table-filter.component.html',
     styleUrls: ['mat-table-filter.component.scss']
 })

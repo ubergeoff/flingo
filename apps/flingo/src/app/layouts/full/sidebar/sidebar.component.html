@@ -85,7 +85,7 @@
                     href="javascript: void(0);"
                     *ngIf="childitem.type === 'subchild'"
                     (click)="itemSelect[i] = j"
-                    [ngClass]="j == itemSelect[i] ? 'selected' : ''"
+                    [ngClass]="j === itemSelect[i] ? 'selected' : ''"
                 >
                     <span>{{ childitem.name }}</span>
                     <span fxFlex></span>

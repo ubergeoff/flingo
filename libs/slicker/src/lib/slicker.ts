@@ -242,7 +242,7 @@ export class Slicker {
     extendAll(out, ...args) {
         out = out || {};
 
-        for (var i = 1; i < arguments.length; i++) {
+        for (let i = 1; i < arguments.length; i++) {
             if (!arguments[i]) continue;
 
             for (const key in arguments[i]) {
@@ -464,7 +464,7 @@ export class Slicker {
     // Complete
     // ------------------------
     autoPlayIterator() {
-        var _ = this,
+        let _ = this,
             slideTo = this.currentSlide + this.options.slidesToScroll;
 
         if (!this.paused && !this.interrupted && !this.focussed) {
@@ -530,7 +530,7 @@ export class Slicker {
     // Complete
     // ------------------------
     buildDots() {
-        var _ = this,
+        let _ = this,
             i,
             dot;
 
@@ -561,7 +561,7 @@ export class Slicker {
         this.$slides = this.$slider.children;
         let index = 0;
         // @ts-ignore
-        for (let item of this.$slides) {
+        for (const item of this.$slides) {
             item.classList.add('slick-slide');
             item.setAttribute('data-slick-index', index);
             item.originalStyling = item.style || '';
@@ -634,21 +634,21 @@ export class Slicker {
         }*/
 
         // Cache the current parent and previous sibling of the first node.
-        var parent = nodes[0].parentNode;
-        var previousSibling = nodes[0].previousSibling;
+        const parent = nodes[0].parentNode;
+        const previousSibling = nodes[0].previousSibling;
 
         // Place each node in wrapper.
         //  - If nodes is an array, we must increment the index we grab from
         //    after each loop.
         //  - If nodes is a NodeList, each node is automatically removed from
         //    the NodeList when it is removed from its parent with appendChild.
-        for (var i = 0; nodes.length - i; wrapper.firstChild === nodes[0] && i++) {
+        for (let i = 0; nodes.length - i; wrapper.firstChild === nodes[0] && i++) {
             wrapper.appendChild(nodes[i]);
         }
 
         // Place the wrapper just after the cached previousSibling,
         // or if that is null, just before the first child.
-        var nextSibling = previousSibling ? previousSibling.nextSibling : parent.firstChild;
+        const nextSibling = previousSibling ? previousSibling.nextSibling : parent.firstChild;
         parent.insertBefore(wrapper, nextSibling);
 
         return wrapper;
@@ -658,7 +658,7 @@ export class Slicker {
     // Complete
     // ------------------------
     buildRows() {
-        var _ = this,
+        let _ = this,
             a,
             b,
             c,
@@ -719,15 +719,15 @@ export class Slicker {
     // Complete
     // --------------------------
     checkResponsive(initial = false, forceUpdate = false) {
-        var _ = this,
+        let _ = this,
             breakpoint,
             targetBreakpoint,
             respondToWidth,
             triggerBreakpoint = false;
 
-        var sliderWidth = this.get_Width(this.$slider);
+        const sliderWidth = this.get_Width(this.$slider);
 
-        var windowWidth = window.innerWidth; // || $(window).width();
+        const windowWidth = window.innerWidth; // || $(window).width();
 
         if (this.respondTo === 'window') {
             respondToWidth = windowWidth;
@@ -819,7 +819,7 @@ export class Slicker {
     changeSlide(event, dontAnimate = false) {
         //$target = $(event.currentTarget),
 
-        var _ = this,
+        let _ = this,
             $target = event.currentTarget,
             indexOffset,
             slideOffset,
@@ -876,9 +876,9 @@ export class Slicker {
     // Complete
     // --------------------------
     indexInParent(node) {
-        var children = node.parentNode.childNodes;
-        var num = 0;
-        for (var i = 0; i < children.length; i++) {
+        const children = node.parentNode.childNodes;
+        let num = 0;
+        for (let i = 0; i < children.length; i++) {
             if (children[i] === node) return num;
             if (children[i].nodeType === 1) num++;
         }
@@ -889,7 +889,7 @@ export class Slicker {
     // Complete
     // --------------------------
     checkNavigable(index) {
-        var navigables, prevNavigable;
+        let navigables, prevNavigable;
 
         navigables = this.getNavigableIndexes();
         prevNavigable = 0;
@@ -996,7 +996,7 @@ export class Slicker {
 
         if (this.options.rows > 0) {
             // @ts-ignore// @ts-ignore
-            for (let item of this.$slides) {
+            for (const item of this.$slides) {
                 item.removeAttribute('style');
                 originalSlides.push(item.children[0]);
             }
@@ -1054,7 +1054,7 @@ export class Slicker {
 
         if (this.$slides && this.$slides.length > 0) {
             // @ts-ignore
-            for (let item of this.$slides) {
+            for (const item of this.$slides) {
                 item.classList.remove('slick-slide', 'slick-active', 'slick-center', 'slick-visible', 'slick-current');
                 item.removeAttribute('aria-hidden');
                 item.removeAttribute('data-slick-index');
@@ -1091,7 +1091,7 @@ export class Slicker {
     // -- not using Fade
     // --------------------------
     disableTransition(slide = null) {
-        var _ = this,
+        const _ = this,
             transition = {};
 
         transition[this.transitionType] = '';
@@ -1171,7 +1171,7 @@ export class Slicker {
         const _ = this;
 
         const focus = function (event) {
-            var $sf = this;
+            const $sf = this;
 
             setTimeout(function () {
                 if (_.options.pauseOnFocus) {
@@ -1209,9 +1209,9 @@ export class Slicker {
     // Complete
     // --------------------------
     getDotCount() {
-        var breakPoint = 0;
-        var counter = 0;
-        var pagerQty = 0;
+        let breakPoint = 0;
+        let counter = 0;
+        let pagerQty = 0;
 
         if (this.options.infinite === true) {
             if (this.slideCount <= this.options.slidesToShow) {
@@ -1248,7 +1248,7 @@ export class Slicker {
     // Complete
     // --------------------------
     getLeft(slideIndex) {
-        var _ = this,
+        let _ = this,
             targetLeft,
             verticalHeight,
             verticalOffset = 0,
@@ -1353,7 +1353,7 @@ export class Slicker {
                     targetLeft = targetSlide ? targetSlide.offsetLeft * -1 : 0;
                 }
 
-                let trueWidth = this.get_Width(this.$list, true);
+                const trueWidth = this.get_Width(this.$list, true);
 
                 targetLeft += (trueWidth - this.get_OuterWidth(targetSlide)) / 2;
             }
@@ -1373,7 +1373,7 @@ export class Slicker {
     // Complete
     // --------------------------
     getNavigableIndexes() {
-        var _ = this,
+        let _ = this,
             breakPoint = 0,
             counter = 0,
             indexes = [],
@@ -1411,7 +1411,7 @@ export class Slicker {
     // -- not using "swipeToSlide"
     // --------------------------
     getSlideCount() {
-        var _ = this,
+        let _ = this,
             slidesTraversed,
             swipedSlide,
             swipeTarget,
@@ -1737,7 +1737,7 @@ export class Slicker {
             eventName,
             function (e) {
                 // loop parent nodes from the target to the delegation node
-                for (var target = e.target; target && target !== this; target = target.parentNode) {
+                for (let target = e.target; target && target !== this; target = target.parentNode) {
                     if (target.matches(elementSelector)) {
                         handler.call(target, e);
                         break;
@@ -2052,7 +2052,7 @@ export class Slicker {
     // Complete
     // ---------------------
     refresh(initializing) {
-        var _ = this,
+        let _ = this,
             currentSlide,
             lastVisibleIndex;
 
@@ -2137,7 +2137,7 @@ export class Slicker {
                 .addClass('slick-slide');*/
         this.$slides = this.$slideTrack.children;
         // @ts-ignore
-        for (let item of this.$slides) {
+        for (const item of this.$slides) {
             item.classList.add('slick-slide');
         }
 
@@ -2221,7 +2221,7 @@ export class Slicker {
 
         if (removeAll === true) {
             // @ts-ignore
-            for (let item of Array.from(this.$slideTrack.children)) {
+            for (const item of Array.from(this.$slideTrack.children)) {
                 item.parentNode.removeChild(item);
             }
         } else {
@@ -2233,12 +2233,12 @@ export class Slicker {
         this.$slides = Array.from(this.$slideTrack.children);
 
         // @ts-ignore
-        for (let item of Array.from(this.$slideTrack.children)) {
+        for (const item of Array.from(this.$slideTrack.children)) {
             item.parentNode.removeChild(item);
         }
 
         // @ts-ignore
-        for (let item of this.$slides) {
+        for (const item of this.$slides) {
             this.$slideTrack.appendChild(item);
         }
 
@@ -2251,7 +2251,7 @@ export class Slicker {
     // Complete
     // --------------------------
     setCSS(position) {
-        var _ = this,
+        let _ = this,
             positionProps = {},
             x,
             y;
@@ -2326,7 +2326,7 @@ export class Slicker {
 
         if (this.options.variableWidth === false) {
             // @ts-ignore
-            for (let el of this.$slideTrack.children) {
+            for (const el of this.$slideTrack.children) {
                 this.set_Width(el, this.slideWidth - offset);
             }
         }
@@ -2337,14 +2337,14 @@ export class Slicker {
     // --------------------------
     get_OuterHeight(el, withMargin) {
         if (withMargin) {
-            var height = el.offsetHeight;
-            var style = getComputedStyle(el);
+            let height = el.offsetHeight;
+            const style = getComputedStyle(el);
 
             // tslint:disable-next-line:radix
             height += parseInt(style.marginTop) + parseInt(style.marginBottom);
             return height;
         } else {
-            let num = el.offsetHeight;
+            const num = el.offsetHeight;
             if (num) {
                 return num;
             }
@@ -2358,14 +2358,14 @@ export class Slicker {
     // --------------------------
     get_OuterWidth(el, withMargin = false) {
         if (withMargin) {
-            var width = el.offsetWidth;
-            var style = getComputedStyle(el);
+            let width = el.offsetWidth;
+            const style = getComputedStyle(el);
 
             // tslint:disable-next-line:radix
             width += parseInt(style.marginLeft) + parseInt(style.marginRight);
             return width;
         } else {
-            let num = el.offsetWidth;
+            const num = el.offsetWidth;
             if (num) {
                 return num;
             }
@@ -2378,17 +2378,17 @@ export class Slicker {
     // Complete
     //-----------------------------------
     get_Width(el, removePadding = false) {
-        let comp = getComputedStyle(el, null);
+        const comp = getComputedStyle(el, null);
 
         if (removePadding) {
-            let num = parseFloat(comp.width.replace('px', ''));
-            let padLeft = parseFloat(comp.paddingLeft.replace('px', ''));
-            let padRight = parseFloat(comp.paddingRight.replace('px', ''));
+            const num = parseFloat(comp.width.replace('px', ''));
+            const padLeft = parseFloat(comp.paddingLeft.replace('px', ''));
+            const padRight = parseFloat(comp.paddingRight.replace('px', ''));
             if (num) {
                 return num - padLeft - padRight;
             }
         } else {
-            let num = parseFloat(comp.width.replace('px', ''));
+            const num = parseFloat(comp.width.replace('px', ''));
             if (num) {
                 return num;
             }
@@ -2401,7 +2401,7 @@ export class Slicker {
     // Complete
     //-----------------------------------
     get_Height(el) {
-        let num = parseFloat(getComputedStyle(el, null).height.replace('px', ''));
+        const num = parseFloat(getComputedStyle(el, null).height.replace('px', ''));
         if (num) {
             return num;
         }
@@ -2432,7 +2432,7 @@ export class Slicker {
     // ----- Not using "setFade"
     //-----------------------------------
     setFade() {
-        var _ = this,
+        let _ = this,
             targetLeft;
 
         /*this.$slides.each(function (index, element) {
@@ -2472,7 +2472,7 @@ export class Slicker {
             this.options.adaptiveHeight === true &&
             this.options.vertical === false
         ) {
-            var targetHeight = this.get_OuterHeight(this.$slides[this.currentSlide], true);
+            const targetHeight = this.get_OuterHeight(this.$slides[this.currentSlide], true);
 
             this.$list.style.height = targetHeight;
         }
@@ -2495,7 +2495,7 @@ export class Slicker {
          *     .slick("setOption", { 'option': value, ... }, refresh )
          */
 
-        var _ = this,
+        let _ = this,
             l,
             option,
             value,
@@ -2579,7 +2579,7 @@ export class Slicker {
     // Complete
     // --------------------------
     setProps() {
-        var _ = this,
+        const _ = this,
             bodyStyle = document.body.style as any;
 
         this.positionProp = this.options.vertical === true ? 'top' : 'left';
@@ -2649,7 +2649,7 @@ export class Slicker {
     // Complete
     // ------------------
     setSlideClasses(index) {
-        var _ = this,
+        let _ = this,
             centerOffset,
             allSlides,
             indexOffset,
@@ -2657,7 +2657,7 @@ export class Slicker {
 
         // @ts-ignore
         allSlides = Array.from(this.$slider.querySelectorAll('.slick-slide'));
-        for (let item of allSlides) {
+        for (const item of allSlides) {
             item.classList.remove('slick-active');
             item.classList.remove('slick-center');
             item.classList.remove('slick-current');
@@ -2670,19 +2670,19 @@ export class Slicker {
         }
 
         if (this.options.centerMode === true) {
-            var evenCoef = this.options.slidesToShow % 2 === 0 ? 1 : 0;
+            const evenCoef = this.options.slidesToShow % 2 === 0 ? 1 : 0;
 
             centerOffset = Math.floor(this.options.slidesToShow / 2);
 
             if (this.options.infinite === true) {
                 //do cloned slides "selected" manipulation
                 if (this.slideCount - 1 === index) {
-                    let x = Array.from(this.$slides).find((t) => {
+                    const x = Array.from(this.$slides).find((t) => {
                         return t.classList.contains('slick-clone-start');
                     });
                     x.classList.add('slick-current');
                 } else if (index === 0) {
-                    let x = Array.from(this.$slides).find((t) => {
+                    const x = Array.from(this.$slides).find((t) => {
                         return t.classList.contains('slick-clone-end');
                     });
                     x.classList.add('slick-current');
@@ -2695,7 +2695,7 @@ export class Slicker {
                         index - centerOffset + evenCoef,
                         index + centerOffset + 1
                     );
-                    for (let item of ss) {
+                    for (const item of ss) {
                         item.classList.add('slick-active');
                         item.setAttribute('aria-hidden', 'false');
                     }
@@ -2707,7 +2707,7 @@ export class Slicker {
                         indexOffset + centerOffset + 2
                     );
 
-                    for (let item of ss) {
+                    for (const item of ss) {
                         item.classList.add('slick-active');
                         item.setAttribute('aria-hidden', 'false');
                     }
@@ -2728,7 +2728,7 @@ export class Slicker {
                 // probably need to loop through the array here..??
                 // @ts-ignore
                 const ss = Array.from(this.$slides).slice(index, index + this.options.slidesToShow);
-                for (let item of ss) {
+                for (const item of ss) {
                     item.classList.add('slick-active');
                     item.setAttribute('aria-hidden', 'false');
                 }
@@ -2736,7 +2736,7 @@ export class Slicker {
                 /*allSlides
                     .addClass('slick-active')
                     .attr('aria-hidden', 'false');*/
-                for (let item of allSlides) {
+                for (const item of allSlides) {
                     item.classList.add('slick-active');
                     item.setAttribute('aria-hidden', 'false');
                 }
@@ -2752,13 +2752,13 @@ export class Slicker {
                         indexOffset - (this.options.slidesToShow - remainder),
                         indexOffset + remainder
                     );
-                    for (let item of slicer) {
+                    for (const item of slicer) {
                         item.classList.add('slick-active');
                         item.setAttribute('aria-hidden', 'false');
                     }
                 } else {
                     const slicer = allSlides.slice(indexOffset, indexOffset + this.options.slidesToShow);
-                    for (let item of slicer) {
+                    for (const item of slicer) {
                         item.classList.add('slick-active');
                         item.setAttribute('aria-hidden', 'false');
                     }
@@ -2875,7 +2875,7 @@ export class Slicker {
     // -- not using "asNavFor"
     // ---------------------------
     slideHandler(index, sync = false, dontAnimate = false) {
-        var targetSlide,
+        let targetSlide,
             animSlide,
             oldSlide,
             slideLeft,
@@ -3020,7 +3020,7 @@ export class Slicker {
     // Complete
     // ------------------------
     swipeDirection() {
-        var xDist,
+        let xDist,
             yDist,
             r,
             swipeAngle,
@@ -3059,7 +3059,7 @@ export class Slicker {
     // Complete
     // ------------------------
     swipeEnd(event) {
-        var _ = this,
+        let _ = this,
             slideCount,
             direction;
 
@@ -3199,7 +3199,7 @@ export class Slicker {
     // Complete
     // ------------------------
     swipeMove(event) {
-        var _ = this,
+        let _ = this,
             edgeWasHit = false,
             curLeft,
             swipeDirection,
@@ -3286,7 +3286,7 @@ export class Slicker {
     // Complete
     // ------------------------
     swipeStart(event) {
-        var _ = this,
+        let _ = this,
             touches;
 
         this.interrupted = true;
@@ -3346,7 +3346,7 @@ export class Slicker {
         }
 
         // @ts-ignore
-        for (let item of this.$slides) {
+        for (const item of this.$slides) {
             //this.removeClasses(item, ['slick-slide', 'slick-active', 'slick-visible', 'slick-current']);
             item.classList.remove('slick-slide', 'slick-active', 'slick-visible', 'slick-current');
             item.setAttribute('aria-hidden', 'true');
@@ -3358,7 +3358,7 @@ export class Slicker {
     // Complete
     // ------------------------
     removeNodeUtil(el) {
-        var nodeRemoved = el;
+        let nodeRemoved = el;
         if (el.parentNode) {
             //Prevent error if node is all ready disconnected from the dom.
             nodeRemoved = el.parentNode.removeChild(el);
@@ -3391,7 +3391,7 @@ export class Slicker {
     // Complete
     // --------------------------
     updateArrows() {
-        var _ = this,
+        let _ = this,
             centerOffset;
 
         centerOffset = Math.floor(this.options.slidesToShow / 2);
@@ -3436,7 +3436,7 @@ export class Slicker {
 
         if (this.$dots) {
             const list = this.$dots.querySelectorAll('li');
-            for (let li of list) {
+            for (const li of list) {
                 li.classList.remove('slick-active');
             }
 

@@ -1,20 +1,20 @@
 {
     "projectType": "library",
-    "sourceRoot": "libs/workspace/slick/src",
+    "sourceRoot": "libs/workspace/spinners/src",
     "prefix": "rooi",
     "targets": {
         "test": {
             "executor": "@nrwl/jest:jest",
             "options": {
-                "jestConfig": "libs/workspace/slick/jest.config.ts",
+                "jestConfig": "libs/workspace/spinners/jest.config.ts",
                 "passWithNoTests": true
             },
-            "outputs": ["coverage/libs/workspace/slick"]
+            "outputs": ["coverage/libs/workspace/spinners"]
         },
         "lint": {
             "executor": "@nrwl/linter:eslint",
             "options": {
-                "lintFilePatterns": ["libs/workspace/slick/**/*.ts", "libs/workspace/slick/**/*.html"]
+                "lintFilePatterns": ["libs/workspace/spinners/**/*.ts", "libs/workspace/spinners/**/*.html"]
             }
         }
     },

@@ -10,6 +10,12 @@
                 "passWithNoTests": true
             },
             "outputs": ["coverage/libs/workspace/murri"]
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": ["libs/workspace/murri/**/*.ts", "libs/workspace/murri/**/*.html"]
+            }
         }
     },
     "generators": {},

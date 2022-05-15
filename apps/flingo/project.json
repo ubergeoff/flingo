@@ -101,6 +101,12 @@
                 "passWithNoTests": true
             },
             "outputs": ["coverage/apps/flingo"]
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": ["apps/flingo/**/*.ts", "apps/flingo/**/*.html"]
+            }
         }
     },
     "tags": []

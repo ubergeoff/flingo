@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { TableConfiguration } from '../../../../../../mat-table/src/lib/models/mat-table.model';
-import { MatTableSortDirection } from '../../../../../../mat-table/src/lib/enums/mat-table.enum';
 import { DatePipe } from '@angular/common';
 import { MatTableRowDemoComponent } from '../mat-table-row/mat-table-row-demo.component';
 import { MatTableExpansionRowDemoComponent } from '../mat-table-expantion-row/mat-table-expansion-row-demo.component';
 import { MatTableFilterComponent } from '../filter-component/mat-table-filter.component';
+import { MatTableSortDirection, TableConfiguration } from '@rooi/mat-table';
 
 const allRequests = [
     {
@@ -66,7 +65,7 @@ const allRequests = [
 ];
 
 @Component({
-    selector: 'rooi-mat-table-demo',
+    selector: 'roi-mat-table-demo',
     templateUrl: './mat-table-demo.component.html',
     styleUrls: ['./mat-table-demo.component.scss']
 })
