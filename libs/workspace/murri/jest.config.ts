@@ -1,4 +1,5 @@
-module.exports = {
+/* eslint-disable */
+export default {
     preset: '../../../jest.preset.js',
     setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
     globals: {
@@ -16,5 +17,8 @@ module.exports = {
         'jest-preset-angular/build/serializers/ng-snapshot',
         'jest-preset-angular/build/serializers/html-comment'
     ],
-    transform: { '^.+\\.(ts|js|html)$': 'jest-preset-angular' }
+    transform: {
+        '^.+.(ts|mjs|js|html)$': 'jest-preset-angular'
+    },
+    transformIgnorePatterns: ['node_modules/(?!.*.mjs$)']
 };

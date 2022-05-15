@@ -4,7 +4,7 @@ Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: scss
 */
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 
 $blue-app-primary: mat.define-palette(mat.$blue-palette, 600);

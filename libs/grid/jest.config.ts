@@ -1,4 +1,5 @@
-module.exports = {
+/* eslint-disable */
+export default {
     preset: '../../jest.preset.js',
     setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
     globals: {
@@ -8,13 +9,16 @@ module.exports = {
             tsconfig: '<rootDir>/tsconfig.spec.json'
         }
     },
-    coverageDirectory: '../../coverage/libs/slick',
+    coverageDirectory: '../../coverage/libs/grid',
 
-    displayName: 'slick',
+    displayName: 'grid',
     snapshotSerializers: [
         'jest-preset-angular/build/serializers/no-ng-attributes',
         'jest-preset-angular/build/serializers/ng-snapshot',
         'jest-preset-angular/build/serializers/html-comment'
     ],
-    transform: { '^.+\\.(ts|js|html)$': 'jest-preset-angular' }
+    transform: {
+        '^.+.(ts|mjs|js|html)$': 'jest-preset-angular'
+    },
+    transformIgnorePatterns: ['node_modules/(?!.*.mjs$)']
 };
