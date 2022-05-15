@@ -151,6 +151,7 @@ export class Slicker {
     private slideOffset: number;
     private slideWidth: number;
     private transformsEnabled: boolean;
+    private extraWindowDelay: any;
     private windowDelay: any;
     private unslicked: boolean;
     private touchObject = {
@@ -230,7 +231,7 @@ export class Slicker {
 
         this.instanceUid = this.instanceUid++;
 
-        //this.registerBreakpoints();
+        this.registerBreakpoints();
 
         this.init(true);
     }
@@ -563,6 +564,7 @@ export class Slicker {
         for (let item of this.$slides) {
             item.classList.add('slick-slide');
             item.setAttribute('data-slick-index', index);
+            item.originalStyling = item.style || '';
 
             index++;
         }
@@ -627,6 +629,10 @@ export class Slicker {
     // Complete
     // ------------------------
     wrapAll(nodes, wrapper) {
+        /*if (nodes.length === 0 || !nodes[0]) {
+            return wrapper;
+        }*/
+
         // Cache the current parent and previous sibling of the first node.
         var parent = nodes[0].parentNode;
         var previousSibling = nodes[0].previousSibling;
@@ -756,10 +762,6 @@ export class Slicker {
                         if (this.breakpointSettings[targetBreakpoint] === 'unslick') {
                             this.unslick(targetBreakpoint);
                         } else {
-                            /*this.options = $.extend({}, this.originalSettings,
-                                this.breakpointSettings[
-                                    targetBreakpoint]);*/
-
                             this.options = this.extendAll(
                                 {},
                                 this.originalSettings,
@@ -828,8 +830,6 @@ export class Slicker {
         /*if ($target.is('a')) {
             event.preventDefault();
         }*/
-        if (this.isMatches($target, 'a')) {
-        }
 
         // If target is not the <li> element (ie: a child), find the <li>.
         //not using
@@ -992,18 +992,17 @@ export class Slicker {
     // Complete
     // --------------------------
     cleanUpRows() {
-        var _ = this,
-            originalSlides;
+        const originalSlides = [];
 
         if (this.options.rows > 0) {
             // @ts-ignore// @ts-ignore
             for (let item of this.$slides) {
                 item.removeAttribute('style');
+                originalSlides.push(item.children[0]);
             }
 
-            this.emptyDOM(this.$slider);
-            //why do this..?
-            //this.$slider.appendChild(originalSlides);
+            //this.emptyDOM(this.$slider);
+            this.$slider.append(originalSlides);
         }
     }
 
@@ -1059,20 +1058,20 @@ export class Slicker {
                 item.classList.remove('slick-slide', 'slick-active', 'slick-center', 'slick-visible', 'slick-current');
                 item.removeAttribute('aria-hidden');
                 item.removeAttribute('data-slick-index');
+                item.style = item.originalStyling;
             }
 
             // @ts-ignore
-            for (let item of Array.from(this.$slideTrack.children)) {
+            /*for (let item of Array.from(this.$slideTrack.children)) {
                 this.removeNodeUtil(item);
-            }
+            }*/
 
             this.removeNodeUtil(this.$slideTrack);
 
             this.removeNodeUtil(this.$list);
 
-            //thisSlider.append(thisSlides);
-            //why do this..?
-            //this.$slider.appendChild(this.$slides);
+            // @ts-ignore
+            this.$slider.append(...this.$slides);
         }
 
         this.cleanUpRows();
@@ -1485,8 +1484,13 @@ export class Slicker {
             this.checkResponsive(true);
             this.focusHandler();
 
-            // some weird bug - need to set position again
-            this.setPosition();
+            // some weird bug - when switching navigation
+            // need to set position again
+
+            clearTimeout(this.extraWindowDelay);
+            this.extraWindowDelay = setTimeout(() => {
+                this.setPosition();
+            }, 5);
         }
 
         if (creation) {
@@ -2089,41 +2093,39 @@ export class Slicker {
     // --------------------------
     // Complete
     // --------------------------
-    /*registerBreakpoints() {
-        var _ = this,
-            breakpoint,
+    registerBreakpoints() {
+        let breakpoint,
             currentBreakpoint,
             l,
             responsiveSettings = this.options.responsive || null;
 
-        if ($.type(responsiveSettings) === 'array' && responsiveSettings.length) {
+        if (Array.isArray(responsiveSettings) && responsiveSettings.length) {
             this.respondTo = this.options.respondTo || 'window';
 
-            for (breakpoint in responsiveSettings) {
+            for (breakpoint of responsiveSettings) {
                 l = this.breakpoints.length - 1;
 
-                if (responsiveSettings.hasOwnProperty(breakpoint)) {
-                    currentBreakpoint = responsiveSettings[breakpoint].breakpoint;
+                currentBreakpoint = breakpoint.breakpoint;
 
-                    // loop through the breakpoints and cut out any existing
-                    // ones with the same breakpoint number, we don't want dupes.
-                    while (l >= 0) {
-                        if (this.breakpoints[l] && this.breakpoints[l] === currentBreakpoint) {
-                            this.breakpoints.splice(l, 1);
-                        }
-                        l--;
+                // loop through the breakpoints and cut out any existing
+                // ones with the same breakpoint number, we don't want dupes.
+                while (l >= 0) {
+                    if (this.breakpoints[l] && this.breakpoints[l] === currentBreakpoint) {
+                        this.breakpoints.splice(l, 1);
                     }
-
-                    this.breakpoints.push(currentBreakpoint);
-                    this.breakpointSettings[currentBreakpoint] = responsiveSettings[breakpoint].settings;
+                    l--;
                 }
-            }
 
-            this.breakpoints.sort(function (a, b) {
+                this.breakpoints.push(currentBreakpoint);
+                this.breakpointSettings[currentBreakpoint] = breakpoint.settings;
+            }
+            //}
+
+            this.breakpoints.sort((a, b) => {
                 return this.options.mobileFirst ? a - b : b - a;
             });
         }
-    }*/
+    }
 
     // --------------------------
     // Complete
@@ -2149,7 +2151,7 @@ export class Slicker {
             this.currentSlide = 0;
         }
 
-        //this.registerBreakpoints();
+        this.registerBreakpoints();
 
         this.setProps();
         this.setupInfinite();
@@ -3368,6 +3370,9 @@ export class Slicker {
     // Complete
     // ------------------------
     queryAll(expr, container) {
+        if (!container) {
+            return [];
+        }
         return Array.prototype.slice.call(container.querySelectorAll(expr));
     }
 
