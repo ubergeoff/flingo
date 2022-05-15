@@ -1,0 +1,17 @@
+{
+    "projectType": "library",
+    "sourceRoot": "libs/workspace/grid/src",
+    "prefix": "rooi",
+    "targets": {
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "options": {
+                "jestConfig": "libs/workspace/grid/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "outputs": ["coverage/libs/workspace/grid"]
+        }
+    },
+    "generators": {},
+    "tags": []
+}

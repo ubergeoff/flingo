@@ -1,0 +1,21 @@
+{
+    "sourceRoot": "apps/flingo-e2e/src",
+    "projectType": "application",
+    "targets": {
+        "e2e": {
+            "executor": "@nrwl/cypress:cypress",
+            "options": {
+                "cypressConfig": "apps/flingo-e2e/cypress.json",
+                "tsConfig": "apps/flingo-e2e/tsconfig.e2e.json",
+                "devServerTarget": "flingo:serve"
+            },
+            "configurations": {
+                "production": {
+                    "devServerTarget": "flingo:serve:production"
+                }
+            }
+        }
+    },
+    "tags": [],
+    "implicitDependencies": ["flingo"]
+}

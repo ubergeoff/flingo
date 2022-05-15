@@ -5,7 +5,7 @@
     "scripts": {
         "ng": "nx",
         "nx": "nx",
-        "start": "ng serve --open",
+        "start": "nx run flingo:serve:dev --open",
         "build": "nx run flingo:build:production",
         "test": "ng test",
         "lint": "nx workspace-lint && ng lint",

@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "projects": {
+        "flingo": "apps/flingo",
+        "flingo-e2e": "apps/flingo-e2e",
+        "grid": "libs/grid",
+        "mat-table": "libs/mat-table",
+        "muuri": "libs/muuri",
+        "slick": "libs/slick",
+        "slicker": "libs/slicker",
+        "spinner": "libs/spinner",
+        "workspace-donate": "libs/workspace/donate",
+        "workspace-grid": "libs/workspace/grid",
+        "workspace-murri": "libs/workspace/murri",
+        "workspace-shared": "libs/workspace/shared",
+        "workspace-slick": "libs/workspace/slick",
+        "workspace-source": "libs/workspace/source"
+    }
+}

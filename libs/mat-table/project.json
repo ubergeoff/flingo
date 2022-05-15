@@ -1,0 +1,21 @@
+{
+    "projectType": "library",
+    "sourceRoot": "libs/mat-table/src",
+    "prefix": "rooi",
+    "targets": {
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "options": {
+                "jestConfig": "libs/mat-table/jest.config.ts",
+                "tsConfig": "libs/mat-table/tsconfig.spec.json",
+                "passWithNoTests": true
+            }
+        }
+    },
+    "generators": {
+        "@nrwl/angular:component": {
+            "style": "scss"
+        }
+    },
+    "tags": []
+}
