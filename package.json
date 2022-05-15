@@ -58,7 +58,7 @@
         "@nrwl/angular": "14.1.5",
         "gridjs": "^3.4.0",
         "jquery": "^3.5.1",
-        "muuri": "^0.9.0",
+        "muuri": "^0.9.5",
         "rxjs": "~6.5.5",
         "slick-carousel": "^1.8.1",
         "tslib": "^2.0.0",
