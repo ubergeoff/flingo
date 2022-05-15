@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute, Data } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
@@ -8,7 +8,7 @@ import { filter, map, mergeMap } from 'rxjs/operators';
     templateUrl: './breadcrumb.component.html',
     styleUrls: []
 })
-export class AppBreadcrumbComponent implements OnInit {
+export class AppBreadcrumbComponent {
     // @Input() layout;
     pageInfo: Data = Object.create(null);
     constructor(private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title) {
@@ -30,6 +30,4 @@ export class AppBreadcrumbComponent implements OnInit {
                 this.pageInfo = event;
             });
     }
-
-    ngOnInit() {}
 }

@@ -1,1 +1,1 @@
-export * from './lib/workspace-grid.module';
+export { WorkspaceSpinnersModule } from './lib/spinners.module';

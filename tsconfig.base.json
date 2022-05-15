@@ -27,7 +27,9 @@
             "@rooi/workspace/murri": ["libs/workspace/murri/src/index.ts"],
             "@rooi/workspace/shared": ["libs/workspace/shared/src/index.ts"],
             "@rooi/workspace/slick": ["libs/workspace/slick/src/index.ts"],
-            "@rooi/workspace/source": ["libs/workspace/source/src/index.ts"]
+            "@rooi/workspace/source": ["libs/workspace/source/src/index.ts"],
+            "@rooi/workspace/spinners": ["libs/workspace/spinners/src/index.ts"],
+            "@rooi/workspace/mat-table": ["libs/workspace/mat-table/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

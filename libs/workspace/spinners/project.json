@@ -1,0 +1,17 @@
+{
+    "projectType": "library",
+    "sourceRoot": "libs/workspace/spinners/src",
+    "prefix": "rooi",
+    "targets": {
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "options": {
+                "jestConfig": "libs/workspace/spinners/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "outputs": ["coverage/libs/workspace/spinners"]
+        }
+    },
+    "generators": {},
+    "tags": []
+}

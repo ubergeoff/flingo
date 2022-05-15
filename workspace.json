@@ -14,6 +14,8 @@
         "workspace-murri": "libs/workspace/murri",
         "workspace-shared": "libs/workspace/shared",
         "workspace-slick": "libs/workspace/slick",
-        "workspace-source": "libs/workspace/source"
+        "workspace-source": "libs/workspace/source",
+        "workspace-spinners": "libs/workspace/spinners",
+        "workspace-mat-table": "libs/workspace/mat-table"
     }
 }
