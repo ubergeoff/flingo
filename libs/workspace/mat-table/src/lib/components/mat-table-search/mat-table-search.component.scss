@@ -1,0 +1,43 @@
+.mat-table-container {
+    margin: 20px;
+
+    pre {
+        background-color: #eee;
+        border: 1px solid #999;
+        display: block;
+        font-family: monospace, monospace;
+        color: #1e88e5;
+    }
+
+    code {
+        padding: 0;
+        font-size: 90%;
+        color: inherit;
+        background-color: initial;
+        border-radius: initial;
+        position: relative;
+        left: 20px;
+    }
+}
+
+.mat-slide-toggle {
+    margin-bottom: 20px;
+}
+
+::ng-deep {
+    .request-number {
+        max-width: 150px;
+    }
+
+    .request-user-email {
+        max-width: 300px;
+    }
+
+    .request-created-by {
+        max-width: 240px;
+    }
+
+    .request-status {
+        max-width: 170px;
+    }
+}

@@ -59,7 +59,15 @@ const MENUITEMS = [
         name: 'MatTable',
         type: 'sub',
         icon: 'table_view',
-        children: [{ state: 'dashboard1', name: 'MatTable', type: 'link' }]
+        children: [
+            { state: 'mat-table-full', name: 'MatTable Full', type: 'link' },
+            { state: 'mat-table-search', name: 'MatTable Search', type: 'link' },
+            { state: 'mat-table-filter', name: 'MatTable Filter', type: 'link' },
+            { state: 'mat-table-actions', name: 'MatTable Actions', type: 'link' },
+            { state: 'mat-table-sorting', name: 'MatTable Sorting', type: 'link' },
+            { state: 'mat-table-expand', name: 'MatTable Expand Row', type: 'link' },
+            { state: 'mat-table-row', name: 'MatTable Custom Row', type: 'link' }
+        ]
     },
     {
         state: 'spinners',
