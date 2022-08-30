@@ -34,7 +34,7 @@ jobs:
   test:
     working_directory: ~/flingo
     docker:
-      - image: cimg/node:16.13
+      - image: cimg/node:16.15-browsers
 
     steps:
       # Checkout the code from the branch into the working_directory
