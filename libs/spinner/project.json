@@ -23,6 +23,12 @@
                 "passWithNoTests": true
             },
             "outputs": ["coverage/libs/spinner"]
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": ["libs/spinner/**/*.ts", "libs/spinner/**/*.html"]
+            }
         }
     },
     "generators": {
