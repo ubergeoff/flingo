@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ContentLoaderModule } from '@ngneat/content-loader';
 import { ButtonDemoComponent } from './button-demo.component';
+import { TickButtonModule } from '@rooi/buttons';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('SpinnerDemoComponent', () => {
     let component: ButtonDemoComponent;
@@ -20,7 +22,9 @@ describe('SpinnerDemoComponent', () => {
                 MatButtonModule,
                 MatCardModule,
                 MatProgressBarModule,
-                ContentLoaderModule
+                ContentLoaderModule,
+                TickButtonModule,
+                MatIconModule
             ],
             declarations: [ButtonDemoComponent]
         }).compileComponents();
