@@ -14,22 +14,21 @@ jobs:
       - run:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
-      # Restore local dependencies from cache
-      - restore_cache:
-          keys:
-            - v1-deps-{{ checksum "package-lock.json" }}
-            - v1-deps
+
       # Install project dependencies
       - run:
           name: Install local dependencies
+          env:
+              # avoid downloading and unzipping Cypress binary
+              # which saves time - we do not plan to run Cypress tests
+              # in this lint workflow, see
+              # https://on.cypress.io/installing
+              CYPRESS_INSTALL_BINARY: 0
           command: npm ci
-      # Cache local dependencies if they don't exist
-      - save_cache:
-          key: v1-deps-{{ checksum "package-lock.json" }}
-          paths:
-            - ~/.npm
-            - ~/.cache
-            - node_modules
+
+      - run:
+          name: Install local dependencies
+          command: nx run flingo:build:dev
 
   # The test job
   test:
@@ -41,15 +40,10 @@ jobs:
       # Checkout the code from the branch into the working_directory
       - checkout
 
-      # Restore local dependencies from cache
-      - restore_cache:
-          keys:
-            - v1-deps-{{ checksum "package-lock.json" }}
-
       # Install project dependencies
       - run:
           name: Install testing dependencies
-          command: npm install
+          command: npm ci
 
       # Lint the source code
       - run:
