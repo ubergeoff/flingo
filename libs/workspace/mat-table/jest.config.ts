@@ -1,16 +1,16 @@
 /* eslint-disable */
 export default {
-    preset: '../../jest.preset.js',
+    preset: '../../../jest.preset.js',
     setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
     globals: {
         'ts-jest': {
             stringifyContentPathRegex: '\\.(html|svg)$',
-
             tsconfig: '<rootDir>/tsconfig.spec.json'
         }
     },
-    coverageDirectory: '../../coverage/libs/mat-table',
-    displayName: 'mat-table',
+    coverageDirectory: '../../../coverage/libs/workspace/mat-table',
+
+    displayName: 'workspace-mat-table',
     snapshotSerializers: [
         'jest-preset-angular/build/serializers/no-ng-attributes',
         'jest-preset-angular/build/serializers/ng-snapshot',

@@ -7,6 +7,8 @@ import { Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild, View
     encapsulation: ViewEncapsulation.Emulated
 })
 export class TickButtonComponent implements OnChanges {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     @ViewChild('button') button: ElementRef;
     @Input() loading = false;
     @Input() finished = false;

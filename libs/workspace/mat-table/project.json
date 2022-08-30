@@ -1,0 +1,17 @@
+{
+    "projectType": "library",
+    "sourceRoot": "libs/workspace/mat-table/src",
+    "prefix": "rooi",
+    "targets": {
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "options": {
+                "jestConfig": "libs/workspace/mat-table/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "outputs": ["coverage/libs/workspace/mat-table"]
+        }
+    },
+    "generators": {},
+    "tags": []
+}

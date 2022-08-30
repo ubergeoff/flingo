@@ -14,6 +14,7 @@
         "workspace-donate": "libs/workspace/donate",
         "workspace-grid": "libs/workspace/grid",
         "workspace-murri": "libs/workspace/murri",
+        "workspace-mat-table": "libs/workspace/mat-table",
         "workspace-shared": "libs/workspace/shared",
         "workspace-slick": "libs/workspace/slick",
         "workspace-source": "libs/workspace/source"

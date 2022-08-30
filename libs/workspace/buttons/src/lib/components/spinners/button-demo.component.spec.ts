@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpinnerDemoComponent } from './spinner-demo.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { SpinnerModule } from '@rooi/spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ContentLoaderModule } from '@ngneat/content-loader';
+import { ButtonDemoComponent } from './button-demo.component';
 
 describe('SpinnerDemoComponent', () => {
-    let component: SpinnerDemoComponent;
-    let fixture: ComponentFixture<SpinnerDemoComponent>;
+    let component: ButtonDemoComponent;
+    let fixture: ComponentFixture<ButtonDemoComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -22,12 +22,12 @@ describe('SpinnerDemoComponent', () => {
                 MatProgressBarModule,
                 ContentLoaderModule
             ],
-            declarations: [SpinnerDemoComponent]
+            declarations: [ButtonDemoComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SpinnerDemoComponent);
+        fixture = TestBed.createComponent(ButtonDemoComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
