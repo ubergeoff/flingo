@@ -28,7 +28,7 @@ jobs:
 
       - run:
           name: Install local dependencies
-          command: nx run flingo:build:dev
+          command: npx nx run flingo:build:dev
 
   # The test job
   test:
