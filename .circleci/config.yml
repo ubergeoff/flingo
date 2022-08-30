@@ -49,7 +49,7 @@ jobs:
       # Install project dependencies
       - run:
           name: Install testing dependencies
-          command: npm ci
+          command: npm install
 
       # Lint the source code
       - run:
