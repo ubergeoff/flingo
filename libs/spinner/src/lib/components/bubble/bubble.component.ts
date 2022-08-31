@@ -22,8 +22,6 @@ export class BubbleSpinnerComponent implements OnInit {
         height: this.height + 'px'
     };
 
-    constructor() {}
-
     ngOnInit(): void {
         if (this.width) {
             this.style.width = this.width + 'px';

@@ -9,9 +9,8 @@ export default {
             tsconfig: '<rootDir>/tsconfig.spec.json'
         }
     },
-    coverageDirectory: '../../coverage/libs/slick',
-
-    displayName: 'slick',
+    coverageDirectory: '../../coverage/libs/mat-table',
+    displayName: 'mat-table',
     snapshotSerializers: [
         'jest-preset-angular/build/serializers/no-ng-attributes',
         'jest-preset-angular/build/serializers/ng-snapshot',

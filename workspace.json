@@ -1,6 +1,7 @@
 {
     "version": 2,
     "projects": {
+        "buttons": "libs/buttons",
         "flingo": "apps/flingo",
         "flingo-e2e": "apps/flingo-e2e",
         "grid": "libs/grid",
@@ -9,9 +10,11 @@
         "slick": "libs/slick",
         "slicker": "libs/slicker",
         "spinner": "libs/spinner",
+        "workspace-buttons": "libs/workspace/buttons",
         "workspace-donate": "libs/workspace/donate",
         "workspace-grid": "libs/workspace/grid",
         "workspace-murri": "libs/workspace/murri",
+        "workspace-mat-table": "libs/workspace/mat-table",
         "workspace-shared": "libs/workspace/shared",
         "workspace-slick": "libs/workspace/slick",
         "workspace-source": "libs/workspace/source"

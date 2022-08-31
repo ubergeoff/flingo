@@ -1,0 +1,73 @@
+<div class="grid-container">
+    <div class="grid-head">
+        <h1 class="mat-h1">Buttons</h1>
+    </div>
+
+    <div class="all-spinners">
+        <mat-card class="item">
+            <mat-card-header>
+                <mat-card-title>Spinner Button</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <rooi-tick-button
+                    [loading]="isLoadingOne"
+                    [finished]="successOne"
+                    (click)="submit()"
+                ></rooi-tick-button>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="item">
+            <mat-card-header>
+                <mat-card-title>Color Button</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <rooi-tick-button></rooi-tick-button>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="item">
+            <mat-card-header>
+                <mat-card-title>Mat Button</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <button mat-button color="primary" class="m-r-10">Submit</button>
+                <button mat-button color="accent">Submit</button>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="item">
+            <mat-card-header>
+                <mat-card-title>Mat Raised Button</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <button mat-raised-button color="primary" class="m-r-10">Submit</button>
+                <button mat-raised-button color="accent">Submit</button>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="item">
+            <mat-card-header>
+                <mat-card-title>Mat Icon Button</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <button mat-icon-button color="primary" class="m-r-10">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <button mat-icon-button color="accent">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="item">
+            <mat-card-header>
+                <mat-card-title>Mat Stroked Button</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <button mat-stroked-button color="primary" class="m-r-10">Submit</button>
+                <button mat-stroked-button color="accent">Submit</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

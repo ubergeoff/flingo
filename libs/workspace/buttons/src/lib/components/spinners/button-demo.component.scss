@@ -1,0 +1,14 @@
+.grid-container {
+    margin: 20px;
+}
+
+.item {
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.all-spinners {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

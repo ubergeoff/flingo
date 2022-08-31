@@ -8,6 +8,7 @@ import { SpinnersRoutes } from './spinners.routing';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ContentLoaderModule } from '@ngneat/content-loader';
+import { TickButtonModule } from '@rooi/buttons';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { ContentLoaderModule } from '@ngneat/content-loader';
         MatButtonModule,
         MatCardModule,
         MatProgressBarModule,
-        ContentLoaderModule
+        ContentLoaderModule,
+        TickButtonModule
     ],
     declarations: [SpinnerDemoComponent]
 })

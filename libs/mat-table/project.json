@@ -3,6 +3,19 @@
     "sourceRoot": "libs/mat-table/src",
     "prefix": "rooi",
     "targets": {
+        "build": {
+            "executor": "@nrwl/angular:package",
+            "options": {
+                "tsConfig": "libs/mat-table/tsconfig.lib.json",
+                "project": "libs/mat-table/ng-package.json",
+                "buildableProjectDepsInPackageJsonType": "dependencies"
+            },
+            "configurations": {
+                "production": {
+                    "tsConfig": "libs/mat-table/tsconfig.lib.prod.json"
+                }
+            }
+        },
         "test": {
             "executor": "@nrwl/jest:jest",
             "options": {

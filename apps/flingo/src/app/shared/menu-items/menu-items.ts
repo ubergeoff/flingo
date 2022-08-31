@@ -69,6 +69,13 @@ const MENUITEMS = [
         children: [{ state: 'dashboard1', name: 'Spinner', type: 'link' }]
     },
     {
+        state: 'buttons',
+        name: 'Buttons',
+        type: 'sub',
+        icon: 'grain',
+        children: [{ state: 'dashboard1', name: 'Buttons', type: 'link' }]
+    },
+    {
         state: 'slick',
         name: 'Slick',
         type: 'sub',

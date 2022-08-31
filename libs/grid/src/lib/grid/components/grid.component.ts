@@ -16,8 +16,6 @@ export class GridComponent implements OnInit, OnChanges {
 
     isLoading = true;
 
-    constructor() {}
-
     ngOnInit(): void {
         this.grid = new Grid({
             search: this.search,

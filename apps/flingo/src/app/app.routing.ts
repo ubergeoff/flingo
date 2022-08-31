@@ -47,6 +47,13 @@ export const AppRoutes: Routes = [
                     )
             },
             {
+                path: 'buttons',
+                loadChildren: () =>
+                    import('../../../../libs/workspace/buttons/src/lib/workspace-buttons.module').then(
+                        (m) => m.WorkspaceButtonsModule
+                    )
+            },
+            {
                 path: 'source',
                 loadChildren: () =>
                     import('../../../../libs/workspace/source/src/lib/workspace-source.module').then(
